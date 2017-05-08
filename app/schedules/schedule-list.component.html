@@ -1,0 +1,36 @@
+<div [@flyInOut]="'in'">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th><i class="fa fa-text-width fa-2x" aria-hidden="true"></i>Nombre</th>
+                <th><i class="fa fa-user fa-2x" aria-hidden="true"></i>Abreviatura</th>
+                <!--<th><i class="fa fa-paragraph fa-2x" aria-hidden="true"></i>Description</th>
+                <th><i class="fa fa-map-marker fa-2x" aria-hidden="true"></i></th>
+                <th><i class="fa fa-calendar-o fa-2x" aria-hidden="true"></i>Time Start</th>
+                <th><i class="fa fa-calendar-o fa-2x" aria-hidden="true"></i>Time End</th>
+                <th></th>
+                <th></th>
+                <th></th>-->
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let schedule of schedules">
+                <td> {{schedule.Nombre}}</td>
+                <td>{{schedule.Abreviatura}}</td>
+                <!--<td>{{schedule.description}}</td>
+                <td>{{schedule.location}}</td>
+                <td>{{schedule.timeStart | dateFormat | date:'medium'}}</td>
+                <td>{{schedule.timeEnd | dateFormat | date:'medium'}}</td>
+                <td><button class="btn btn-primary" (click)="viewScheduleDetails(schedule.id)">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>Details</button>
+                </td>
+                <td><a class="btn btn-primary" [routerLink]="['/schedules',schedule.id,'edit']"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a></td>
+                <td>
+                    <button class="btn btn-danger" (click)="removeSchedule(schedule)"><i class="fa fa-trash" aria-hidden="true"></i>Delete</button>
+                </td>-->
+            </tr>
+        </tbody>
+    </table>
+ 
+    
+</div>
