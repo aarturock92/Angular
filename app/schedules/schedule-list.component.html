@@ -2,6 +2,7 @@
     <table class="table table-hover">
         <thead>
             <tr>
+                <th>ID</th>
                 <th><i class="fa fa-text-width fa-2x" aria-hidden="true"></i>Nombre</th>
                 <th><i class="fa fa-user fa-2x" aria-hidden="true"></i>Abreviatura</th>
                 <!--<th><i class="fa fa-paragraph fa-2x" aria-hidden="true"></i>Description</th>
@@ -15,8 +16,9 @@
         </thead>
         <tbody>
             <tr *ngFor="let schedule of schedules">
-                <td> {{schedule.Nombre}}</td>
-                <td>{{schedule.Abreviatura}}</td>
+                <td> {{schedule.id}} </td>
+                <td> {{schedule.nombre}}</td>
+                <td> {{schedule.abreviatura}}</td>
                 <!--<td>{{schedule.description}}</td>
                 <td>{{schedule.location}}</td>
                 <td>{{schedule.timeStart | dateFormat | date:'medium'}}</td>
