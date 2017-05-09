@@ -49,68 +49,28 @@
                                 <input type="text" class="form-control" [(ngModel)]="estadoDetails.abreviatura" disabled />
                             </div>
  
-                            <!--<div class="col-md-4">
-                                <label class="control-label"><i class="fa fa-paragraph" aria-hidden="true"></i>Description</label>
-                                <input type="text" class="form-control" [(ngModel)]="scheduleDetails.description" disabled />
-                            </div>-->
                         </div>
                     </div>
- 
-                    <!--<div class="form-group">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <label class="control-label"><i class="fa fa-calendar-o" aria-hidden="true"></i>Time Start</label>
-                                <input type="text" class="form-control" [(ngModel)]="scheduleDetails.timeStart" disabled />
-                            </div>
- 
-                            <div class="col-xs-6">
-                                <label class="control-label"><i class="fa fa-calendar-check-o" aria-hidden="true"></i>Time End</label>
-                                <input type="text" class="form-control" [(ngModel)]="scheduleDetails.timeEnd" disabled />
-                            </div>
-                        </div>
-                    </div>
- 
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label class="control-label"><i class="fa fa-map-marker" aria-hidden="true"></i>Location</label>
-                                <input type="text" class="form-control" [(ngModel)]="scheduleDetails.location" disabled />
-                            </div>
- 
-                            <div class="col-md-4 selectContainer">
-                                <label class="control-label"><i class="fa fa-spinner" aria-hidden="true"></i>Status</label>
-                                <input type="text" class="form-control" [(ngModel)]="scheduleDetails.status" disabled />
-                            </div>
-                            <div class="col-md-4 selectContainer">
-                                <label class="control-label"><i class="fa fa-tag" aria-hidden="true"></i>Type</label>
-                                <input type="text" class="form-control" [(ngModel)]="scheduleDetails.type" disabled />
-                            </div>
-                        </div>
-                    </div>-->
-                    <!--<hr/>
+                    <hr/>
                     <div class="panel panel-info">
- 
-                        <div class="panel-heading">Attendes</div>
- 
+                        <div class="panel-heading">Municipios</div>
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th><i class="fa fa-user" aria-hidden="true"></i>Name</th>
-                                    <th><i class="fa fa-linkedin-square" aria-hidden="true"></i>Profession</th>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Estatus</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let attendee of scheduleDetails.attendees">
-                                    <td [style.valign]="'middle'">
-                                        <img class="img-thumbnail img-small" src="{{apiHost}}images/{{attendee.avatar}}" alt="attendee.name" />
-                                    </td>
-                                    <td [style.valign]="'middle'">{{attendee.name}}</td>
-                                    <td [style.valign]="'middle'">{{attendee.profession}}</td>
+                                <tr *ngFor="let municipio of estadoDetails.municipios">
+                                    <td [style.valign]="'middle'">{{municipio.id}}</td>
+                                    <td [style.valign]="'middle'">{{municipio.nombre}}</td>
+                                    <td [style.valign]="'middle'">{{municipio.estatus}}</td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>-->
+                    </div>
                 </form>
             </div>
         </div>

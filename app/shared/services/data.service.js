@@ -72,6 +72,7 @@ var DataService = (function () {
     DataService.prototype.getEstadoDetails = function (id) {
         return this.http.get(this._baseUrl + 'estados/' + id)
             .map(function (res) {
+            debugger;
             return res.json();
         })
             .catch(this.handleError);
@@ -81,10 +82,9 @@ var DataService = (function () {
         var serverError = error.json();
         var modelStateErrors = '';
         if (!serverError.type) {
-            console.log(serverError);
             for (var key in serverError) {
                 if (serverError[key])
-                    modelStateErrors += serverError[key] + '\n';
+                    modelStateErrors += '' + serverError[key] + '\n';
             }
         }
         modelStateErrors = modelStateErrors = '' ? null : modelStateErrors;

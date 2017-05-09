@@ -47,7 +47,15 @@ export interface IEstado{
     id: number,
     nombre: string,
     abreviatura: string,
-    status: number
+    status: number,
+    municipios:  IMunicipio[]
+}
+
+export interface IMunicipio{
+    id: number,
+    nombre: string,
+    estatus: number,
+    idEstado: number
 }
 
 

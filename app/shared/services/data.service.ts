@@ -77,14 +77,11 @@ export class DataService{
     getEstadoDetails(id:number): Observable<IEstado> {
         return this.http.get(this._baseUrl + 'estados/'+ id)
             .map((res: Response) => {
+                debugger;
                 return res.json()
             })
             .catch(this.handleError)
     }
-
-
-    
-
 
     private handleError(error: any){
         var applicationError = error.headers.get('Application-Error')
@@ -92,10 +89,9 @@ export class DataService{
         var modelStateErrors: string = ''
 
         if(!serverError.type){
-            console.log(serverError)
             for(var key in serverError){
                 if(serverError[key])
-                    modelStateErrors += serverError[key] + '\n'
+                    modelStateErrors += '' + serverError[key] + '\n'
             }
         }
 
