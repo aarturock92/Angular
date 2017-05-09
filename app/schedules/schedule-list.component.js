@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var ng2_bootstrap_1 = require('ng2-bootstrap');
 var data_service_1 = require('../shared/services/data.service');
 var items_service_1 = require('../shared/utils/items.service');
 var notification_service_1 = require('../shared/utils/notification.service');
@@ -19,22 +20,44 @@ var ScheduleListComponent = (function () {
         this.itemsService = itemsService;
         this.notificationService = notificationService;
         this.configService = configService;
+        this.selectedEstadoLoaded = false;
     }
     ScheduleListComponent.prototype.ngOnInit = function () {
         this.apiHost = this.configService.getApiHost();
-        this.loadSchedules();
+        this.loadEstados();
     };
-    ScheduleListComponent.prototype.loadSchedules = function () {
+    ScheduleListComponent.prototype.loadEstados = function () {
         var _this = this;
         this.dataService.getEstados()
             .subscribe(function (res) {
-            debugger;
-            console.log("res", res);
-            _this.schedules = res;
+            _this.estados = res;
         }, function (error) {
             _this.notificationService.printErrorMessage('Failed to load schedules' + error);
         });
     };
+    ScheduleListComponent.prototype.viewEstadoDetails = function (id) {
+        var _this = this;
+        this.selectedEstadoId = id;
+        this.dataService.getEstadoDetails(this.selectedEstadoId)
+            .subscribe(function (estado) {
+            _this.estadoDetails = _this.itemsService.getSerialized(estado);
+            _this.selectedEstadoLoaded = true;
+            _this.childModal.show();
+        }, function (error) {
+            _this.notificationService.printErrorMessage('Failed to load schedule. ' + error);
+        });
+    };
+    ScheduleListComponent.prototype.hideChildModal = function () {
+        this.childModal.hide();
+    };
+    __decorate([
+        core_1.ViewChild('childModal'), 
+        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
+    ], ScheduleListComponent.prototype, "childModal", void 0);
+    __decorate([
+        core_1.ViewChild('modal'), 
+        __metadata('design:type', Object)
+    ], ScheduleListComponent.prototype, "modal", void 0);
     ScheduleListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

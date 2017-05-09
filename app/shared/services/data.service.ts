@@ -67,15 +67,23 @@ export class DataService{
     }
 
     getEstados(): Observable<IEstado[]>{
-        let headers = new Headers()
-        headers.append('Authorization', '')
-
-        return this.http.get(this._baseUrl + 'estados/list', {headers: headers})
+        return this.http.get(this._baseUrl + 'estados/list')
             .map((res: Response) => {
                 return res.json()
             })
             .catch(this.handleError)
     }
+
+    getEstadoDetails(id:number): Observable<IEstado> {
+        return this.http.get(this._baseUrl + 'estados/'+ id)
+            .map((res: Response) => {
+                return res.json()
+            })
+            .catch(this.handleError)
+    }
+
+
+    
 
 
     private handleError(error: any){

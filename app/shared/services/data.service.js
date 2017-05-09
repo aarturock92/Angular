@@ -63,9 +63,14 @@ var DataService = (function () {
             .catch(this.handleError);
     };
     DataService.prototype.getEstados = function () {
-        var headers = new http_1.Headers();
-        headers.append('Authorization', '');
-        return this.http.get(this._baseUrl + 'estados/list', { headers: headers })
+        return this.http.get(this._baseUrl + 'estados/list')
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
+    DataService.prototype.getEstadoDetails = function (id) {
+        return this.http.get(this._baseUrl + 'estados/' + id)
             .map(function (res) {
             return res.json();
         })

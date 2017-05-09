@@ -32,9 +32,19 @@ import { IEstado} from '../shared/interfaces'
     ]
 })
 export class ScheduleListComponent implements OnInit{
+    @ViewChild('childModal') public childModal: ModalDirective
 
     apiHost: string
-    schedules: IEstado[]
+    estados: IEstado[]
+
+
+    @ViewChild('modal')
+    modal: any
+    
+
+    estadoDetails: IEstado
+    selectedEstadoId: number
+    selectedEstadoLoaded: boolean = false
 
     constructor(private dataService: DataService,
                 private itemsService: ItemsService,
@@ -43,19 +53,35 @@ export class ScheduleListComponent implements OnInit{
 
     ngOnInit(){
         this.apiHost = this.configService.getApiHost()
-        this.loadSchedules()
+        this.loadEstados()
     }
 
-    loadSchedules(){
+    loadEstados(){
         this.dataService.getEstados()
             .subscribe((res: IEstado[]) => {
-                debugger;
-                console.log("res",res)
-                this.schedules =  res;
+                this.estados =  res;
             },
             error => {
              this.notificationService.printErrorMessage('Failed to load schedules' +error)   
             })            
+    }
+
+    viewEstadoDetails(id:number){
+        this.selectedEstadoId = id
+
+        this.dataService.getEstadoDetails(this.selectedEstadoId)
+            .subscribe((estado: IEstado) =>{
+                this.estadoDetails = this.itemsService.getSerialized<IEstado>(estado)
+                this.selectedEstadoLoaded = true
+                this.childModal.show()
+            },
+            error => {
+                this.notificationService.printErrorMessage('Failed to load schedule. '+ error)
+            })
+    }
+
+    public hideChildModal(): void{
+        this.childModal.hide()
     }
 
 }
