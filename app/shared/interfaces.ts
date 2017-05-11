@@ -68,7 +68,11 @@ export interface Pagination{
 
 export class PaginatedResult<T>{
     result: T;
-    pagination: Pagination;
+    page: number;
+    count: number;
+    totalPages: number;
+    totalCount: number
+    // pagination: Pagination;
 }
 
 export interface Predicate<T>{

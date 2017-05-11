@@ -13,6 +13,7 @@ var http_1 = require('@angular/http');
 var Rx_1 = require('rxjs/Rx');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
+var interfaces_1 = require('../interfaces');
 var items_service_1 = require('../utils/items.service');
 var config_service_1 = require('../utils/config.service');
 var DataService = (function () {
@@ -62,18 +63,25 @@ var DataService = (function () {
         })
             .catch(this.handleError);
     };
-    DataService.prototype.getEstados = function () {
-        return this.http.get(this._baseUrl + 'estados/list')
+    DataService.prototype.getEstadoDetails = function (id, incluirMunicipios) {
+        return this.http.get(this._baseUrl + 'estados/' + id + '?incluirEstados=' + incluirMunicipios)
             .map(function (res) {
+            debugger;
             return res.json();
         })
             .catch(this.handleError);
     };
-    DataService.prototype.getEstadoDetails = function (id) {
-        return this.http.get(this._baseUrl + 'estados/' + id)
+    DataService.prototype.getEstados = function (page, itemsPerPage) {
+        var paginatedResult = new interfaces_1.PaginatedResult();
+        return this.http.get(this._baseUrl + 'estados/search/' + page + '/' + itemsPerPage)
             .map(function (res) {
-            debugger;
-            return res.json();
+            var data = res.json();
+            paginatedResult.count = data.count;
+            paginatedResult.page = data.page;
+            paginatedResult.result = data.items;
+            paginatedResult.totalCount = data.totalCount;
+            paginatedResult.totalPages = data.totalPages;
+            return paginatedResult;
         })
             .catch(this.handleError);
     };

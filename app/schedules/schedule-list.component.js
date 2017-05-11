@@ -20,6 +20,9 @@ var ScheduleListComponent = (function () {
         this.itemsService = itemsService;
         this.notificationService = notificationService;
         this.configService = configService;
+        this.itemsPerPage = 10;
+        this.totalItems = 0;
+        this.currentPage = 0;
         this.selectedEstadoLoaded = false;
     }
     ScheduleListComponent.prototype.ngOnInit = function () {
@@ -28,17 +31,22 @@ var ScheduleListComponent = (function () {
     };
     ScheduleListComponent.prototype.loadEstados = function () {
         var _this = this;
-        this.dataService.getEstados()
+        this.dataService.getEstados(this.currentPage, this.itemsPerPage)
             .subscribe(function (res) {
-            _this.estados = res;
+            _this.estados = res.result;
+            _this.totalItems = res.totalCount;
         }, function (error) {
             _this.notificationService.printErrorMessage('Failed to load schedules' + error);
         });
     };
+    ScheduleListComponent.prototype.pageChanged = function (event) {
+        this.currentPage = event.page - 1;
+        this.loadEstados();
+    };
     ScheduleListComponent.prototype.viewEstadoDetails = function (id) {
         var _this = this;
         this.selectedEstadoId = id;
-        this.dataService.getEstadoDetails(this.selectedEstadoId)
+        this.dataService.getEstadoDetails(this.selectedEstadoId, true)
             .subscribe(function (estado) {
             _this.estadoDetails = _this.itemsService.getSerialized(estado);
             _this.selectedEstadoLoaded = true;

@@ -66,22 +66,31 @@ export class DataService{
             .catch(this.handleError)
     }
 
-    getEstados(): Observable<IEstado[]>{
-        return this.http.get(this._baseUrl + 'estados/list')
-            .map((res: Response) => {
-                return res.json()
-            })
-            .catch(this.handleError)
-    }
-
-    getEstadoDetails(id:number): Observable<IEstado> {
-        return this.http.get(this._baseUrl + 'estados/'+ id)
+    getEstadoDetails(id:number, incluirMunicipios:boolean): Observable<IEstado> {
+        return this.http.get(this._baseUrl + 'estados/'+ id + '?incluirEstados='+incluirMunicipios )
             .map((res: Response) => {
                 debugger;
                 return res.json()
             })
             .catch(this.handleError)
     }
+
+    getEstados(page?:number, itemsPerPage?: number): Observable<PaginatedResult<IEstado[]>> {
+        var paginatedResult: PaginatedResult<IEstado[]> = new PaginatedResult<IEstado[]>();
+
+        return this.http.get(this._baseUrl + 'estados/search/'+ page+'/'+itemsPerPage)
+               .map((res: Response) => {
+                    let data = res.json();
+                    
+                    paginatedResult.count = data.count;
+                    paginatedResult.page = data.page;
+                    paginatedResult.result = data.items;
+                    paginatedResult.totalCount = data.totalCount;
+                    paginatedResult.totalPages = data.totalPages;    
+                    return paginatedResult;
+               })
+               .catch(this.handleError);
+    }   
 
     private handleError(error: any){
         var applicationError = error.headers.get('Application-Error')

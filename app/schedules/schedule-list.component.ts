@@ -6,7 +6,9 @@ import { DateFormatPipe} from '../shared/pipes/date-format.pipe'
 import { ItemsService} from '../shared/utils/items.service'
 import { NotificationService} from '../shared/utils/notification.service'
 import { ConfigService} from '../shared/utils/config.service'
-import { IEstado} from '../shared/interfaces'
+import { IEstado, IScheduleDetails, Pagination, PaginatedResult} from '../shared/interfaces'
+
+import {}
 
 @Component({
     moduleId: module.id,
@@ -37,11 +39,13 @@ export class ScheduleListComponent implements OnInit{
     apiHost: string
     estados: IEstado[]
 
+    public itemsPerPage: number = 10;
+    public totalItems: number = 0;
+    public currentPage:number = 0;
 
     @ViewChild('modal')
     modal: any
     
-
     estadoDetails: IEstado
     selectedEstadoId: number
     selectedEstadoLoaded: boolean = false
@@ -57,19 +61,25 @@ export class ScheduleListComponent implements OnInit{
     }
 
     loadEstados(){
-        this.dataService.getEstados()
-            .subscribe((res: IEstado[]) => {
-                this.estados =  res;
-            },
+        this.dataService.getEstados(this.currentPage, this.itemsPerPage)
+            .subscribe((res: PaginatedResult<IEstado[]>) =>{
+                this.estados = res.result
+                this.totalItems = res.totalCount
+            } ,
             error => {
              this.notificationService.printErrorMessage('Failed to load schedules' +error)   
             })            
     }
 
+    pageChanged(event:any):void{
+        this.currentPage = event.page -1;
+        this.loadEstados()
+    }
+
     viewEstadoDetails(id:number){
         this.selectedEstadoId = id
 
-        this.dataService.getEstadoDetails(this.selectedEstadoId)
+        this.dataService.getEstadoDetails(this.selectedEstadoId, true)
             .subscribe((estado: IEstado) =>{
                 this.estadoDetails = this.itemsService.getSerialized<IEstado>(estado)
                 this.selectedEstadoLoaded = true
