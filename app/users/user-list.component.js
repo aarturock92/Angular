@@ -9,14 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var ng2_bootstrap_1 = require('ng2-bootstrap');
 var data_service_1 = require('../shared/services/data.service');
 var items_service_1 = require('../shared/utils/items.service');
 var notification_service_1 = require('../shared/utils/notification.service');
 var config_service_1 = require('../shared/utils/config.service');
-// import {}
-var ScheduleListComponent = (function () {
-    function ScheduleListComponent(dataService, itemsService, notificationService, configService) {
+var UserListComponent = (function () {
+    function UserListComponent(dataService, itemsService, notificationService, configService) {
         this.dataService = dataService;
         this.itemsService = itemsService;
         this.notificationService = notificationService;
@@ -24,54 +22,22 @@ var ScheduleListComponent = (function () {
         this.itemsPerPage = 10;
         this.totalItems = 0;
         this.currentPage = 0;
-        this.selectedEstadoLoaded = false;
+        this.selectedUsuarioLoaded = false;
     }
-    ScheduleListComponent.prototype.ngOnInit = function () {
+    UserListComponent.prototype.ngOnInit = function () {
         this.apiHost = this.configService.getApiHost();
-        this.loadEstados();
     };
-    ScheduleListComponent.prototype.loadEstados = function () {
-        var _this = this;
-        this.dataService.getEstados(this.currentPage, this.itemsPerPage)
-            .subscribe(function (res) {
-            _this.estados = res.result;
-            _this.totalItems = res.totalCount;
-        }, function (error) {
-            _this.notificationService.printErrorMessage('Failed to load schedules' + error);
-        });
+    UserListComponent.prototype.loadUsuarios = function () {
     };
-    ScheduleListComponent.prototype.pageChanged = function (event) {
-        this.currentPage = event.page - 1;
-        this.loadEstados();
-    };
-    ScheduleListComponent.prototype.viewEstadoDetails = function (id) {
-        var _this = this;
-        this.selectedEstadoId = id;
-        this.dataService.getEstadoDetails(this.selectedEstadoId, true)
-            .subscribe(function (estado) {
-            _this.estadoDetails = _this.itemsService.getSerialized(estado);
-            _this.selectedEstadoLoaded = true;
-            _this.childModal.show();
-        }, function (error) {
-            _this.notificationService.printErrorMessage('Failed to load schedule. ' + error);
-        });
-    };
-    ScheduleListComponent.prototype.hideChildModal = function () {
-        this.childModal.hide();
-    };
-    __decorate([
-        core_1.ViewChild('childModal'), 
-        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-    ], ScheduleListComponent.prototype, "childModal", void 0);
     __decorate([
         core_1.ViewChild('modal'), 
         __metadata('design:type', Object)
-    ], ScheduleListComponent.prototype, "modal", void 0);
-    ScheduleListComponent = __decorate([
+    ], UserListComponent.prototype, "modal", void 0);
+    UserListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'app-schedules',
-            templateUrl: 'schedule-list.component.html',
+            selector: 'app-users',
+            templateUrl: 'user-list.component.html',
             animations: [
                 core_1.trigger('flyInOut', [
                     core_1.state('in', core_1.style({ opacity: 1, transform: 'translateX(0)' })),
@@ -92,8 +58,8 @@ var ScheduleListComponent = (function () {
             ]
         }), 
         __metadata('design:paramtypes', [data_service_1.DataService, items_service_1.ItemsService, notification_service_1.NotificationService, config_service_1.ConfigService])
-    ], ScheduleListComponent);
-    return ScheduleListComponent;
+    ], UserListComponent);
+    return UserListComponent;
 }());
-exports.ScheduleListComponent = ScheduleListComponent;
-//# sourceMappingURL=schedule-list.component.js.map
+exports.UserListComponent = UserListComponent;
+//# sourceMappingURL=user-list.component.js.map

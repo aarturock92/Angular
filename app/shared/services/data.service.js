@@ -63,6 +63,8 @@ var DataService = (function () {
         })
             .catch(this.handleError);
     };
+    DataService.prototype.getUsuarios = function () {
+    };
     DataService.prototype.getEstadoDetails = function (id, incluirMunicipios) {
         return this.http.get(this._baseUrl + 'estados/' + id + '?incluirEstados=' + incluirMunicipios)
             .map(function (res) {

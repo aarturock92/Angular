@@ -6,7 +6,7 @@ import { Observer} from 'rxjs/Observer'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
 
-import { IUser, ISchedule, IScheduleDetails, Pagination, PaginatedResult, IEstado} from '../interfaces'
+import { IUser, ISchedule, IScheduleDetails, Pagination, PaginatedResult, IEstado, IUsuario} from '../interfaces'
 import { ItemsService} from '../utils/items.service'
 import { ConfigService} from '../utils/config.service'
 
@@ -65,6 +65,14 @@ export class DataService{
             })
             .catch(this.handleError)
     }
+
+
+    // getUsuarios():Observable<PaginatedResult<IUsuario[]>>{
+    //     var paginatedResulta: PaginatedResult<IUsuario[]> = new PaginatedResult<IUsuario[]>();
+
+    //     return this.http.get(this._baseUrl + 'usuarios')
+    // }
+
 
     getEstadoDetails(id:number, incluirMunicipios:boolean): Observable<IEstado> {
         return this.http.get(this._baseUrl + 'estados/'+ id + '?incluirEstados='+incluirMunicipios )

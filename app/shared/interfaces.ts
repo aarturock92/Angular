@@ -43,6 +43,34 @@ export interface IScheduleDetails{
 }
 
 
+export interface IUsuario{
+    id: number,
+    nombreUsuario: string,
+    idRolUsuario: number,
+    nombre: string,
+    primerApellido: string,
+    segundoApellido: string,
+    sexo: number,
+    calle: string,
+    numeroExterior: string,
+    numeroInterior: string,
+    colonia: string,
+    codigoPostal: string,
+    idPais: number,
+    idEstado: number,
+    idMunicipio: number,
+    email: string,
+    telefonoOficina: string,
+    extension: string,
+    telefonoCasa: string,
+    telefonoCelular: string,
+    idZona: number,
+    idPlaza: number,
+    idGerencia: number,
+    idEstatus: number
+}
+
+
 export interface IEstado{
     id: number,
     nombre: string,
@@ -72,7 +100,6 @@ export class PaginatedResult<T>{
     count: number;
     totalPages: number;
     totalCount: number
-    // pagination: Pagination;
 }
 
 export interface Predicate<T>{

@@ -8,7 +8,7 @@ import { NotificationService} from '../shared/utils/notification.service'
 import { ConfigService} from '../shared/utils/config.service'
 import { IEstado, IScheduleDetails, Pagination, PaginatedResult} from '../shared/interfaces'
 
-import {}
+// import {}
 
 @Component({
     moduleId: module.id,
