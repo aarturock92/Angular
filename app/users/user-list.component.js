@@ -28,6 +28,7 @@ var UserListComponent = (function () {
         this.apiHost = this.configService.getApiHost();
     };
     UserListComponent.prototype.loadUsuarios = function () {
+        // this.dataService.getUsers()
     };
     __decorate([
         core_1.ViewChild('modal'), 
