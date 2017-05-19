@@ -67,13 +67,6 @@ export class DataService{
     }
 
 
-    // getUsuarios():Observable<PaginatedResult<IUsuario[]>>{
-    //     var paginatedResulta: PaginatedResult<IUsuario[]> = new PaginatedResult<IUsuario[]>();
-
-    //     return this.http.get(this._baseUrl + 'usuarios')
-    // }
-
-
     getEstadoDetails(id:number, incluirMunicipios:boolean): Observable<IEstado> {
         return this.http.get(this._baseUrl + 'estados/'+ id + '?incluirEstados='+incluirMunicipios )
             .map((res: Response) => {

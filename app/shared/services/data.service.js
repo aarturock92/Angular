@@ -63,10 +63,6 @@ var DataService = (function () {
         })
             .catch(this.handleError);
     };
-    // getUsuarios():Observable<PaginatedResult<IUsuario[]>>{
-    //     var paginatedResulta: PaginatedResult<IUsuario[]> = new PaginatedResult<IUsuario[]>();
-    //     return this.http.get(this._baseUrl + 'usuarios')
-    // }
     DataService.prototype.getEstadoDetails = function (id, incluirMunicipios) {
         return this.http.get(this._baseUrl + 'estados/' + id + '?incluirEstados=' + incluirMunicipios)
             .map(function (res) {

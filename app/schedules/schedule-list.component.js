@@ -14,7 +14,6 @@ var data_service_1 = require('../shared/services/data.service');
 var items_service_1 = require('../shared/utils/items.service');
 var notification_service_1 = require('../shared/utils/notification.service');
 var config_service_1 = require('../shared/utils/config.service');
-// import {}
 var ScheduleListComponent = (function () {
     function ScheduleListComponent(dataService, itemsService, notificationService, configService) {
         this.dataService = dataService;
