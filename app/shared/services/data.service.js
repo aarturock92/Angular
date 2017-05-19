@@ -16,16 +16,20 @@ require('rxjs/add/operator/catch');
 var interfaces_1 = require('../interfaces');
 var items_service_1 = require('../utils/items.service');
 var config_service_1 = require('../utils/config.service');
+var authentication_service_1 = require('../utils/authentication.service');
 var DataService = (function () {
-    function DataService(http, itemsService, configService) {
+    function DataService(http, itemsService, configService, authentication) {
         this.http = http;
         this.itemsService = itemsService;
         this.configService = configService;
+        this.authentication = authentication;
         this._baseUrl = '';
         this._baseUrl = configService.getApiURI();
+        this.headers = this.authentication.getHeaders();
+        debugger;
     }
     DataService.prototype.getUsers = function () {
-        return this.http.get(this._baseUrl + 'users')
+        return this.http.get(this._baseUrl + 'users', { headers: this.headers })
             .map(function (res) {
             return res.json();
         })
@@ -39,9 +43,7 @@ var DataService = (function () {
             .catch(this.handleError);
     };
     DataService.prototype.createUser = function (user) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(this._baseUrl + 'users/', JSON.stringify(user), { headers: headers })
+        return this.http.post(this._baseUrl + 'users/', JSON.stringify(user), { headers: this.headers })
             .map(function (res) {
             return res.json();
         })
@@ -63,12 +65,9 @@ var DataService = (function () {
         })
             .catch(this.handleError);
     };
-    // getUsuarios():Observable<PaginatedResult<IUsuario[]>>{
-    //     var paginatedResulta: PaginatedResult<IUsuario[]> = new PaginatedResult<IUsuario[]>();
-    //     return this.http.get(this._baseUrl + 'usuarios')
-    // }
     DataService.prototype.getEstadoDetails = function (id, incluirMunicipios) {
-        return this.http.get(this._baseUrl + 'estados/' + id + '?incluirEstados=' + incluirMunicipios)
+        console.log("headers", this.headers);
+        return this.http.get(this._baseUrl + 'estados/' + id + '?incluirEstados=' + incluirMunicipios, { headers: this.headers })
             .map(function (res) {
             debugger;
             return res.json();
@@ -77,8 +76,11 @@ var DataService = (function () {
     };
     DataService.prototype.getEstados = function (page, itemsPerPage) {
         var paginatedResult = new interfaces_1.PaginatedResult();
-        return this.http.get(this._baseUrl + 'estados/search/' + page + '/' + itemsPerPage)
+        return this.http.get(this._baseUrl + 'estado/search/' + page + '/' + itemsPerPage, { headers: this.headers })
             .map(function (res) {
+            debugger;
+            console.log("headers", res.headers);
+            console.log("res", res);
             var data = res.json();
             paginatedResult.count = data.count;
             paginatedResult.page = data.page;
@@ -104,7 +106,7 @@ var DataService = (function () {
     };
     DataService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, items_service_1.ItemsService, config_service_1.ConfigService])
+        __metadata('design:paramtypes', [http_1.Http, items_service_1.ItemsService, config_service_1.ConfigService, authentication_service_1.AuthenticationService])
     ], DataService);
     return DataService;
 }());
