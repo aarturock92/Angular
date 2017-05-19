@@ -34,6 +34,7 @@ var config_service_1 = require('./shared/utils/config.service');
 var items_service_1 = require('./shared/utils/items.service');
 var mapping_service_1 = require('./shared/utils/mapping.service');
 var notification_service_1 = require('./shared/utils/notification.service');
+var authentication_service_1 = require('./shared/utils/authentication.service');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -65,7 +66,8 @@ var AppModule = (function () {
                 data_service_1.DataService,
                 items_service_1.ItemsService,
                 mapping_service_1.MappingService,
-                notification_service_1.NotificationService
+                notification_service_1.NotificationService,
+                authentication_service_1.AuthenticationService
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

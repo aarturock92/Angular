@@ -9,19 +9,25 @@ import 'rxjs/add/operator/catch'
 import { IUser, ISchedule, IScheduleDetails, Pagination, PaginatedResult, IEstado, IUsuario} from '../interfaces'
 import { ItemsService} from '../utils/items.service'
 import { ConfigService} from '../utils/config.service'
+import { AuthenticationService} from '../utils/authentication.service'
 
 @Injectable()
 export class DataService{
     _baseUrl: string = ''
+    private headers:any
 
     constructor(private http: Http,
                 private itemsService: ItemsService,
-                private configService: ConfigService){
+                private configService: ConfigService,
+                private authentication: AuthenticationService){
         this._baseUrl = configService.getApiURI()
+        this.headers = this.authentication.getHeaders()
+        debugger;
     }
 
     getUsers(): Observable<IUser[]>{
-        return this.http.get(this._baseUrl + 'users')
+
+        return this.http.get(this._baseUrl + 'users', {headers : this.headers})
                .map((res: Response) => {
                     return res.json();
                })
@@ -37,10 +43,8 @@ export class DataService{
     }
 
     createUser(user: IUser): Observable<IUser>{
-        let headers = new Headers()
-        headers.append('Content-Type','application/json')
-
-        return this.http.post(this._baseUrl + 'users/', JSON.stringify(user), { headers: headers})
+        return this.http.post(this._baseUrl + 'users/', JSON.stringify(user), 
+                            { headers: this.headers})
             .map((res: Response) => {
                 return res.json()
             })
@@ -66,9 +70,10 @@ export class DataService{
             .catch(this.handleError)
     }
 
-
     getEstadoDetails(id:number, incluirMunicipios:boolean): Observable<IEstado> {
-        return this.http.get(this._baseUrl + 'estados/'+ id + '?incluirEstados='+incluirMunicipios )
+        console.log("headers",this.headers);
+        return this.http.get(this._baseUrl + 'estados/'+ id + '?incluirEstados='+incluirMunicipios,
+                             {headers: this.headers} )
             .map((res: Response) => {
                 debugger;
                 return res.json()
@@ -79,9 +84,14 @@ export class DataService{
     getEstados(page?:number, itemsPerPage?: number): Observable<PaginatedResult<IEstado[]>> {
         var paginatedResult: PaginatedResult<IEstado[]> = new PaginatedResult<IEstado[]>();
 
-        return this.http.get(this._baseUrl + 'estados/search/'+ page+'/'+itemsPerPage)
+        return this.http.get(this._baseUrl + 'estado/search/'+ page+'/'+itemsPerPage,
+                             {headers: this.headers})
                .map((res: Response) => {
-                    let data = res.json();
+                   debugger;
+                   console.log("headers",res.headers);
+                    console.log("res",res)
+
+                    let data = res.json()
                     
                     paginatedResult.count = data.count;
                     paginatedResult.page = data.page;

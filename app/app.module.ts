@@ -28,6 +28,7 @@ import { ConfigService} from './shared/utils/config.service'
 import { ItemsService} from './shared/utils/items.service'
 import { MappingService} from './shared/utils/mapping.service'
 import { NotificationService} from './shared/utils/notification.service'
+import { AuthenticationService } from './shared/utils/authentication.service'
 
 @NgModule({
     imports:[
@@ -58,7 +59,8 @@ import { NotificationService} from './shared/utils/notification.service'
         DataService,
         ItemsService,
         MappingService,
-        NotificationService
+        NotificationService,
+        AuthenticationService
     ],
     bootstrap: [AppComponent]
 })

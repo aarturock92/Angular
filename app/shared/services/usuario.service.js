@@ -9,21 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var ConfigService = (function () {
-    function ConfigService() {
-        this._apiURI = "http://localhost:54654/api/";
+var http_1 = require('@angular/http');
+require('rxjs/add/operator/map');
+require('rxjs/add/operator/catch');
+var items_service_1 = require('../utils/items.service');
+var authentication_service_1 = require('../utils/authentication.service');
+var UsuarioService = (function () {
+    function UsuarioService(http, itemsService, authentication) {
+        this.http = http;
+        this.itemsService = itemsService;
+        this.authentication = authentication;
     }
-    ConfigService.prototype.getApiURI = function () {
-        return this._apiURI;
-    };
-    ConfigService.prototype.getApiHost = function () {
-        return this._apiURI.replace('api/', '');
-    };
-    ConfigService = __decorate([
+    UsuarioService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], ConfigService);
-    return ConfigService;
+        __metadata('design:paramtypes', [http_1.Http, items_service_1.ItemsService, authentication_service_1.AuthenticationService])
+    ], UsuarioService);
+    return UsuarioService;
 }());
-exports.ConfigService = ConfigService;
-//# sourceMappingURL=config.service.js.map
+exports.UsuarioService = UsuarioService;
+//# sourceMappingURL=usuario.service.js.map
