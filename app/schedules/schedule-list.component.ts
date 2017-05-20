@@ -1,14 +1,13 @@
 import { Component, OnInit, ViewChild, Input, Output, trigger, state, style, animate, transition} from '@angular/core'
 
 import { ModalDirective} from 'ng2-bootstrap'
-import { DataService } from '../shared/services/data.service'
+import { EstadoService } from '../shared/services/estado.service'
 import { DateFormatPipe} from '../shared/pipes/date-format.pipe'
 import { ItemsService} from '../shared/utils/items.service'
 import { NotificationService} from '../shared/utils/notification.service'
 import { ConfigService} from '../shared/utils/config.service'
 import { IEstado, IScheduleDetails, Pagination, PaginatedResult} from '../shared/interfaces'
 
-// import {}
 
 @Component({
     moduleId: module.id,
@@ -50,18 +49,17 @@ export class ScheduleListComponent implements OnInit{
     selectedEstadoId: number
     selectedEstadoLoaded: boolean = false
 
-    constructor(private dataService: DataService,
+    constructor(private estadoService: EstadoService,
                 private itemsService: ItemsService,
                 private notificationService: NotificationService,
                 private configService:ConfigService){}
 
     ngOnInit(){
-        this.apiHost = this.configService.getApiHost()
         this.loadEstados()
     }
 
     loadEstados(){
-        this.dataService.getEstados(this.currentPage, this.itemsPerPage)
+        this.estadoService.getEstados(this.currentPage, this.itemsPerPage)
             .subscribe((res: PaginatedResult<IEstado[]>) =>{
                 this.estados = res.result
                 this.totalItems = res.totalCount
@@ -79,7 +77,7 @@ export class ScheduleListComponent implements OnInit{
     viewEstadoDetails(id:number){
         this.selectedEstadoId = id
 
-        this.dataService.getEstadoDetails(this.selectedEstadoId, true)
+        this.estadoService.getEstadoDetails(this.selectedEstadoId, true)
             .subscribe((estado: IEstado) =>{
                 this.estadoDetails = this.itemsService.getSerialized<IEstado>(estado)
                 this.selectedEstadoLoaded = true

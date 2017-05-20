@@ -29,7 +29,9 @@ var schedule_list_component_1 = require('./schedules/schedule-list.component');
 // import { UserCardComponent} from './users/user-card.component' 
 // import { UserListComponent} from './users/user-list.component'
 var app_routes_1 = require('./app.routes');
-var data_service_1 = require('./shared/services/data.service');
+// import { DataService} from './shared/services/data.service'
+var estado_service_1 = require('./shared/services/estado.service');
+var usuario_service_1 = require('./shared/services/usuario.service');
 var config_service_1 = require('./shared/utils/config.service');
 var items_service_1 = require('./shared/utils/items.service');
 var mapping_service_1 = require('./shared/utils/mapping.service');
@@ -63,7 +65,8 @@ var AppModule = (function () {
             ],
             providers: [
                 config_service_1.ConfigService,
-                data_service_1.DataService,
+                estado_service_1.EstadoService,
+                usuario_service_1.UsuarioService,
                 items_service_1.ItemsService,
                 mapping_service_1.MappingService,
                 notification_service_1.NotificationService,

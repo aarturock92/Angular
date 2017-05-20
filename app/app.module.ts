@@ -23,7 +23,9 @@ import { ScheduleListComponent} from './schedules/schedule-list.component'
 // import { UserListComponent} from './users/user-list.component'
 import { routing } from './app.routes'
 
-import { DataService} from './shared/services/data.service'
+// import { DataService} from './shared/services/data.service'
+import { EstadoService } from './shared/services/estado.service'
+import { UsuarioService } from './shared/services/usuario.service'
 import { ConfigService} from './shared/utils/config.service' 
 import { ItemsService} from './shared/utils/items.service'
 import { MappingService} from './shared/utils/mapping.service'
@@ -56,7 +58,8 @@ import { AuthenticationService } from './shared/utils/authentication.service'
     ],
     providers: [
         ConfigService,
-        DataService,
+        EstadoService,
+        UsuarioService,
         ItemsService,
         MappingService,
         NotificationService,

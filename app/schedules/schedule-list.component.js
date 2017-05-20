@@ -10,14 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
-var data_service_1 = require('../shared/services/data.service');
+var estado_service_1 = require('../shared/services/estado.service');
 var items_service_1 = require('../shared/utils/items.service');
 var notification_service_1 = require('../shared/utils/notification.service');
 var config_service_1 = require('../shared/utils/config.service');
-// import {}
 var ScheduleListComponent = (function () {
-    function ScheduleListComponent(dataService, itemsService, notificationService, configService) {
-        this.dataService = dataService;
+    function ScheduleListComponent(estadoService, itemsService, notificationService, configService) {
+        this.estadoService = estadoService;
         this.itemsService = itemsService;
         this.notificationService = notificationService;
         this.configService = configService;
@@ -27,12 +26,11 @@ var ScheduleListComponent = (function () {
         this.selectedEstadoLoaded = false;
     }
     ScheduleListComponent.prototype.ngOnInit = function () {
-        this.apiHost = this.configService.getApiHost();
         this.loadEstados();
     };
     ScheduleListComponent.prototype.loadEstados = function () {
         var _this = this;
-        this.dataService.getEstados(this.currentPage, this.itemsPerPage)
+        this.estadoService.getEstados(this.currentPage, this.itemsPerPage)
             .subscribe(function (res) {
             _this.estados = res.result;
             _this.totalItems = res.totalCount;
@@ -47,7 +45,7 @@ var ScheduleListComponent = (function () {
     ScheduleListComponent.prototype.viewEstadoDetails = function (id) {
         var _this = this;
         this.selectedEstadoId = id;
-        this.dataService.getEstadoDetails(this.selectedEstadoId, true)
+        this.estadoService.getEstadoDetails(this.selectedEstadoId, true)
             .subscribe(function (estado) {
             _this.estadoDetails = _this.itemsService.getSerialized(estado);
             _this.selectedEstadoLoaded = true;
@@ -91,7 +89,7 @@ var ScheduleListComponent = (function () {
                 ])
             ]
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataService, items_service_1.ItemsService, notification_service_1.NotificationService, config_service_1.ConfigService])
+        __metadata('design:paramtypes', [estado_service_1.EstadoService, items_service_1.ItemsService, notification_service_1.NotificationService, config_service_1.ConfigService])
     ], ScheduleListComponent);
     return ScheduleListComponent;
 }());

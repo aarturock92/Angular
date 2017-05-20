@@ -22,19 +22,20 @@ var items_service_1 = require('../utils/items.service');
 var config_service_1 = require('../utils/config.service');
 var authentication_service_1 = require('../utils/authentication.service');
 var data_service_1 = require('./data.service');
-var UsuarioService = (function (_super) {
-    __extends(UsuarioService, _super);
-    function UsuarioService(http, itemsService, configService, authentication) {
+var EstadoService = (function (_super) {
+    __extends(EstadoService, _super);
+    function EstadoService(http, itemsService, configService, authentication) {
         _super.call(this);
         this.http = http;
         this.itemsService = itemsService;
         this.configService = configService;
         this.authentication = authentication;
+        this._uriEstado = 'estado';
         this._baseUrl = configService.getApiURI();
     }
-    UsuarioService.prototype.getUsuarios = function (page, itemsPerPage) {
+    EstadoService.prototype.getEstados = function (page, itemsPerPage) {
         var paginatedResult = new interfaces_1.PaginatedResult();
-        return this.http.get(this._baseUrl + 'usuario/search/' + page + '/' + itemsPerPage)
+        return this.http.get(this._baseUrl + this._uriEstado + '/search/' + page + '/' + itemsPerPage)
             .map(function (res) {
             var data = res.json();
             paginatedResult.count = data.count;
@@ -46,11 +47,18 @@ var UsuarioService = (function (_super) {
         })
             .catch(this.handleError);
     };
-    UsuarioService = __decorate([
+    EstadoService.prototype.getEstadoDetails = function (id, incluirMunicipios) {
+        return this.http.get(this._baseUrl + this._uriEstado + '/' + id + '?incluirMunicipios=' + incluirMunicipios)
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
+    EstadoService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http, items_service_1.ItemsService, config_service_1.ConfigService, authentication_service_1.AuthenticationService])
-    ], UsuarioService);
-    return UsuarioService;
+    ], EstadoService);
+    return EstadoService;
 }(data_service_1.DataService));
-exports.UsuarioService = UsuarioService;
-//# sourceMappingURL=usuario.service.js.map
+exports.EstadoService = EstadoService;
+//# sourceMappingURL=estado.service.js.map
