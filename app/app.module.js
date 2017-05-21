@@ -24,12 +24,9 @@ var date_format_pipe_1 = require('./shared/pipes/date-format.pipe');
 var highlight_directive_1 = require('./shared/directives/highlight.directive');
 var home_component_1 = require('./home/home.component');
 var mobile_hide_directive_1 = require('./shared/directives/mobile-hide.directive');
-// import { ScheduleEditComponent} from './schedules/schedule-edit.component'
 var schedule_list_component_1 = require('./schedules/schedule-list.component');
-// import { UserCardComponent} from './users/user-card.component' 
-// import { UserListComponent} from './users/user-list.component'
+var user_list_component_1 = require('./users/user-list.component');
 var app_routes_1 = require('./app.routes');
-// import { DataService} from './shared/services/data.service'
 var estado_service_1 = require('./shared/services/estado.service');
 var usuario_service_1 = require('./shared/services/usuario.service');
 var config_service_1 = require('./shared/utils/config.service');
@@ -60,8 +57,8 @@ var AppModule = (function () {
                 highlight_directive_1.HighlightDirective,
                 home_component_1.HomeComponent,
                 mobile_hide_directive_1.MobileHideDirective,
-                // ScheduleEditComponent,
                 schedule_list_component_1.ScheduleListComponent,
+                user_list_component_1.UserListComponent
             ],
             providers: [
                 config_service_1.ConfigService,

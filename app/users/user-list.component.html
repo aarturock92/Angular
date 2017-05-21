@@ -1,0 +1,40 @@
+<div [@flyInOut]="'in'">
+    <div class="row">
+         <div class="col-lg-12">
+
+    <h1 class="page-header">Usuarios</h1>         
+    <br>
+    <br>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Correo</th>
+                <th>Nombre</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let usuario of usuarios">
+                <td> {{usuario.id}} </td>
+                <td> {{usuario.nombreUsuario}}</td>
+                <td> {{usuario.email}}</td>
+                <td> {{usuario.nombre}} {{usuario.primerApellido}} {{usuario.segundoApellido}}</td>
+                <td>
+                    <button class="btn btn-primary" (click)="viewUsuarioDetails(usuario.id)">
+                        <i class="fa fa-info-circle" aria-hidden="true"> Detalle</i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+     <pagination [boundaryLinks]="true" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" class="pagination-sm"
+        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"></pagination>
+    <br>
+    <br>
+    <br>
+    </div>
+  </div>
+</div>

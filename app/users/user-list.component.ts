@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input, Output, trigger, state, style,animate, transition }  from '@angular/core'
 
 import { ModalDirective } from 'ng2-bootstrap'
-import { DataService } from '../shared/services/data.service'
+import { UsuarioService } from '../shared/services/usuario.service'
 import { ItemsService} from '../shared/utils/items.service'
 import { NotificationService } from '../shared/utils/notification.service'
 import { ConfigService} from '../shared/utils/config.service'
@@ -48,16 +48,24 @@ export class UserListComponent{
     selectedUsuarioId: number
     selectedUsuarioLoaded: boolean= false
 
-    constructor(private dataService: DataService,
+    constructor(private usuarioService: UsuarioService,
                 private itemsService: ItemsService,
                 private notificationService: NotificationService,
                 private configService: ConfigService){}
 
     ngOnInit(){
-        this.apiHost = this.configService.getApiHost()
+        this.loadUsuarios()
     }
 
     loadUsuarios(){
-        // this.dataService.getUsers()
+        this.usuarioService.getUsuarios(this.currentPage, this.itemsPerPage)
+            .subscribe((res: PaginatedResult<IUsuario[]>) => {
+                this.usuarios = res.result
+                this.totalItems = res.totalCount
+            },
+            error => {
+                this.notificationService.printErrorMessage('Fallo la carga de Usuarios'+ error)
+            })
     }
+
 }

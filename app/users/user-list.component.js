@@ -9,13 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var data_service_1 = require('../shared/services/data.service');
+var usuario_service_1 = require('../shared/services/usuario.service');
 var items_service_1 = require('../shared/utils/items.service');
 var notification_service_1 = require('../shared/utils/notification.service');
 var config_service_1 = require('../shared/utils/config.service');
 var UserListComponent = (function () {
-    function UserListComponent(dataService, itemsService, notificationService, configService) {
-        this.dataService = dataService;
+    function UserListComponent(usuarioService, itemsService, notificationService, configService) {
+        this.usuarioService = usuarioService;
         this.itemsService = itemsService;
         this.notificationService = notificationService;
         this.configService = configService;
@@ -25,10 +25,17 @@ var UserListComponent = (function () {
         this.selectedUsuarioLoaded = false;
     }
     UserListComponent.prototype.ngOnInit = function () {
-        this.apiHost = this.configService.getApiHost();
+        this.loadUsuarios();
     };
     UserListComponent.prototype.loadUsuarios = function () {
-        // this.dataService.getUsers()
+        var _this = this;
+        this.usuarioService.getUsuarios(this.currentPage, this.itemsPerPage)
+            .subscribe(function (res) {
+            _this.usuarios = res.result;
+            _this.totalItems = res.totalCount;
+        }, function (error) {
+            _this.notificationService.printErrorMessage('Fallo la carga de Usuarios' + error);
+        });
     };
     __decorate([
         core_1.ViewChild('modal'), 
@@ -58,7 +65,7 @@ var UserListComponent = (function () {
                 ])
             ]
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataService, items_service_1.ItemsService, notification_service_1.NotificationService, config_service_1.ConfigService])
+        __metadata('design:paramtypes', [usuario_service_1.UsuarioService, items_service_1.ItemsService, notification_service_1.NotificationService, config_service_1.ConfigService])
     ], UserListComponent);
     return UserListComponent;
 }());

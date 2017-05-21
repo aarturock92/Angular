@@ -17,13 +17,10 @@ import { DateFormatPipe} from './shared/pipes/date-format.pipe'
 import { HighlightDirective} from './shared/directives/highlight.directive'
 import { HomeComponent} from './home/home.component'
 import { MobileHideDirective} from './shared/directives/mobile-hide.directive'
-// import { ScheduleEditComponent} from './schedules/schedule-edit.component'
 import { ScheduleListComponent} from './schedules/schedule-list.component'
-// import { UserCardComponent} from './users/user-card.component' 
-// import { UserListComponent} from './users/user-list.component'
+import { UserListComponent} from './users/user-list.component'
 import { routing } from './app.routes'
 
-// import { DataService} from './shared/services/data.service'
 import { EstadoService } from './shared/services/estado.service'
 import { UsuarioService } from './shared/services/usuario.service'
 import { ConfigService} from './shared/utils/config.service' 
@@ -51,10 +48,8 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         HighlightDirective,
         HomeComponent,
         MobileHideDirective,
-        // ScheduleEditComponent,
         ScheduleListComponent,
-        // UserCardComponent,
-        // UserListComponent
+        UserListComponent
     ],
     providers: [
         ConfigService,

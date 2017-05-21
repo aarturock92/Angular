@@ -63,7 +63,7 @@ export class ScheduleListComponent implements OnInit{
             .subscribe((res: PaginatedResult<IEstado[]>) =>{
                 this.estados = res.result
                 this.totalItems = res.totalCount
-            } ,
+            },
             error => {
              this.notificationService.printErrorMessage('Failed to load schedules' +error)   
             })            

@@ -6,7 +6,7 @@ import { Observer} from 'rxjs/Observer'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
  
-import { IUser, Pagination, PaginatedResult}  from '../interfaces'
+import { IUsuario, Pagination, PaginatedResult}  from '../interfaces'
 import { ItemsService} from '../utils/items.service'
 import { ConfigService } from '../utils/config.service'
 import { AuthenticationService } from '../utils/authentication.service'
@@ -26,8 +26,8 @@ export class UsuarioService extends DataService{
        
     }
     
-    getUsuarios(page?:number,itemsPerPage?:number): Observable<PaginatedResult<IUser[]>>{
-        let paginatedResult: PaginatedResult<IUser[]> = new PaginatedResult<IUser[]>();
+    getUsuarios(page?:number,itemsPerPage?:number): Observable<PaginatedResult<IUsuario[]>>{
+        let paginatedResult: PaginatedResult<IUsuario[]> = new PaginatedResult<IUsuario[]>()
 
         return this.http.get(this._baseUrl + 'usuario/search/' + page + '/' + itemsPerPage)
                .map((res: Response) => {
