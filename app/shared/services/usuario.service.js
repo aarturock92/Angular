@@ -46,6 +46,22 @@ var UsuarioService = (function (_super) {
         })
             .catch(this.handleError);
     };
+    UsuarioService.prototype.getUsuarioDetails = function (id) {
+        return this.http.get(this._baseUrl + 'usuario/' + id)
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
+    UsuarioService.prototype.createUsuario = function (usuario) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(this._baseUrl + 'usuario/register', JSON.stringify(usuario), { headers: headers })
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
     UsuarioService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http, items_service_1.ItemsService, config_service_1.ConfigService, authentication_service_1.AuthenticationService])

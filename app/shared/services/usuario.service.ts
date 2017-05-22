@@ -43,4 +43,24 @@ export class UsuarioService extends DataService{
                })
                .catch(this.handleError)
     }
+
+    getUsuarioDetails(id:number): Observable<IUsuario>{
+        return this.http.get(this._baseUrl + 'usuario/'+ id)
+               .map((res: Response) => {
+                     return res.json()
+               })
+               .catch(this.handleError)
+    }
+
+
+    createUsuario(usuario:IUsuario): Observable<IUsuario>{
+        let headers = new Headers()
+        headers.append('Content-Type', 'application/json')
+
+        return this.http.post(this._baseUrl + 'usuario/register', JSON.stringify(usuario), {headers: headers})
+            .map((res: Response) => {
+                return res.json()
+            })
+            .catch(this.handleError)
+    }
 }

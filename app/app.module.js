@@ -15,7 +15,6 @@ var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
 var ng2_bootstrap_2 = require('ng2-bootstrap');
-// import { Ng2BootstrapModule} from 'ng2-bootstrap'
 var ng2_bootstrap_3 = require('ng2-bootstrap');
 var ng2_bootstrap_4 = require('ng2-bootstrap');
 var ng2_bootstrap_5 = require('ng2-bootstrap');
@@ -26,6 +25,7 @@ var home_component_1 = require('./home/home.component');
 var mobile_hide_directive_1 = require('./shared/directives/mobile-hide.directive');
 var schedule_list_component_1 = require('./schedules/schedule-list.component');
 var user_list_component_1 = require('./users/user-list.component');
+var usuario_crear_component_1 = require('./users/usuario-crear.component');
 var app_routes_1 = require('./app.routes');
 var estado_service_1 = require('./shared/services/estado.service');
 var usuario_service_1 = require('./shared/services/usuario.service');
@@ -44,7 +44,6 @@ var AppModule = (function () {
                 ng2_bootstrap_2.DatepickerModule,
                 forms_1.FormsModule,
                 http_1.HttpModule,
-                // Ng2BootstrapModule,
                 ng2_bootstrap_3.ModalModule.forRoot(),
                 ng2_bootstrap_4.ProgressbarModule.forRoot(),
                 ng2_bootstrap_1.PaginationModule.forRoot(),
@@ -58,7 +57,8 @@ var AppModule = (function () {
                 home_component_1.HomeComponent,
                 mobile_hide_directive_1.MobileHideDirective,
                 schedule_list_component_1.ScheduleListComponent,
-                user_list_component_1.UserListComponent
+                user_list_component_1.UserListComponent,
+                usuario_crear_component_1.UsuarioCrearComponent
             ],
             providers: [
                 config_service_1.ConfigService,

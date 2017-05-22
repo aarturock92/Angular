@@ -45,7 +45,6 @@ export class EstadoService extends DataService{
     }
 
     getEstadoDetails(id:number, incluirMunicipios:boolean): Observable<IEstado> {
-
         return this.http.get(this._baseUrl + this._uriEstado +'/'+ id + '?incluirMunicipios='+incluirMunicipios)
             .map((res: Response) => {
                 return res.json()

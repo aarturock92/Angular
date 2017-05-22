@@ -35,7 +35,7 @@ var ScheduleListComponent = (function () {
             _this.estados = res.result;
             _this.totalItems = res.totalCount;
         }, function (error) {
-            _this.notificationService.printErrorMessage('Failed to load schedules' + error);
+            _this.notificationService.printErrorMessage('Fallo la carga de Estados ' + error);
         });
     };
     ScheduleListComponent.prototype.pageChanged = function (event) {

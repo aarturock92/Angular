@@ -65,7 +65,7 @@ export class ScheduleListComponent implements OnInit{
                 this.totalItems = res.totalCount
             },
             error => {
-             this.notificationService.printErrorMessage('Failed to load schedules' +error)   
+             this.notificationService.printErrorMessage('Fallo la carga de Estados ' +error)   
             })            
     }
 

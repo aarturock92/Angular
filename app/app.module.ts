@@ -7,7 +7,6 @@ import { HttpModule} from '@angular/http'
 
 import { PaginationModule} from 'ng2-bootstrap'
 import { DatepickerModule} from 'ng2-bootstrap'
-// import { Ng2BootstrapModule} from 'ng2-bootstrap'
 import { ModalModule } from 'ng2-bootstrap'
 import { ProgressbarModule} from 'ng2-bootstrap'
 import { TimepickerModule} from 'ng2-bootstrap'
@@ -19,6 +18,7 @@ import { HomeComponent} from './home/home.component'
 import { MobileHideDirective} from './shared/directives/mobile-hide.directive'
 import { ScheduleListComponent} from './schedules/schedule-list.component'
 import { UserListComponent} from './users/user-list.component'
+import { UsuarioCrearComponent} from './users/usuario-crear.component'
 import { routing } from './app.routes'
 
 import { EstadoService } from './shared/services/estado.service'
@@ -35,7 +35,6 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         DatepickerModule,
         FormsModule,
         HttpModule,
-        // Ng2BootstrapModule,
         ModalModule.forRoot(),
         ProgressbarModule.forRoot(),
         PaginationModule.forRoot(),
@@ -49,7 +48,8 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         HomeComponent,
         MobileHideDirective,
         ScheduleListComponent,
-        UserListComponent
+        UserListComponent,
+        UsuarioCrearComponent
     ],
     providers: [
         ConfigService,
