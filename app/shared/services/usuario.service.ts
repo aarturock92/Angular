@@ -52,7 +52,6 @@ export class UsuarioService extends DataService{
                .catch(this.handleError)
     }
 
-
     createUsuario(usuario:IUsuario): Observable<IUsuario>{
         let headers = new Headers()
         headers.append('Content-Type', 'application/json')
@@ -63,4 +62,13 @@ export class UsuarioService extends DataService{
             })
             .catch(this.handleError)
     }
+
+    // updateUsuario(usuario: IUsuario): Observable<IUsuario>{
+    //     let headers = new Headers()
+    //     headers.append('Content-Type', 'application/json')
+
+    //     return this.http.put(this._baseUrl + 'usuario/')
+    // }
+
+
 }

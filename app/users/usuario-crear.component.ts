@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, trigger, state, style,animate, transition }  from '@angular/core'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
+
 
 @Component({
     moduleId: module.id,
@@ -23,5 +25,11 @@ import { Component, OnInit, ViewChild, Input, Output, trigger, state, style,anim
     ]
 })
 export class UsuarioCrearComponent{
-
+    nombreUsuario: FormControl
+    nombre: FormControl
+    primerApellido: FormControl
+    segundoApellido: FormControl
+    sexo: FormControl
+    calle: FormControl
+    
 }
