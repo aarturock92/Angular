@@ -29,7 +29,7 @@ export class UsuarioService extends DataService{
     getUsuarios(page?:number,itemsPerPage?:number): Observable<PaginatedResult<IUsuario[]>>{
         let paginatedResult: PaginatedResult<IUsuario[]> = new PaginatedResult<IUsuario[]>()
 
-        return this.http.get(this._baseUrl + 'usuario/search/' + page + '/' + itemsPerPage)
+        return this.http.get(this._baseUrl + 'usuario/search/' + page + '/' + itemsPerPage, { headers: this.authentication.getHeaders()})
                .map((res: Response) => {
                     let data = res.json()
                     
@@ -45,7 +45,7 @@ export class UsuarioService extends DataService{
     }
 
     getUsuarioDetails(id:number): Observable<IUsuario>{
-        return this.http.get(this._baseUrl + 'usuario/'+ id)
+        return this.http.get(this._baseUrl + 'usuario/'+ id, {headers: this.authentication.getHeaders() })
                .map((res: Response) => {
                      return res.json()
                })
@@ -53,22 +53,18 @@ export class UsuarioService extends DataService{
     }
 
     createUsuario(usuario:IUsuario): Observable<IUsuario>{
-        let headers = new Headers()
-        headers.append('Content-Type', 'application/json')
-
-        return this.http.post(this._baseUrl + 'usuario/register', JSON.stringify(usuario), {headers: headers})
+        return this.http.post(this._baseUrl + 'usuario/register', JSON.stringify(usuario), {headers: this.authentication.getHeaders() })
             .map((res: Response) => {
                 return res.json()
             })
             .catch(this.handleError)
     }
 
-    // updateUsuario(usuario: IUsuario): Observable<IUsuario>{
-    //     let headers = new Headers()
-    //     headers.append('Content-Type', 'application/json')
-
-    //     return this.http.put(this._baseUrl + 'usuario/')
-    // }
-
-
+    deleteUser(idUser: number): Observable<void>{
+        return this.http.delete(this._baseUrl + 'usuario/delete/'+ idUser, {headers: this.authentication.getHeaders() })
+            .map((res: Response) => {
+                return;
+            })
+            .catch(this.handleError)
+    }
 }

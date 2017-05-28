@@ -34,7 +34,7 @@ var UsuarioService = (function (_super) {
     }
     UsuarioService.prototype.getUsuarios = function (page, itemsPerPage) {
         var paginatedResult = new interfaces_1.PaginatedResult();
-        return this.http.get(this._baseUrl + 'usuario/search/' + page + '/' + itemsPerPage)
+        return this.http.get(this._baseUrl + 'usuario/search/' + page + '/' + itemsPerPage, { headers: this.authentication.getHeaders() })
             .map(function (res) {
             var data = res.json();
             paginatedResult.count = data.count;
@@ -47,18 +47,23 @@ var UsuarioService = (function (_super) {
             .catch(this.handleError);
     };
     UsuarioService.prototype.getUsuarioDetails = function (id) {
-        return this.http.get(this._baseUrl + 'usuario/' + id)
+        return this.http.get(this._baseUrl + 'usuario/' + id, { headers: this.authentication.getHeaders() })
             .map(function (res) {
             return res.json();
         })
             .catch(this.handleError);
     };
     UsuarioService.prototype.createUsuario = function (usuario) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(this._baseUrl + 'usuario/register', JSON.stringify(usuario), { headers: headers })
+        return this.http.post(this._baseUrl + 'usuario/register', JSON.stringify(usuario), { headers: this.authentication.getHeaders() })
             .map(function (res) {
             return res.json();
+        })
+            .catch(this.handleError);
+    };
+    UsuarioService.prototype.deleteUser = function (idUser) {
+        return this.http.delete(this._baseUrl + 'usuario/delete/' + idUser, { headers: this.authentication.getHeaders() })
+            .map(function (res) {
+            return;
         })
             .catch(this.handleError);
     };

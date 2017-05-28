@@ -68,4 +68,18 @@ export class UserListComponent{
             })
     }
 
+    removeUsuario(usuario: IUsuario){
+        this.notificationService.openConfirmationDialog('Are yo sure you want to delete this user?', 
+                () => {
+                    this.usuarioService.deleteUser(usuario.id)
+                        .subscribe(() => {
+                            this.itemsService.removeItemFromArray<IUsuario>(this.usuarios, usuario)
+                            this.notificationService.printSuccessMessage(usuario.nombreUsuario + ' has been deleted.')
+                        },
+                        error => {
+                            this.notificationService.printErrorMessage('Failed to delete '+ usuario + ' ' +error)
+                        })                        
+                });
+    }
+
 }

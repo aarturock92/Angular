@@ -29,7 +29,7 @@ export class EstadoService extends DataService{
     getEstados(page?:number, itemsPerPage?: number):Observable<PaginatedResult<IEstado[]>>{
         let paginatedResult: PaginatedResult<IEstado[]> = new PaginatedResult<IEstado[]>()
 
-        return this.http.get(this._baseUrl + this._uriEstado +'/search/' + page + '/'+itemsPerPage)
+        return this.http.get(this._baseUrl + this._uriEstado +'/search/' + page + '/'+itemsPerPage, {headers: this.authentication.getHeaders() })
                .map((res: Response) => {
                     let data = res.json()
 
@@ -45,7 +45,7 @@ export class EstadoService extends DataService{
     }
 
     getEstadoDetails(id:number, incluirMunicipios:boolean): Observable<IEstado> {
-        return this.http.get(this._baseUrl + this._uriEstado +'/'+ id + '?incluirMunicipios='+incluirMunicipios)
+        return this.http.get(this._baseUrl + this._uriEstado +'/'+ id + '?incluirMunicipios='+incluirMunicipios, {headers: this.authentication.getHeaders()})
             .map((res: Response) => {
                 return res.json()
             })

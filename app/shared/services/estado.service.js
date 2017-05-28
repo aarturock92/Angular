@@ -35,7 +35,7 @@ var EstadoService = (function (_super) {
     }
     EstadoService.prototype.getEstados = function (page, itemsPerPage) {
         var paginatedResult = new interfaces_1.PaginatedResult();
-        return this.http.get(this._baseUrl + this._uriEstado + '/search/' + page + '/' + itemsPerPage)
+        return this.http.get(this._baseUrl + this._uriEstado + '/search/' + page + '/' + itemsPerPage, { headers: this.authentication.getHeaders() })
             .map(function (res) {
             var data = res.json();
             paginatedResult.count = data.count;
@@ -48,7 +48,7 @@ var EstadoService = (function (_super) {
             .catch(this.handleError);
     };
     EstadoService.prototype.getEstadoDetails = function (id, incluirMunicipios) {
-        return this.http.get(this._baseUrl + this._uriEstado + '/' + id + '?incluirMunicipios=' + incluirMunicipios)
+        return this.http.get(this._baseUrl + this._uriEstado + '/' + id + '?incluirMunicipios=' + incluirMunicipios, { headers: this.authentication.getHeaders() })
             .map(function (res) {
             return res.json();
         })

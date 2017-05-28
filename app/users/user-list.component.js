@@ -37,6 +37,18 @@ var UserListComponent = (function () {
             _this.notificationService.printErrorMessage('Fallo la carga de Usuarios' + error);
         });
     };
+    UserListComponent.prototype.removeUsuario = function (usuario) {
+        var _this = this;
+        this.notificationService.openConfirmationDialog('Are yo sure you want to delete this user?', function () {
+            _this.usuarioService.deleteUser(usuario.id)
+                .subscribe(function () {
+                _this.itemsService.removeItemFromArray(_this.usuarios, usuario);
+                _this.notificationService.printSuccessMessage(usuario.nombreUsuario + ' has been deleted.');
+            }, function (error) {
+                _this.notificationService.printErrorMessage('Failed to delete ' + usuario + ' ' + error);
+            });
+        });
+    };
     __decorate([
         core_1.ViewChild('modal'), 
         __metadata('design:type', Object)
