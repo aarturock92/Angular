@@ -61,7 +61,7 @@ var UsuarioService = (function (_super) {
             .catch(this.handleError);
     };
     UsuarioService.prototype.deleteUser = function (idUser) {
-        return this.http.delete(this._baseUrl + 'usuario/delete/' + idUser, { headers: this.authentication.getHeaders() })
+        return this.http.delete(this._baseUrl + 'usuario/' + idUser, { headers: this.authentication.getHeaders() })
             .map(function (res) {
             return;
         })

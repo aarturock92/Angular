@@ -61,7 +61,7 @@ export class UsuarioService extends DataService{
     }
 
     deleteUser(idUser: number): Observable<void>{
-        return this.http.delete(this._baseUrl + 'usuario/delete/'+ idUser, {headers: this.authentication.getHeaders() })
+        return this.http.delete(this._baseUrl + 'usuario/'+ idUser, {headers: this.authentication.getHeaders() })
             .map((res: Response) => {
                 return;
             })
