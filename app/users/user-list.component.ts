@@ -69,7 +69,6 @@ export class UserListComponent{
     }
 
     removeUsuario(usuario: IUsuario){
-        debugger;
         this.notificationService.openConfirmationDialog('Are yo sure you want to delete this user?', 
                 () => {
                     this.usuarioService.deleteUser(usuario.id)

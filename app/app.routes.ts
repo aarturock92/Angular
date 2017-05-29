@@ -8,6 +8,7 @@ import { UsuarioCrearComponent } from './users/usuario-crear.component'
 
 const appRoutes: Routes = [
     { path: 'schedules', component: ScheduleListComponent},
+    { path: 'usuario/:id/edit', component: UserEditComponent }
     { path: 'usuario/crear', component: UsuarioCrearComponent},
     { path: 'usuario', component: UserListComponent}, 
     { path: '', component: HomeComponent}
