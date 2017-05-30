@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var ng2_bootstrap_1 = require('ng2-bootstrap');
 var usuario_service_1 = require('../shared/services/usuario.service');
 var items_service_1 = require('../shared/utils/items.service');
 var notification_service_1 = require('../shared/utils/notification.service');
@@ -39,6 +40,16 @@ var UserEditComponent = (function () {
     UserEditComponent.prototype.back = function () {
         this.router.navigate(['/usuario']);
     };
+    UserEditComponent.prototype.selectTab = function (tab_id) {
+        this.staticTabs.tabs[tab_id].active = true;
+    };
+    UserEditComponent.prototype.disableEnable = function () {
+        this.staticTabs.tabs[2].disabled = !this.staticTabs.tabs[2].disabled;
+    };
+    __decorate([
+        core_1.ViewChild('staticTabs'), 
+        __metadata('design:type', ng2_bootstrap_1.TabsetComponent)
+    ], UserEditComponent.prototype, "staticTabs", void 0);
     UserEditComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

@@ -10,6 +10,7 @@ import { DatepickerModule} from 'ng2-bootstrap'
 import { ModalModule } from 'ng2-bootstrap'
 import { ProgressbarModule} from 'ng2-bootstrap'
 import { TimepickerModule} from 'ng2-bootstrap'
+import { TabsModule} from 'ng2-bootstrap'
 
 import { AppComponent} from './app.component'
 import { DateFormatPipe} from './shared/pipes/date-format.pipe'
@@ -42,7 +43,8 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         ProgressbarModule.forRoot(),
         PaginationModule.forRoot(),
         routing,
-        TimepickerModule.forRoot()
+        TimepickerModule.forRoot(),
+        TabsModule.forRoot()
     ],
     declarations: [
         AppComponent,

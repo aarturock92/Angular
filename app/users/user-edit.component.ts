@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { NgForm } from '@angular/forms'
 
+import { TabsetComponent  } from 'ng2-bootstrap'
 import { UsuarioService } from '../shared/services/usuario.service'
 import { ItemsService } from '../shared/utils/items.service'
 import { NotificationService } from '../shared/utils/notification.service'
@@ -18,6 +19,8 @@ export class UserEditComponent implements OnInit{
     private idUser:number
     private user: IUsuario
     userLoaded: boolean = false
+
+    @ViewChild('staticTabs') staticTabs: TabsetComponent
 
     constructor(private route: ActivatedRoute,
                 private router:Router,
@@ -43,5 +46,13 @@ export class UserEditComponent implements OnInit{
 
     back(){
         this.router.navigate(['/usuario'])
+    }
+
+    selectTab(tab_id: number) {
+      this.staticTabs.tabs[tab_id].active = true;
+    }
+ 
+    disableEnable() {
+        this.staticTabs.tabs[2].disabled = ! this.staticTabs.tabs[2].disabled
     }
 }

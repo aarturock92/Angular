@@ -18,6 +18,7 @@ var ng2_bootstrap_2 = require('ng2-bootstrap');
 var ng2_bootstrap_3 = require('ng2-bootstrap');
 var ng2_bootstrap_4 = require('ng2-bootstrap');
 var ng2_bootstrap_5 = require('ng2-bootstrap');
+var ng2_bootstrap_6 = require('ng2-bootstrap');
 var app_component_1 = require('./app.component');
 var date_format_pipe_1 = require('./shared/pipes/date-format.pipe');
 var highlight_directive_1 = require('./shared/directives/highlight.directive');
@@ -49,7 +50,8 @@ var AppModule = (function () {
                 ng2_bootstrap_4.ProgressbarModule.forRoot(),
                 ng2_bootstrap_1.PaginationModule.forRoot(),
                 app_routes_1.routing,
-                ng2_bootstrap_5.TimepickerModule.forRoot()
+                ng2_bootstrap_5.TimepickerModule.forRoot(),
+                ng2_bootstrap_6.TabsModule.forRoot()
             ],
             declarations: [
                 app_component_1.AppComponent,
