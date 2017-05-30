@@ -33,6 +33,13 @@ var EstadoService = (function (_super) {
         this._uriEstado = 'estado';
         this._baseUrl = configService.getApiURI();
     }
+    EstadoService.prototype.getEstadoByStatus = function (includeMunicipios, statusRegistro) {
+        return this.http.get(this._baseUrl + this._uriEstado + '/list?incluirMunicipios=' + includeMunicipios + '&estatusRegistro=' + statusRegistro, { headers: this.authentication.getHeaders() })
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
     EstadoService.prototype.getEstados = function (page, itemsPerPage) {
         var paginatedResult = new interfaces_1.PaginatedResult();
         return this.http.get(this._baseUrl + this._uriEstado + '/search/' + page + '/' + itemsPerPage, { headers: this.authentication.getHeaders() })

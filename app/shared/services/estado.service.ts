@@ -26,6 +26,15 @@ export class EstadoService extends DataService{
         this._baseUrl = configService.getApiURI()
     }
 
+    getEstadoByStatus(includeMunicipios: boolean, statusRegistro: number){
+        return this.http.get(this._baseUrl + this._uriEstado + '/list?incluirMunicipios=' + includeMunicipios + '&estatusRegistro='+statusRegistro,
+                    { headers: this.authentication.getHeaders() })
+               .map((res: Response) => {
+                    return res.json()
+               })
+               .catch(this.handleError)
+    }
+
     getEstados(page?:number, itemsPerPage?: number):Observable<PaginatedResult<IEstado[]>>{
         let paginatedResult: PaginatedResult<IEstado[]> = new PaginatedResult<IEstado[]>()
 
