@@ -39,7 +39,6 @@ var UserListComponent = (function () {
     };
     UserListComponent.prototype.removeUsuario = function (usuario) {
         var _this = this;
-        debugger;
         this.notificationService.openConfirmationDialog('Are yo sure you want to delete this user?', function () {
             _this.usuarioService.deleteUser(usuario.id)
                 .subscribe(function () {

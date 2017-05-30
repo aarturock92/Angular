@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 @Component({
     moduleId: module.id,
+    selector: 'app-user-create',
     templateUrl: 'usuario-crear.component.html',
     animations: [
         trigger('flyInOut', [

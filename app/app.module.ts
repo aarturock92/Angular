@@ -17,8 +17,11 @@ import { HighlightDirective} from './shared/directives/highlight.directive'
 import { HomeComponent} from './home/home.component'
 import { MobileHideDirective} from './shared/directives/mobile-hide.directive'
 import { ScheduleListComponent} from './schedules/schedule-list.component'
+
 import { UserListComponent} from './users/user-list.component'
 import { UsuarioCrearComponent} from './users/usuario-crear.component'
+import { UserEditComponent } from './users/user-edit.component' 
+
 import { routing } from './app.routes'
 
 import { EstadoService } from './shared/services/estado.service'
@@ -49,7 +52,8 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         MobileHideDirective,
         ScheduleListComponent,
         UserListComponent,
-        UsuarioCrearComponent
+        UsuarioCrearComponent,
+        UserEditComponent
     ],
     providers: [
         ConfigService,

@@ -15,6 +15,7 @@ var UsuarioCrearComponent = (function () {
     UsuarioCrearComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
+            selector: 'app-user-create',
             templateUrl: 'usuario-crear.component.html',
             animations: [
                 core_1.trigger('flyInOut', [

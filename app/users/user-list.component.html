@@ -28,7 +28,7 @@
                 <td> {{usuario.email}}</td>
                 <td> {{usuario.nombre}} {{usuario.primerApellido}} {{usuario.segundoApellido}}</td>
                 <td>
-                    <button class="btn btn-primary" (click)="viewUsuarioDetails(usuario.id)">
+                    <button class="btn btn-primary" [routerLink]="['/usuario',usuario.id,'edit']">
                         Editar
                     </button>
                 </td>
