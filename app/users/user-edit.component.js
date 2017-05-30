@@ -20,6 +20,7 @@ var UserEditComponent = (function () {
         this.usuarioService = usuarioService;
         this.itemsService = itemsService;
         this.notificationService = notificationService;
+        this.userLoaded = false;
     }
     UserEditComponent.prototype.ngOnInit = function () {
         this.idUser = +this.route.snapshot.params['id'];
@@ -30,7 +31,7 @@ var UserEditComponent = (function () {
         this.usuarioService.getUsuarioDetails(this.idUser)
             .subscribe(function (user) {
             _this.user = _this.itemsService.getSerialized(user);
-            console.log("Usuario", _this.user);
+            _this.userLoaded = true;
         }, function (error) {
             _this.notificationService.printErrorMessage('Failed to load user' + error);
         });

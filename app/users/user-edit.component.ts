@@ -17,6 +17,7 @@ import { IUsuario } from '../shared/interfaces'
 export class UserEditComponent implements OnInit{
     private idUser:number
     private user: IUsuario
+    userLoaded: boolean = false
 
     constructor(private route: ActivatedRoute,
                 private router:Router,
@@ -32,8 +33,8 @@ export class UserEditComponent implements OnInit{
     loadUserDetails(){
         this.usuarioService.getUsuarioDetails(this.idUser)
             .subscribe((user :IUsuario) => {
-                this.user = this.itemsService.getSerialized<IUsuario>(user);
-                console.log("Usuario", this.user);
+                this.user = this.itemsService.getSerialized<IUsuario>(user)
+                this.userLoaded = true
             },
             error => {
                 this.notificationService.printErrorMessage('Failed to load user'+ error);
