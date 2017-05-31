@@ -9,38 +9,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var ng2_bootstrap_1 = require('ng2-bootstrap');
 var UsuarioCrearComponent = (function () {
     function UsuarioCrearComponent() {
     }
     UsuarioCrearComponent.prototype.ngOnInit = function () {
     };
+    UsuarioCrearComponent.prototype.selectTab = function (tab_id) {
+        this.staticTabs.tabs[tab_id].active = true;
+    };
+    UsuarioCrearComponent.prototype.disableEnable = function () {
+        this.staticTabs.tabs[2].disabled = !this.staticTabs.tabs[2].disabled;
+    };
+    __decorate([
+        core_1.ViewChild('staticTabs'), 
+        __metadata('design:type', ng2_bootstrap_1.TabsetComponent)
+    ], UsuarioCrearComponent.prototype, "staticTabs", void 0);
     UsuarioCrearComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'app-user-create',
-            templateUrl: 'usuario-crear.component.html',
-            animations: [
-                core_1.trigger('flyInOut', [
-                    core_1.state('in', core_1.style({ opacity: 1, transform: 'translateX(0)' })),
-                    core_1.transition('void => *', [
-                        core_1.style({
-                            opacity: 0,
-                            transform: 'translateX(-100%)'
-                        }),
-                        core_1.animate('0.5s ease-in')
-                    ]),
-                    core_1.transition('* => void', [
-                        core_1.animate('0.2s 10 ease-out', core_1.style({
-                            opacity: 0,
-                            transform: 'translateX(100%)'
-                        }))
-                    ])
-                ])
-            ]
+            templateUrl: 'usuario-create.component.html'
         }), 
         __metadata('design:paramtypes', [])
     ], UsuarioCrearComponent);
     return UsuarioCrearComponent;
 }());
 exports.UsuarioCrearComponent = UsuarioCrearComponent;
-//# sourceMappingURL=usuario-crear.component.js.map
+//# sourceMappingURL=usuario-create.component.js.map

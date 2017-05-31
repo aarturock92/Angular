@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router'
 import { HomeComponent} from './home/home.component'
 import { ScheduleListComponent} from './schedules/schedule-list.component'
 import { UserListComponent } from './users/user-list.component'
-import { UsuarioCrearComponent } from './users/usuario-crear.component'
+import { UsuarioCrearComponent } from './users/usuario-create.component'
 import { UserEditComponent } from './users/user-edit.component'
 
 const appRoutes: Routes = [

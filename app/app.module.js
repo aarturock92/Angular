@@ -26,7 +26,7 @@ var home_component_1 = require('./home/home.component');
 var mobile_hide_directive_1 = require('./shared/directives/mobile-hide.directive');
 var schedule_list_component_1 = require('./schedules/schedule-list.component');
 var user_list_component_1 = require('./users/user-list.component');
-var usuario_crear_component_1 = require('./users/usuario-crear.component');
+var usuario_create_component_1 = require('./users/usuario-create.component');
 var user_edit_component_1 = require('./users/user-edit.component');
 var app_routes_1 = require('./app.routes');
 var estado_service_1 = require('./shared/services/estado.service');
@@ -61,7 +61,7 @@ var AppModule = (function () {
                 mobile_hide_directive_1.MobileHideDirective,
                 schedule_list_component_1.ScheduleListComponent,
                 user_list_component_1.UserListComponent,
-                usuario_crear_component_1.UsuarioCrearComponent,
+                usuario_create_component_1.UsuarioCrearComponent,
                 user_edit_component_1.UserEditComponent
             ],
             providers: [

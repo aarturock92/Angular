@@ -20,7 +20,7 @@ import { MobileHideDirective} from './shared/directives/mobile-hide.directive'
 import { ScheduleListComponent} from './schedules/schedule-list.component'
 
 import { UserListComponent} from './users/user-list.component'
-import { UsuarioCrearComponent} from './users/usuario-crear.component'
+import { UsuarioCrearComponent} from './users/usuario-create.component'
 import { UserEditComponent } from './users/user-edit.component' 
 
 import { routing } from './app.routes'
