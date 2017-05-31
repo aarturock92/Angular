@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild }  from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { NgForm } from '@angular/forms'
+import { Router, ActivatedRoute } from '@angular/router'
 
 import { TabsetComponent  } from 'ng2-bootstrap'
 
@@ -10,11 +11,13 @@ import { TabsetComponent  } from 'ng2-bootstrap'
 })
 export class UsuarioCrearComponent implements OnInit{
     
-
     @ViewChild('staticTabs') staticTabs: TabsetComponent
-    
-    ngOnInit(){
 
+    constructor(private route:ActivatedRoute,
+                private router: Router){}
+
+    ngOnInit(){
+        
     }
 
     selectTab(tab_id: number) {
@@ -23,6 +26,10 @@ export class UsuarioCrearComponent implements OnInit{
  
     disableEnable() {
         this.staticTabs.tabs[2].disabled = ! this.staticTabs.tabs[2].disabled
+    }
+
+     back(){
+        this.router.navigate(['/usuario'])
     }
     
 }
