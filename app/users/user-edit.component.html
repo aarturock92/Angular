@@ -1,4 +1,4 @@
-<form #editScheduleForm="ngForm" *ngIf="userLoaded" novalidate>
+<form #editScheduleForm="ngForm" *ngIf="userLoaded&&estadosLoaded&&municipiosLoaded" novalidate>
   <br>
   <br>
   <tabset #staticTabs>
@@ -113,6 +113,20 @@
                     <label class="control-label">Número Exterior</label>
                 <input type="text" class="form-control" [(ngModel)]="user.numeroExterior" name="numeroExterior" #description="ngModel" required
                     pattern=".{10,}" />
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label class="control-label">Estado</label>
+                    <select class="form-control" [(ngModel)]="user.idEstado" name="idEstado" (change)="onChangeSelectEstado($event.target.value)">
+                        <option *ngFor="let estado of estados" [value]="estado.id" [selected]="estado.id === user.idEstado">{{estado.nombre}}</option>
+                    </select>                    
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label class="control-label">Municipio</label>
+                    <select class="form-control" [(ngModel)]="user.idMunicipio" name="idMunicipio" >
+                        <option *ngFor="let municipio of municipios" [value]="municipio.id" [selected]="municipio.id === user.idMunicipio">{{municipio.nombre}}</option>
+                    </select>                    
                 </div>
             </div>
           </div>

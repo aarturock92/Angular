@@ -9,7 +9,7 @@ import { ItemsService } from '../shared/utils/items.service'
 import { NotificationService } from '../shared/utils/notification.service'
 import { ConfigService } from '../shared/utils/config.service'
 import { MappingService } from '../shared/utils/mapping.service'
-import { IUsuario, IEstado } from '../shared/interfaces'
+import { IUsuario, IEstado, IMunicipio } from '../shared/interfaces'
 
 @Component({
     moduleId: module.id,
@@ -20,8 +20,11 @@ export class UserEditComponent implements OnInit{
     private idUser:number
     private user: IUsuario
     userLoaded: boolean = false
+    estadosLoaded: boolean = false
+    municipiosLoaded: boolean = false
 
     private estados:IEstado[]
+    private municipios:IMunicipio[]
 
     @ViewChild('staticTabs') staticTabs: TabsetComponent
 
@@ -33,9 +36,10 @@ export class UserEditComponent implements OnInit{
                 private notificationService: NotificationService){}
 
     ngOnInit(){
-        this.loadEstadosByStatus()
+         this.loadEstadosByStatus()
          this.idUser = +this.route.snapshot.params['id']
          this.loadUserDetails()
+        
     }
 
     loadUserDetails(){
@@ -43,6 +47,7 @@ export class UserEditComponent implements OnInit{
             .subscribe((user :IUsuario) => {
                 this.user = this.itemsService.getSerialized<IUsuario>(user)
                 this.userLoaded = true
+                this.onChangeSelectEstado(this.user.idEstado)
             },
             error => {
                 this.notificationService.printErrorMessage('Failed to load user'+ error);
@@ -52,12 +57,26 @@ export class UserEditComponent implements OnInit{
     loadEstadosByStatus(){
         this.estadoService.getEstadoByStatus(false,1)
             .subscribe((res: IEstado[]) => {
-                this.estados = res;
+                this.estados = res
+                this.estadosLoaded = true
             },
             error => {
-                this.notificationService.printErrorMessage('Failed to load estados ' +error)
+                this.notificationService.printErrorMessage('Failed to load estados ' + error)
             })
     }
+
+    onChangeSelectEstado(idEstado){
+        this.estadoService.getEstadoDetails(idEstado, true)
+            .subscribe((res: IEstado) => {
+                let data = res
+                this.municipios  = data.municipios
+                this.municipiosLoaded = true
+            },
+            error => {
+                this.notificationService.printErrorMessage('Failed to load municipios'+ error)
+            })
+    }
+
 
     back(){
         this.router.navigate(['/usuario'])

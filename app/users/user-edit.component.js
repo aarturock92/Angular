@@ -24,6 +24,8 @@ var UserEditComponent = (function () {
         this.itemsService = itemsService;
         this.notificationService = notificationService;
         this.userLoaded = false;
+        this.estadosLoaded = false;
+        this.municipiosLoaded = false;
     }
     UserEditComponent.prototype.ngOnInit = function () {
         this.loadEstadosByStatus();
@@ -36,6 +38,7 @@ var UserEditComponent = (function () {
             .subscribe(function (user) {
             _this.user = _this.itemsService.getSerialized(user);
             _this.userLoaded = true;
+            _this.onChangeSelectEstado(_this.user.idEstado);
         }, function (error) {
             _this.notificationService.printErrorMessage('Failed to load user' + error);
         });
@@ -45,8 +48,20 @@ var UserEditComponent = (function () {
         this.estadoService.getEstadoByStatus(false, 1)
             .subscribe(function (res) {
             _this.estados = res;
+            _this.estadosLoaded = true;
         }, function (error) {
             _this.notificationService.printErrorMessage('Failed to load estados ' + error);
+        });
+    };
+    UserEditComponent.prototype.onChangeSelectEstado = function (idEstado) {
+        var _this = this;
+        this.estadoService.getEstadoDetails(idEstado, true)
+            .subscribe(function (res) {
+            var data = res;
+            _this.municipios = data.municipios;
+            _this.municipiosLoaded = true;
+        }, function (error) {
+            _this.notificationService.printErrorMessage('Failed to load municipios' + error);
         });
     };
     UserEditComponent.prototype.back = function () {
