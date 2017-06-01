@@ -6,7 +6,7 @@ import { DateFormatPipe} from '../shared/pipes/date-format.pipe'
 import { ItemsService} from '../shared/utils/items.service'
 import { NotificationService} from '../shared/utils/notification.service'
 import { ConfigService} from '../shared/utils/config.service'
-import { IEstado, IScheduleDetails, Pagination, PaginatedResult} from '../shared/interfaces'
+import { IEstado, Pagination, PaginatedResult} from '../shared/interfaces'
 
 
 @Component({

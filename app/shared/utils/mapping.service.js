@@ -14,24 +14,6 @@ var MappingService = (function () {
     function MappingService(itemsService) {
         this.itemsService = itemsService;
     }
-    MappingService.prototype.mapScheduleDetailsToSchedule = function (scheduleDetails) {
-        var schedule = {
-            id: scheduleDetails.id,
-            title: scheduleDetails.title,
-            description: scheduleDetails.description,
-            timeStart: scheduleDetails.timeStart,
-            timeEnd: scheduleDetails.timeEnd,
-            location: scheduleDetails.location,
-            type: scheduleDetails.type,
-            status: scheduleDetails.status,
-            dateCreated: scheduleDetails.dateCreated,
-            dateUpdated: scheduleDetails.dateUpdated,
-            creator: scheduleDetails.creator,
-            creatorId: scheduleDetails.creatorId,
-            attendees: this.itemsService.getPropertyValues(scheduleDetails.attendes, 'id')
-        };
-        return schedule;
-    };
     MappingService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [items_service_1.ItemsService])
