@@ -31,9 +31,9 @@ var UserEditComponent = (function () {
         this.perfilesUsuarioLoaded = false;
     }
     UserEditComponent.prototype.ngOnInit = function () {
+        this.idUser = +this.route.snapshot.params['id'];
         this.loadEstadosByStatus();
         this.loadPerfilesUsuarioByStatus();
-        this.idUser = +this.route.snapshot.params['id'];
         this.loadUserDetails();
     };
     UserEditComponent.prototype.loadUserDetails = function () {
@@ -41,6 +41,7 @@ var UserEditComponent = (function () {
         this.usuarioService.getUsuarioDetails(this.idUser)
             .subscribe(function (user) {
             _this.user = _this.itemsService.getSerialized(user);
+            console.log("this.user", _this.user);
             _this.userLoaded = true;
             _this.onChangeSelectEstado(_this.user.idEstado);
         }, function (error) {

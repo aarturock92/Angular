@@ -41,17 +41,17 @@ export class UserEditComponent implements OnInit{
                 private notificationService: NotificationService){}
 
     ngOnInit(){
-         this.loadEstadosByStatus()
-         this.loadPerfilesUsuarioByStatus()
          this.idUser = +this.route.snapshot.params['id']
-         this.loadUserDetails()
-        
+         this.loadEstadosByStatus()
+         this.loadPerfilesUsuarioByStatus()         
+         this.loadUserDetails()        
     }
 
     loadUserDetails(){
         this.usuarioService.getUsuarioDetails(this.idUser)
             .subscribe((user :IUsuario) => {
                 this.user = this.itemsService.getSerialized<IUsuario>(user)
+                console.log("this.user",this.user);
                 this.userLoaded = true
                 this.onChangeSelectEstado(this.user.idEstado)
             },
@@ -86,7 +86,7 @@ export class UserEditComponent implements OnInit{
         this.estadoService.getEstadoDetails(idEstado, true)
             .subscribe((res: IEstado) => {
                 let data = res
-                this.municipios  = data.municipios
+                this.municipios = data.municipios
                 this.municipiosLoaded = true
             },
             error => {

@@ -1,145 +1,197 @@
 <form #editScheduleForm="ngForm" *ngIf="userLoaded&&estadosLoaded&&municipiosLoaded&&perfilesUsuarioLoaded" novalidate>
-  <br>
-  <br>
-  <tabset #staticTabs>
-    <tab heading="PERFIL DE USUARIO">
-        <br>
-        <fieldset>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <legend>Perfil de Usuario</legend>
-                    </div>                    
+    <br>
+    <br>
+    <tabset #staticTabs>
+        <tab heading="PERFIL DE USUARIO">
+            <br>
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <legend>Perfil de Usuario</legend>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                     <div class="col-md-4 form-group">
-                        <label class="control-label"><i class="fa fa-user" aria-hidden="true"></i>Usuario</label>
-                        <input type="text" class="form-control" [(ngModel)]="user.nombreUsuario" name="nombreUsuario" #creator="ngModel" required pattern=".{5,50}"/>
-                     </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-md-4 form-group">
+                            <label class="control-label"><i class="fa fa-user" aria-hidden="true"></i>Usuario</label>
+                            <input type="text" class="form-control" [(ngModel)]="user.nombreUsuario" name="nombreUsuario" #creator="ngModel" required
+                                pattern=".{5,50}" />
+                        </div>
 
-                     <div class="form-group col-md-4">
-                        <label class="control-label">Perfil de Usuario</label>
-                        <select class="form-control" [(ngModel)]="user.idPerfilUsuario" name="idPerfilUsuario">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Perfil de Usuario</label>
+                            <select class="form-control" [(ngModel)]="user.idPerfilUsuario" name="idPerfilUsuario">
                              <option *ngFor="let perfilUsuario of perfilUsuarios" [value]="perfilUsuario.id" [selected]="perfilUsuario.id === user.idPerfilUsuario">{{perfilUsuario.nombre}}</option>
-                        </select>                    
-                    </div>
+                        </select>
+                        </div>
 
-                     <div class="form-group col-md-4">
-                        <label class="control-label"><i class="fa fa-user" aria-hidden="true"></i>Número de Empleado</label>
-                        <input type="text" class="form-control" [(ngModel)]="user.numeroEmpleado" name="numeroEmpleado" #creator="ngModel" required pattern=".{5,50}"/>
-                     </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label"><i class="fa fa-user" aria-hidden="true"></i>Número de Empleado</label>
+                            <input type="text" class="form-control" [(ngModel)]="user.numeroEmpleado" name="numeroEmpleado" #creator="ngModel" required
+                                pattern=".{5,50}" />
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </fieldset>
-    </tab>
-    <tab heading="INFORMACIÓN GENERAL">
-       <br>
-       <fieldset>
-       
-          <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <legend>Información General</legend>
-                </div>                    
-            </div>
-          </div>
+            </fieldset>
+        </tab>
+        <tab heading="INFORMACIÓN GENERAL">
+            <br>
+            <fieldset>
 
-         <div class="row">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="col-md-4 form-group">
-                        <label class="control-label">Nombre</label>
-                        <input type="text" class="form-control" [(ngModel)]="user.nombre" name="nombre" #creator="ngModel" required pattern=".{5,50}"/>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <legend>Información General</legend>
+                        </div>
                     </div>
- 
-                    <div class="col-md-4 form-group">
-                        <label class="control-label">Primer Apellido</label>
-                        <input type="text" class="form-control" [(ngModel)]="user.primerApellido" name="primerApellido" #title="ngModel" required pattern=".{5,20}"/>
-                    </div>
- 
-                    <div class="col-md-4 form-group">
-                        <label class="control-label">Segundo Apellido</label>
-                        <input type="text" class="form-control" [(ngModel)]="user.segundoApellido" name="segundoApellido" #description="ngModel" required
-                            pattern=".{10,}" />
-                    </div>
-
-                     <div class="col-md-4 form-group">
-                        <label class="control-label">Email</label>
-                        <input type="text" class="form-control" [(ngModel)]="user.email" name="email" #description="ngModel" required
-                            pattern=".{10,}" />
-                    </div>
-
-                     <div class="col-md-4 form-group">
-                        <label class="control-label">Telefono</label>
-                        <input type="text" class="form-control" [(ngModel)]="user.telefono" name="telefono" #description="ngModel" required
-                            pattern=".{10,}" />
-                    </div>
-              </div>            
-          </div>
-          
-          <hr>
-
-          <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <legend>Domicilio</legend>
-                </div>                    
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="form-group col-md-4">
-                    <label class="control-label">Calle</label>
-                <input type="text" class="form-control" [(ngModel)]="user.calle" name="calle" #description="ngModel" required
-                    pattern=".{10,}" />
                 </div>
 
-                <div class="form-group col-md-4">
-                    <label class="control-label">Colonia</label>
-                <input type="text" class="form-control" [(ngModel)]="user.colonia" name="colonia" #description="ngModel" required
-                    pattern=".{10,}" />
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-md-4 form-group">
+                            <label class="control-label">Nombre</label>
+                            <input type="text" class="form-control" [(ngModel)]="user.nombre" name="nombre" #creator="ngModel" required pattern=".{5,50}"
+                            />
+                        </div>
+
+                        <div class="col-md-4 form-group">
+                            <label class="control-label">Primer Apellido</label>
+                            <input type="text" class="form-control" [(ngModel)]="user.primerApellido" name="primerApellido" #title="ngModel" required
+                                pattern=".{5,20}" />
+                        </div>
+
+                        <div class="col-md-4 form-group">
+                            <label class="control-label">Segundo Apellido</label>
+                            <input type="text" class="form-control" [(ngModel)]="user.segundoApellido" name="segundoApellido" #description="ngModel"
+                                required pattern=".{10,}" />
+                        </div>
+
+
+                        <div class="form-group col-md-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="control-label">Género <span class="req"></span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                    <div class="radio">
+                                        <label>
+                                                                        <input type="radio" name="sexo" [(ngModel)]="user.sexo" [value]="1" [checked]="user.sexo === 1">
+                                                                        Mujer
+                                                                    </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                    <div class="radio">
+                                        <label>
+                                                                        <input type="radio" name="sexo" [(ngModel)]="user.sexo" [value]="2" [checked]="user.sexo === 2">
+                                                                        Hombre
+                                                                    </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 form-group">
+                            <label class="control-label">Fecha Nacimiento</label>
+                            <input type="text" class="form-control" [(ngModel)]="user.fechaNacimiento" name="fechaNacimiento" #description="ngModel"
+                                required pattern=".{10,}" />
+                        </div>
+
+                        <div class="col-md-4 form-group">
+                            <label class="control-label">CURP</label>
+                            <input type="text" class="form-control" [(ngModel)]="user.curp" name="curp" #description="ngModel" required pattern=".{10,}"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-md-4 form-group">
+                            <label class="control-label">RFC</label>
+                            <input type="text" class="form-control" [(ngModel)]="user.rfc" name="rfc" #description="ngModel" required pattern=".{10,}"
+                            />
+                        </div>
+
+                        <div class="col-md-4 form-group">
+                            <label class="control-label">Email</label>
+                            <input type="text" class="form-control" [(ngModel)]="user.email" name="email" #description="ngModel" required pattern=".{10,}"
+                            />
+                        </div>
+
+                        <div class="col-md-4 form-group">
+                            <label class="control-label">Telefono</label>
+                            <input type="text" class="form-control" [(ngModel)]="user.telefono" name="telefono" #description="ngModel" required pattern=".{10,}"
+                            />
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group col-md-4">
-                    <label class="control-label">Codigo Postal</label>
-                <input type="text" class="form-control" [(ngModel)]="user.codigoPostal" name="codigoPostal" #description="ngModel" required
-                    pattern=".{10,}" />
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <legend>Domicilio</legend>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group col-md-4">
-                    <label class="control-label">Número Exterior</label>
-                <input type="text" class="form-control" [(ngModel)]="user.numeroExterior" name="numeroExterior" #description="ngModel" required
-                    pattern=".{10,}" />
-                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Calle</label>
+                            <input type="text" class="form-control" [(ngModel)]="user.calle" name="calle" #description="ngModel" required pattern=".{10,}"
+                            />
+                        </div>
 
-                <div class="form-group col-md-4">
-                    <label class="control-label">Estado</label>
-                    <select class="form-control" [(ngModel)]="user.idEstado" name="idEstado" (change)="onChangeSelectEstado($event.target.value)">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Colonia</label>
+                            <input type="text" class="form-control" [(ngModel)]="user.colonia" name="colonia" #description="ngModel" required pattern=".{10,}"
+                            />
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Codigo Postal</label>
+                            <input type="text" class="form-control" [(ngModel)]="user.codigoPostal" name="codigoPostal" #description="ngModel" required
+                                pattern=".{10,}" />
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Número Exterior</label>
+                            <input type="text" class="form-control" [(ngModel)]="user.numeroExterior" name="numeroExterior" #description="ngModel" required
+                                pattern=".{10,}" />
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Estado</label>
+                            <select class="form-control" [(ngModel)]="user.idEstado" name="idEstado" (change)="onChangeSelectEstado($event.target.value)">
                         <option *ngFor="let estado of estados" [value]="estado.id" [selected]="estado.id === user.idEstado">{{estado.nombre}}</option>
-                    </select>                    
+                    </select>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Municipio</label>
+                            <select class="form-control" [(ngModel)]="user.idMunicipio" name="idMunicipio">
+                        <option *ngFor="let municipio of municipios" [value]="municipio.id" [selected]="municipio.id === user.idMunicipio">{{municipio.nombre}}</option>
+                    </select>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group col-md-4">
-                    <label class="control-label">Municipio</label>
-                    <select class="form-control" [(ngModel)]="user.idMunicipio" name="idMunicipio" >
-                        <option *ngFor="let municipio of municipios" [value]="municipio.id" [selected]="municipio.id === user.idMunicipio">{{municipio.nombre}}</option>
-                    </select>                    
-                </div>
-            </div>
-          </div>
-      
-      </fieldset>
-    </tab>
-    <tab heading="ASIGNACIÓN">ASIGNACIÓN</tab>
-  </tabset>
-  <br>
-  <br>
-  <button type="button" class="btn btn-danger" (click)="back()">
+            </fieldset>
+        </tab>
+        <tab heading="ASIGNACIÓN">ASIGNACIÓN</tab>
+    </tabset>
+    <br>
+    <br>
+    <button type="button" class="btn btn-danger" (click)="back()">
         <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Atras </button>
-      <button type="button" class="btn btn-success" >
+    <button type="button" class="btn btn-success">
         <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Guardar </button>
     <!--<div class="alert alert-danger" [hidden]="editScheduleForm.form.valid">
         <ul *ngIf="creator.dirty && !creator.valid">
@@ -157,15 +209,15 @@
             <li *ngIf="location.errors.required">Location is required</li>
         </ul>
     </div>-->
- 
-   
+
+
     <!--<button type="button" [disabled]="!editScheduleForm.form.valid" class="btn btn-default" (click)="updateSchedule(editScheduleForm)">
         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>Update</button>-->
- 
+
     <hr/>
- 
-   
- 
+
+
+
     <!--<div class="form-group">
         <div class="row">
             <div class="col-xs-6">
@@ -181,7 +233,7 @@
             </div>
         </div>
     </div>-->
- 
+
     <!--<div class="form-group">
         <div class="row">
             <div class="col-md-4">
