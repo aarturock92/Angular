@@ -30,7 +30,7 @@ var EstadoService = (function (_super) {
         this.itemsService = itemsService;
         this.configService = configService;
         this.authentication = authentication;
-        this._uriEstado = 'estado';
+        this._uriEstado = 'Estado';
         this._baseUrl = configService.getApiURI();
     }
     EstadoService.prototype.getEstadoByStatus = function (includeMunicipios, statusRegistro) {

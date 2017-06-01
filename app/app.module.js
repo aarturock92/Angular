@@ -31,6 +31,7 @@ var user_edit_component_1 = require('./users/user-edit.component');
 var app_routes_1 = require('./app.routes');
 var estado_service_1 = require('./shared/services/estado.service');
 var usuario_service_1 = require('./shared/services/usuario.service');
+var perfilusuario_service_1 = require('./shared/services/perfilusuario.service');
 var config_service_1 = require('./shared/utils/config.service');
 var items_service_1 = require('./shared/utils/items.service');
 var mapping_service_1 = require('./shared/utils/mapping.service');
@@ -68,6 +69,7 @@ var AppModule = (function () {
                 config_service_1.ConfigService,
                 estado_service_1.EstadoService,
                 usuario_service_1.UsuarioService,
+                perfilusuario_service_1.PerfilUsuarioService,
                 items_service_1.ItemsService,
                 mapping_service_1.MappingService,
                 notification_service_1.NotificationService,

@@ -1,15 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { NgForm } from '@angular/forms'
-
 import { TabsetComponent  } from 'ng2-bootstrap'
+
 import { UsuarioService } from '../shared/services/usuario.service'
 import { EstadoService } from '../shared/services/estado.service'
+import { PerfilUsuarioService } from '../shared/services/perfilusuario.service'
+
 import { ItemsService } from '../shared/utils/items.service'
 import { NotificationService } from '../shared/utils/notification.service'
 import { ConfigService } from '../shared/utils/config.service'
 import { MappingService } from '../shared/utils/mapping.service'
-import { IUsuario, IEstado, IMunicipio } from '../shared/interfaces'
+import { IUsuario, IEstado, IMunicipio, IPerfilUsuario } from '../shared/interfaces'
 
 @Component({
     moduleId: module.id,
@@ -22,9 +24,11 @@ export class UserEditComponent implements OnInit{
     userLoaded: boolean = false
     estadosLoaded: boolean = false
     municipiosLoaded: boolean = false
+    perfilesUsuarioLoaded: boolean = false
 
     private estados:IEstado[]
     private municipios:IMunicipio[]
+    private perfilUsuarios: IPerfilUsuario[]
 
     @ViewChild('staticTabs') staticTabs: TabsetComponent
 
@@ -32,11 +36,13 @@ export class UserEditComponent implements OnInit{
                 private router:Router,
                 private usuarioService: UsuarioService,
                 private estadoService: EstadoService,
+                private perfilUsuarioService: PerfilUsuarioService,
                 private itemsService: ItemsService,
                 private notificationService: NotificationService){}
 
     ngOnInit(){
          this.loadEstadosByStatus()
+         this.loadPerfilesUsuarioByStatus()
          this.idUser = +this.route.snapshot.params['id']
          this.loadUserDetails()
         
@@ -62,6 +68,17 @@ export class UserEditComponent implements OnInit{
             },
             error => {
                 this.notificationService.printErrorMessage('Failed to load estados ' + error)
+            })
+    }
+
+    loadPerfilesUsuarioByStatus(){
+        this.perfilUsuarioService.getListPerfilesUsuario(1)
+            .subscribe((res: IPerfilUsuario[]) => {
+                this.perfilUsuarios = res
+                this.perfilesUsuarioLoaded = true
+            }, 
+            error => {
+                this.notificationService.printErrorMessage('Failed to load Perfiles Usuarios '+ error)
             })
     }
 

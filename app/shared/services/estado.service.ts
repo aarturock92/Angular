@@ -15,7 +15,7 @@ import { DataService } from './data.service'
 @Injectable()
 export class EstadoService extends DataService{
     private _baseUrl: string
-    private _uriEstado: string = 'estado'
+    private _uriEstado: string = 'Estado'
 
     constructor(private http: Http, 
                 private itemsService: ItemsService,

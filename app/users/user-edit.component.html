@@ -1,4 +1,4 @@
-<form #editScheduleForm="ngForm" *ngIf="userLoaded&&estadosLoaded&&municipiosLoaded" novalidate>
+<form #editScheduleForm="ngForm" *ngIf="userLoaded&&estadosLoaded&&municipiosLoaded&&perfilesUsuarioLoaded" novalidate>
   <br>
   <br>
   <tabset #staticTabs>
@@ -18,6 +18,18 @@
                      <div class="col-md-4 form-group">
                         <label class="control-label"><i class="fa fa-user" aria-hidden="true"></i>Usuario</label>
                         <input type="text" class="form-control" [(ngModel)]="user.nombreUsuario" name="nombreUsuario" #creator="ngModel" required pattern=".{5,50}"/>
+                     </div>
+
+                     <div class="form-group col-md-4">
+                        <label class="control-label">Perfil de Usuario</label>
+                        <select class="form-control" [(ngModel)]="user.idPerfilUsuario" name="idPerfilUsuario">
+                             <option *ngFor="let perfilUsuario of perfilUsuarios" [value]="perfilUsuario.id" [selected]="perfilUsuario.id === user.idPerfilUsuario">{{perfilUsuario.nombre}}</option>
+                        </select>                    
+                    </div>
+
+                     <div class="form-group col-md-4">
+                        <label class="control-label"><i class="fa fa-user" aria-hidden="true"></i>Número de Empleado</label>
+                        <input type="text" class="form-control" [(ngModel)]="user.numeroEmpleado" name="numeroEmpleado" #creator="ngModel" required pattern=".{5,50}"/>
                      </div>
                 </div>
             </div>
@@ -60,14 +72,8 @@
                     </div>
 
                      <div class="col-md-4 form-group">
-                        <label class="control-label">Telefono Casa</label>
-                        <input type="text" class="form-control" [(ngModel)]="user.telefonoCasa" name="telefonoCasa" #description="ngModel" required
-                            pattern=".{10,}" />
-                    </div>
-
-                    <div class="col-md-4 form-group">
-                        <label class="control-label">Telefono Celular</label>
-                        <input type="text" class="form-control" [(ngModel)]="user.telefonoCelular" name="telefonoCelular" #description="ngModel" required
+                        <label class="control-label">Telefono</label>
+                        <input type="text" class="form-control" [(ngModel)]="user.telefono" name="telefono" #description="ngModel" required
                             pattern=".{10,}" />
                     </div>
               </div>            
@@ -100,12 +106,6 @@
                 <div class="form-group col-md-4">
                     <label class="control-label">Codigo Postal</label>
                 <input type="text" class="form-control" [(ngModel)]="user.codigoPostal" name="codigoPostal" #description="ngModel" required
-                    pattern=".{10,}" />
-                </div>
-
-                <div class="form-group col-md-4">
-                    <label class="control-label">Número Interior</label>
-                <input type="text" class="form-control" [(ngModel)]="user.numeroInterior" name="numeroInterior" #description="ngModel" required
                     pattern=".{10,}" />
                 </div>
 

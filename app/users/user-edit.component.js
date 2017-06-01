@@ -13,22 +13,26 @@ var router_1 = require('@angular/router');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
 var usuario_service_1 = require('../shared/services/usuario.service');
 var estado_service_1 = require('../shared/services/estado.service');
+var perfilusuario_service_1 = require('../shared/services/perfilusuario.service');
 var items_service_1 = require('../shared/utils/items.service');
 var notification_service_1 = require('../shared/utils/notification.service');
 var UserEditComponent = (function () {
-    function UserEditComponent(route, router, usuarioService, estadoService, itemsService, notificationService) {
+    function UserEditComponent(route, router, usuarioService, estadoService, perfilUsuarioService, itemsService, notificationService) {
         this.route = route;
         this.router = router;
         this.usuarioService = usuarioService;
         this.estadoService = estadoService;
+        this.perfilUsuarioService = perfilUsuarioService;
         this.itemsService = itemsService;
         this.notificationService = notificationService;
         this.userLoaded = false;
         this.estadosLoaded = false;
         this.municipiosLoaded = false;
+        this.perfilesUsuarioLoaded = false;
     }
     UserEditComponent.prototype.ngOnInit = function () {
         this.loadEstadosByStatus();
+        this.loadPerfilesUsuarioByStatus();
         this.idUser = +this.route.snapshot.params['id'];
         this.loadUserDetails();
     };
@@ -51,6 +55,16 @@ var UserEditComponent = (function () {
             _this.estadosLoaded = true;
         }, function (error) {
             _this.notificationService.printErrorMessage('Failed to load estados ' + error);
+        });
+    };
+    UserEditComponent.prototype.loadPerfilesUsuarioByStatus = function () {
+        var _this = this;
+        this.perfilUsuarioService.getListPerfilesUsuario(1)
+            .subscribe(function (res) {
+            _this.perfilUsuarios = res;
+            _this.perfilesUsuarioLoaded = true;
+        }, function (error) {
+            _this.notificationService.printErrorMessage('Failed to load Perfiles Usuarios ' + error);
         });
     };
     UserEditComponent.prototype.onChangeSelectEstado = function (idEstado) {
@@ -83,7 +97,7 @@ var UserEditComponent = (function () {
             selector: 'app-user-edit',
             templateUrl: 'user-edit.component.html'
         }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, usuario_service_1.UsuarioService, estado_service_1.EstadoService, items_service_1.ItemsService, notification_service_1.NotificationService])
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, usuario_service_1.UsuarioService, estado_service_1.EstadoService, perfilusuario_service_1.PerfilUsuarioService, items_service_1.ItemsService, notification_service_1.NotificationService])
     ], UserEditComponent);
     return UserEditComponent;
 }());

@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router'
 
 import { TabsetComponent  } from 'ng2-bootstrap'
 
+import { PerfilUsuarioService } from '../shared/services/perfilusuario.service'
+
 @Component({
     moduleId: module.id,
     selector: 'app-user-create',

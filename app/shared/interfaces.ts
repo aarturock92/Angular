@@ -1,28 +1,26 @@
 export interface IUsuario{
     id: number,
-    nombreUsuario: string,
-    idRolUsuario: number,
+    idPerfilUsuario: number, 
+    numeroEmpleado: string,
     nombre: string,
     primerApellido: string,
     segundoApellido: string,
     sexo: number,
+    telefono: string,
+    email: string,
+    curp: string,
+    rfc: string,
+    fechaNacimiento: string, 
+    nombreUsuario: string,
     calle: string,
     numeroExterior: string,
-    numeroInterior: string,
     colonia: string,
     codigoPostal: string,
     idPais: number,
     idEstado: number,
     idMunicipio: number,
-    email: string,
-    telefonoOficina: string,
-    extension: string,
-    telefonoCasa: string,
-    telefonoCelular: string,
-    idZona: number,
-    idPlaza: number,
-    idGerencia: number,
-    idEstatus: number
+    imagen: string,
+    estatus: number
 }
 
 

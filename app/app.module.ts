@@ -27,6 +27,7 @@ import { routing } from './app.routes'
 
 import { EstadoService } from './shared/services/estado.service'
 import { UsuarioService } from './shared/services/usuario.service'
+import { PerfilUsuarioService} from './shared/services/perfilusuario.service' 
 import { ConfigService} from './shared/utils/config.service' 
 import { ItemsService} from './shared/utils/items.service'
 import { MappingService} from './shared/utils/mapping.service'
@@ -61,6 +62,7 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         ConfigService,
         EstadoService,
         UsuarioService,
+        PerfilUsuarioService,
         ItemsService,
         MappingService,
         NotificationService,
