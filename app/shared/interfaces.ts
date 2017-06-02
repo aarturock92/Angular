@@ -23,6 +23,17 @@ export interface IUsuario{
     estatus: number
 }
 
+export interface IMovil{
+    id:number,
+    idRegion: number,
+    idPlazaImmex: number,
+    marca: string,
+    modelo: string, 
+    numeroTelefono: string,
+    numeroSerie: string, 
+    imei: string, 
+    idEstatus: number
+}
 
 export interface IEstado{
     id: number,
