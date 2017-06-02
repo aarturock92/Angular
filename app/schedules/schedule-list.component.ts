@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, Output, trigger, state, style, animate, transition} from '@angular/core'
+import { Component, OnInit, ViewChild, Input, Output, trigger, state, style,animate, transition }  from '@angular/core'
 
 import { ModalDirective} from 'ng2-bootstrap'
 import { EstadoService } from '../shared/services/estado.service'
@@ -13,7 +13,7 @@ import { IEstado, Pagination, PaginatedResult} from '../shared/interfaces'
     moduleId: module.id,
     selector: 'app-schedules',
     templateUrl: 'schedule-list.component.html',
-    animations: [
+        animations: [
         trigger('flyInOut', [
             state('in', style({ opacity: 1, transform: 'translateX(0)'})),
             transition('void => *', [
