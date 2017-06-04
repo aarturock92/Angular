@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, trigger, state, style,animate, transition }  from '@angular/core'
 
-import { ModalDirective } from 'ng2-bootstrap'
+// import { ModalDirective } from 'ng2-bootstrap'
 import { UsuarioService } from '../shared/services/usuario.service'
 import { ItemsService} from '../shared/utils/items.service'
 import { NotificationService } from '../shared/utils/notification.service'
@@ -33,21 +33,17 @@ import { IUsuario, Pagination, PaginatedResult } from '../shared/interfaces'
 })
 
 export class UserListComponent{
-    apiHost: string
-    usuarios: IUsuario[]
+    public usuarios: IUsuario[]
+    public itemsPerPage: number = 10
+    public totalItems: number = 0
+    public currentPage: number = 0
 
+    public usuarioDetails: IUsuario
+    public selectedUsuarioId: number
+    public selectedUsuarioLoaded: boolean= false
 
-    public itemsPerPage: number = 10;
-    public totalItems: number = 0;
-    public currentPage: number = 0;
-
-    @ViewChild('modal')
-    modal: any
-
-    usuarioDetails: IUsuario
-    selectedUsuarioId: number
-    selectedUsuarioLoaded: boolean= false
-
+    // @ViewChild('modal')
+    // modal: any
     constructor(private usuarioService: UsuarioService,
                 private itemsService: ItemsService,
                 private notificationService: NotificationService,
@@ -69,7 +65,7 @@ export class UserListComponent{
     }
 
     removeUsuario(usuario: IUsuario){
-        this.notificationService.openConfirmationDialog('Are yo sure you want to delete this user?', 
+        this.notificationService.openConfirmationDialog('Are you sure you want to delete this user?', 
                 () => {
                     this.usuarioService.deleteUser(usuario.id)
                         .subscribe(() => {
