@@ -41,7 +41,6 @@ var UserEditComponent = (function () {
         this.usuarioService.getUsuarioDetails(this.idUser)
             .subscribe(function (user) {
             _this.user = _this.itemsService.getSerialized(user);
-            console.log("this.user", _this.user);
             _this.userLoaded = true;
             _this.onChangeSelectEstado(_this.user.idEstado);
         }, function (error) {

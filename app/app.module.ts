@@ -28,6 +28,7 @@ import { MovilListComponent } from './movil/movil-list.component'
 
 import { routing } from './app.routes'
 
+import { MovilService } from './shared/services/movil.service'
 import { EstadoService } from './shared/services/estado.service'
 import { UsuarioService } from './shared/services/usuario.service'
 import { PerfilUsuarioService} from './shared/services/perfilusuario.service' 
@@ -69,6 +70,7 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         ConfigService,
         EstadoService,
         UsuarioService,
+        MovilService,
         PerfilUsuarioService,
         ItemsService,
         MappingService,

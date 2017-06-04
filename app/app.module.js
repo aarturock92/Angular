@@ -28,7 +28,9 @@ var schedule_list_component_1 = require('./schedules/schedule-list.component');
 var user_list_component_1 = require('./users/user-list.component');
 var usuario_create_component_1 = require('./users/usuario-create.component');
 var user_edit_component_1 = require('./users/user-edit.component');
+var movil_list_component_1 = require('./movil/movil-list.component');
 var app_routes_1 = require('./app.routes');
+var movil_service_1 = require('./shared/services/movil.service');
 var estado_service_1 = require('./shared/services/estado.service');
 var usuario_service_1 = require('./shared/services/usuario.service');
 var perfilusuario_service_1 = require('./shared/services/perfilusuario.service');
@@ -63,12 +65,14 @@ var AppModule = (function () {
                 schedule_list_component_1.ScheduleListComponent,
                 user_list_component_1.UserListComponent,
                 usuario_create_component_1.UsuarioCrearComponent,
-                user_edit_component_1.UserEditComponent
+                user_edit_component_1.UserEditComponent,
+                movil_list_component_1.MovilListComponent
             ],
             providers: [
                 config_service_1.ConfigService,
                 estado_service_1.EstadoService,
                 usuario_service_1.UsuarioService,
+                movil_service_1.MovilService,
                 perfilusuario_service_1.PerfilUsuarioService,
                 items_service_1.ItemsService,
                 mapping_service_1.MappingService,

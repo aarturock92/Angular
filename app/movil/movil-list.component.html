@@ -26,12 +26,13 @@
                 <td> {{movil.numeroTelefono}}</td>
                 <td> {{movil.numeroSerie}}</td>
                 <td> {{movil.imei}}</td>
-                <td>
-                    <button class="btn btn-primary" (click)="viewEstadoDetails(estado.id)">
+                 <td>
+                    <button class="btn btn-primary" [routerLink]="['/movil',movil.id,'edit']">
+                        Editar
                     </button>
                 </td>
                 <td>
-                    <button class="btn btn-warning">
+                    <button class="btn btn-danger" (click)="removeMovil(movil)">
                         Eliminar
                     </button>
                 </td>

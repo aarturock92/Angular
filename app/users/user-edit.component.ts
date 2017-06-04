@@ -51,7 +51,6 @@ export class UserEditComponent implements OnInit{
         this.usuarioService.getUsuarioDetails(this.idUser)
             .subscribe((user :IUsuario) => {
                 this.user = this.itemsService.getSerialized<IUsuario>(user)
-                console.log("this.user",this.user);
                 this.userLoaded = true
                 this.onChangeSelectEstado(this.user.idEstado)
             },

@@ -9,11 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+// import { ModalDirective } from 'ng2-bootstrap'
 var usuario_service_1 = require('../shared/services/usuario.service');
 var items_service_1 = require('../shared/utils/items.service');
 var notification_service_1 = require('../shared/utils/notification.service');
 var config_service_1 = require('../shared/utils/config.service');
 var UserListComponent = (function () {
+    // @ViewChild('modal')
+    // modal: any
     function UserListComponent(usuarioService, itemsService, notificationService, configService) {
         this.usuarioService = usuarioService;
         this.itemsService = itemsService;
@@ -39,7 +42,7 @@ var UserListComponent = (function () {
     };
     UserListComponent.prototype.removeUsuario = function (usuario) {
         var _this = this;
-        this.notificationService.openConfirmationDialog('Are yo sure you want to delete this user?', function () {
+        this.notificationService.openConfirmationDialog('Are you sure you want to delete this user?', function () {
             _this.usuarioService.deleteUser(usuario.id)
                 .subscribe(function () {
                 _this.itemsService.removeItemFromArray(_this.usuarios, usuario);
@@ -49,10 +52,6 @@ var UserListComponent = (function () {
             });
         });
     };
-    __decorate([
-        core_1.ViewChild('modal'), 
-        __metadata('design:type', Object)
-    ], UserListComponent.prototype, "modal", void 0);
     UserListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
