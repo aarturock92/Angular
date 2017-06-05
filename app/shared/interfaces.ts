@@ -1,3 +1,8 @@
+export interface IRegion{
+    
+}
+
+
 export interface IUsuario{
     id: number,
     idPerfilUsuario: number, 

@@ -24,6 +24,8 @@ var MovilEditComponent = (function () {
     }
     MovilEditComponent.prototype.ngOnInit = function () {
         this.idMovil = +this.route.snapshot.params['id'];
+        console.log('this.idMovil', this.idMovil);
+        this.loadMovilDetails();
     };
     MovilEditComponent.prototype.loadMovilDetails = function () {
         var _this = this;
@@ -31,6 +33,7 @@ var MovilEditComponent = (function () {
             .subscribe(function (movil) {
             _this.movil = _this.itemsService.getSerialized(movil);
             _this.movilLoaded = true;
+            console.log('this.movil', _this.movil);
         }, function (error) {
             _this.notificationService.printErrorMessage('Failed to load movil ' + error);
         });

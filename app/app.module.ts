@@ -25,6 +25,7 @@ import { UsuarioCrearComponent} from './users/usuario-create.component'
 import { UserEditComponent } from './users/user-edit.component' 
 
 import { MovilListComponent } from './movil/movil-list.component'
+import { MovilEditComponent } from './movil/movil-edit.component'
 
 import { routing } from './app.routes'
 
@@ -63,7 +64,8 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         UsuarioCrearComponent,
         UserEditComponent,
 
-        MovilListComponent
+        MovilListComponent,
+        MovilEditComponent
 
     ],
     providers: [

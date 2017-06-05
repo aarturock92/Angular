@@ -29,6 +29,7 @@ var user_list_component_1 = require('./users/user-list.component');
 var usuario_create_component_1 = require('./users/usuario-create.component');
 var user_edit_component_1 = require('./users/user-edit.component');
 var movil_list_component_1 = require('./movil/movil-list.component');
+var movil_edit_component_1 = require('./movil/movil-edit.component');
 var app_routes_1 = require('./app.routes');
 var movil_service_1 = require('./shared/services/movil.service');
 var estado_service_1 = require('./shared/services/estado.service');
@@ -66,7 +67,8 @@ var AppModule = (function () {
                 user_list_component_1.UserListComponent,
                 usuario_create_component_1.UsuarioCrearComponent,
                 user_edit_component_1.UserEditComponent,
-                movil_list_component_1.MovilListComponent
+                movil_list_component_1.MovilListComponent,
+                movil_edit_component_1.MovilEditComponent
             ],
             providers: [
                 config_service_1.ConfigService,

@@ -28,6 +28,8 @@ export class MovilEditComponent implements OnInit{
 
     ngOnInit(){
         this.idMovil = +this.route.snapshot.params['id']
+        console.log('this.idMovil', this.idMovil);
+        this.loadMovilDetails()
     }
 
 
@@ -36,6 +38,7 @@ export class MovilEditComponent implements OnInit{
             .subscribe((movil: IMovil) => {
                 this.movil = this.itemsService.getSerialized<IMovil>(movil)
                 this.movilLoaded = true
+                console.log('this.movil', this.movil)
             },
             error => {
                 this.notificationService.printErrorMessage('Failed to load movil '+error)
