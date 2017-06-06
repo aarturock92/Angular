@@ -29,6 +29,8 @@ import { MovilEditComponent } from './movil/movil-edit.component'
 
 import { routing } from './app.routes'
 
+import { RegionService } from './shared/services/region.service'
+import { PlazaImmexService } from './shared/services/plazaimmex.service'
 import { MovilService } from './shared/services/movil.service'
 import { EstadoService } from './shared/services/estado.service'
 import { UsuarioService } from './shared/services/usuario.service'
@@ -70,6 +72,8 @@ import { AuthenticationService } from './shared/utils/authentication.service'
     ],
     providers: [
         ConfigService,
+        PlazaImmexService,
+        RegionService,
         EstadoService,
         UsuarioService,
         MovilService,

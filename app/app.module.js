@@ -31,6 +31,8 @@ var user_edit_component_1 = require('./users/user-edit.component');
 var movil_list_component_1 = require('./movil/movil-list.component');
 var movil_edit_component_1 = require('./movil/movil-edit.component');
 var app_routes_1 = require('./app.routes');
+var region_service_1 = require('./shared/services/region.service');
+var plazaimmex_service_1 = require('./shared/services/plazaimmex.service');
 var movil_service_1 = require('./shared/services/movil.service');
 var estado_service_1 = require('./shared/services/estado.service');
 var usuario_service_1 = require('./shared/services/usuario.service');
@@ -72,6 +74,8 @@ var AppModule = (function () {
             ],
             providers: [
                 config_service_1.ConfigService,
+                plazaimmex_service_1.PlazaImmexService,
+                region_service_1.RegionService,
                 estado_service_1.EstadoService,
                 usuario_service_1.UsuarioService,
                 movil_service_1.MovilService,

@@ -1,4 +1,23 @@
 export interface IRegion{
+    id:number,
+    idNegocio: string,
+    claveRegion: string,
+    nombreRegion: string,
+    estatus: number,
+    plazasImmex: IPlazaImmex[]
+}
+
+export interface IPlazaImmex{
+    id:number,
+    regionId: number,
+    crPlazaImmex: string,
+    nombrePlazaImmex: string,
+    estatus: number,
+    plazasOxxo: IPlazaOxxo[]
+}
+
+
+export interface IPlazaOxxo{
     
 }
 

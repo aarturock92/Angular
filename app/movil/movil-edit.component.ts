@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core' 
 import { Router, ActivatedRoute } from '@angular/router'
+import { NgForm } from '@angular/forms'
 
-import {MovilService } from '../shared/services/movil.service'
+import { MovilService } from '../shared/services/movil.service'
+import { RegionService } from '../shared/services/region.service'
 
 import { ItemsService } from '../shared/utils/items.service'
 import { NotificationService } from '../shared/utils/notification.service'
 import { ConfigService } from '../shared/utils/config.service'
 import { MappingService } from '../shared/utils/mapping.service'
-import { IMovil } from '../shared/interfaces'
+import { IMovil, IRegion, IPlazaImmex } from '../shared/interfaces'
 
 @Component({
     moduleId: module.id,
@@ -15,20 +17,26 @@ import { IMovil } from '../shared/interfaces'
     templateUrl: 'movil-edit.component.html'
 })
 export class MovilEditComponent implements OnInit{
-    private movil: IMovil
+    public movil: IMovil
     private idMovil: number
+    public regiones: IRegion[]
+    public plazasImmex: IPlazaImmex[]
 
-    private movilLoaded: boolean = false
+    public movilLoaded: boolean = false
+    public regionesLoaded: boolean = false
+    public plazasImmexLoaded: boolean = false
 
     constructor(private route: ActivatedRoute,
                 private router:Router,
                 private itemsService: ItemsService,
                 private notificationService: NotificationService,
-                private movilService: MovilService){}
+                private movilService: MovilService,
+                private regionService: RegionService){}
 
     ngOnInit(){
         this.idMovil = +this.route.snapshot.params['id']
-        console.log('this.idMovil', this.idMovil);
+        console.log("this.idMovil",this.idMovil);
+        this.loadRegiones()
         this.loadMovilDetails()
     }
 
@@ -38,10 +46,34 @@ export class MovilEditComponent implements OnInit{
             .subscribe((movil: IMovil) => {
                 this.movil = this.itemsService.getSerialized<IMovil>(movil)
                 this.movilLoaded = true
-                console.log('this.movil', this.movil)
+                console.log("this.movil",this.movil)
+                this.onChangeSelectRegion(this.movil.idRegion)
             },
             error => {
                 this.notificationService.printErrorMessage('Failed to load movil '+error)
+            })
+    }
+
+    loadRegiones(){
+        this.regionService.getRegionesByEstatus(false, 1)
+            .subscribe((res: IRegion[]) => {
+                this.regiones = res
+                this.regionesLoaded = true
+                console.log("this.regiones",this.regiones);
+            },
+            error => {
+                this.notificationService.printErrorMessage("Error al cargar las Regiones " + error)
+            })           
+    }
+
+    onChangeSelectRegion(idRegion: number){
+        this.regionService.getRegionDetails(idRegion, true)
+            .subscribe((res: IRegion) => {
+                this.plazasImmex = res.plazasImmex
+                this.plazasImmexLoaded = true
+            },
+            error => {
+                this.notificationService.printErrorMessage("Error al cargar las Plazas Immex "+error)
             })
     }
 }
