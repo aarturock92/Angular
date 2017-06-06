@@ -1,6 +1,4 @@
-<form #editScheduleForm="ngForm" *ngIf="movilLoaded&&regionesLoaded&&plazasImmexLoaded" novalidate>
-
-</form>
+<form #editScheduleForm="ngForm" *ngIf="movilLoaded&&regionesLoaded" novalidate>
 <div role="content">
     <br>
     <br>
@@ -18,7 +16,7 @@
                     <div class="col-md-3">
                         <label class="control-label">Región</label>
                         <select class="form-control" [(ngModel)]="movil.idRegion" name="idRegion">
-                             <option *ngFor="let region of regiones" [value]="region.id" [selected]="region.id === movil.idRegion">{{region.nombreRegion}}</option>
+                            <option *ngFor="let region of regiones" [value]="region.id" [selected]="region.id === movil.idRegion">{{region.nombreRegion}}</option>
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -33,23 +31,23 @@
             <div class="col-md-12">
                 <div class="form-group col-sm-3">
                     <label class="control-label col-sm-12">Marca </label>
-                    <input name="ctl00$MainContentMP$TxtMarca" type="text" maxlength="50" id="MainContentMP_TxtMarca" class="form-control col-sm-12" placeholder="Marca">
+                    <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.marca" name="marca" #creator="ngModel" required pattern=".{5,50}">
                 </div>
                 <div class="form-group col-sm-3">
                     <label class="control-label col-sm-12">Modelo <span class="req"></span></label>
-                    <input name="ctl00$MainContentMP$TxtModelo" type="text" maxlength="50" id="MainContentMP_TxtModelo" class="form-control col-sm-12" placeholder="Modelo">
+                    <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.modelo" name="modelo" #creator="ngModel" required pattern=".{5,50}">
                 </div>
                 <div class="form-group col-sm-3">
                     <label class="control-label col-sm-12">Número de teléfono <span class="req"></span></label>
-                    <input name="ctl00$MainContentMP$TxtTelefono" type="text" maxlength="10" id="MainContentMP_TxtTelefono" class="form-control col-sm-12" placeholder="(999) 999-9999">
+                    <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.numeroTelefono" name="numeroTelefono" #creator="ngModel" required pattern=".{5,50}">
                 </div>
                 <div class="form-group col-sm-3">
                     <label class="control-label col-sm-12">Número de Serie <span class="req"></span></label>
-                    <input name="ctl00$MainContentMP$TxtNumeroSerie" type="text" maxlength="50" id="MainContentMP_TxtNumeroSerie" class="form-control col-sm-12" placeholder="1234567890">
+                    <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.numeroSerie" name="numeroSerie" #creator="ngModel" required pattern=".{5,50}">
                 </div>
                 <div class="form-group col-sm-3">
                     <label class="control-label col-sm-12">IMEI <span class="req"></span></label>
-                    <input name="ctl00$MainContentMP$TxtImei" type="text" maxlength="15" id="MainContentMP_TxtImei" class="form-control col-sm-12" placeholder="IMEI">
+                    <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.imei" name="imei" #creator="ngModel" required pattern=".{5,50}">
                 </div>
             </div>
         </div>
@@ -77,3 +75,5 @@
         <hr>
     </div>
 </div>
+
+</form>

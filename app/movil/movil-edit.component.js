@@ -28,7 +28,6 @@ var MovilEditComponent = (function () {
     }
     MovilEditComponent.prototype.ngOnInit = function () {
         this.idMovil = +this.route.snapshot.params['id'];
-        console.log("this.idMovil", this.idMovil);
         this.loadRegiones();
         this.loadMovilDetails();
     };
@@ -36,9 +35,9 @@ var MovilEditComponent = (function () {
         var _this = this;
         this.movilService.getMovilDetails(this.idMovil)
             .subscribe(function (movil) {
+            debugger;
             _this.movil = _this.itemsService.getSerialized(movil);
             _this.movilLoaded = true;
-            console.log("this.movil", _this.movil);
             _this.onChangeSelectRegion(_this.movil.idRegion);
         }, function (error) {
             _this.notificationService.printErrorMessage('Failed to load movil ' + error);
@@ -50,7 +49,6 @@ var MovilEditComponent = (function () {
             .subscribe(function (res) {
             _this.regiones = res;
             _this.regionesLoaded = true;
-            console.log("this.regiones", _this.regiones);
         }, function (error) {
             _this.notificationService.printErrorMessage("Error al cargar las Regiones " + error);
         });

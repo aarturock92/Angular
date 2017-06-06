@@ -17,14 +17,14 @@ import { IMovil, IRegion, IPlazaImmex } from '../shared/interfaces'
     templateUrl: 'movil-edit.component.html'
 })
 export class MovilEditComponent implements OnInit{
-    public movil: IMovil
+    private movil: IMovil
     private idMovil: number
     public regiones: IRegion[]
     public plazasImmex: IPlazaImmex[]
 
-    public movilLoaded: boolean = false
-    public regionesLoaded: boolean = false
-    public plazasImmexLoaded: boolean = false
+    movilLoaded: boolean = false
+    regionesLoaded: boolean = false
+    plazasImmexLoaded: boolean = false
 
     constructor(private route: ActivatedRoute,
                 private router:Router,
@@ -35,18 +35,17 @@ export class MovilEditComponent implements OnInit{
 
     ngOnInit(){
         this.idMovil = +this.route.snapshot.params['id']
-        console.log("this.idMovil",this.idMovil);
-        this.loadRegiones()
-        this.loadMovilDetails()
+        this.loadRegiones();
+        this.loadMovilDetails()        
     }
 
 
     loadMovilDetails(){
         this.movilService.getMovilDetails(this.idMovil)
             .subscribe((movil: IMovil) => {
+                debugger;
                 this.movil = this.itemsService.getSerialized<IMovil>(movil)
                 this.movilLoaded = true
-                console.log("this.movil",this.movil)
                 this.onChangeSelectRegion(this.movil.idRegion)
             },
             error => {
@@ -59,7 +58,6 @@ export class MovilEditComponent implements OnInit{
             .subscribe((res: IRegion[]) => {
                 this.regiones = res
                 this.regionesLoaded = true
-                console.log("this.regiones",this.regiones);
             },
             error => {
                 this.notificationService.printErrorMessage("Error al cargar las Regiones " + error)
