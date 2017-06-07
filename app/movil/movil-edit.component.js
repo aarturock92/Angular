@@ -25,6 +25,11 @@ var MovilEditComponent = (function () {
         this.movilLoaded = false;
         this.regionesLoaded = false;
         this.plazasImmexLoaded = false;
+        this.OnColor = 'success';
+        this.OffColor = 'warning';
+        this.OnText = 'Activo';
+        this.OffText = 'Inactivo';
+        this.EstatusMovil = false;
     }
     MovilEditComponent.prototype.ngOnInit = function () {
         this.idMovil = +this.route.snapshot.params['id'];
@@ -35,9 +40,9 @@ var MovilEditComponent = (function () {
         var _this = this;
         this.movilService.getMovilDetails(this.idMovil)
             .subscribe(function (movil) {
-            debugger;
             _this.movil = _this.itemsService.getSerialized(movil);
             _this.movilLoaded = true;
+            _this.loadControlEstatus(_this.movil.idEstatus);
             _this.onChangeSelectRegion(_this.movil.idRegion);
         }, function (error) {
             _this.notificationService.printErrorMessage('Failed to load movil ' + error);
@@ -62,6 +67,16 @@ var MovilEditComponent = (function () {
         }, function (error) {
             _this.notificationService.printErrorMessage("Error al cargar las Plazas Immex " + error);
         });
+    };
+    MovilEditComponent.prototype.loadControlEstatus = function (idEstatus) {
+        switch (idEstatus) {
+            case 1:
+                this.EstatusMovil = true;
+                break;
+            case 2:
+                this.EstatusMovil = false;
+                break;
+        }
     };
     MovilEditComponent = __decorate([
         core_1.Component({

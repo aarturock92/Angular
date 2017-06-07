@@ -9,5 +9,5 @@
     "removeComments": false,
     "noImplicitAny": false,
     "skipLibCheck": true
-  }
+      }
 }

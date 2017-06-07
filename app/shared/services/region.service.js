@@ -40,6 +40,7 @@ var RegionService = (function (_super) {
     RegionService.prototype.getRegionDetails = function (id, incluirPlazasImmex) {
         return this.http.get(this._baseUrl + this._uriRegion + '/' + id + '?incluirPlazasImmex=' + incluirPlazasImmex, { headers: this.authenticationService.getHeaders() })
             .map(function (res) {
+            return res.json();
         })
             .catch(this.handleError);
     };

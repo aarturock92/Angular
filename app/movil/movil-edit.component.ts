@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core' 
 import { Router, ActivatedRoute } from '@angular/router'
 import { NgForm } from '@angular/forms'
-
 import { MovilService } from '../shared/services/movil.service'
 import { RegionService } from '../shared/services/region.service'
 
@@ -26,6 +25,12 @@ export class MovilEditComponent implements OnInit{
     regionesLoaded: boolean = false
     plazasImmexLoaded: boolean = false
 
+    public OnColor: string = 'success' 
+    public OffColor: string = 'warning'
+    public OnText: string = 'Activo'
+    public OffText: string = 'Inactivo'
+    public EstatusMovil: boolean = false
+
     constructor(private route: ActivatedRoute,
                 private router:Router,
                 private itemsService: ItemsService,
@@ -43,9 +48,9 @@ export class MovilEditComponent implements OnInit{
     loadMovilDetails(){
         this.movilService.getMovilDetails(this.idMovil)
             .subscribe((movil: IMovil) => {
-                debugger;
                 this.movil = this.itemsService.getSerialized<IMovil>(movil)
                 this.movilLoaded = true
+                this.loadControlEstatus(this.movil.idEstatus)
                 this.onChangeSelectRegion(this.movil.idRegion)
             },
             error => {
@@ -73,6 +78,18 @@ export class MovilEditComponent implements OnInit{
             error => {
                 this.notificationService.printErrorMessage("Error al cargar las Plazas Immex "+error)
             })
+    }
+
+
+    loadControlEstatus(idEstatus: number){
+        switch(idEstatus){
+            case 1:
+                this.EstatusMovil = true
+                break;
+            case 2:
+                this.EstatusMovil = false
+                break;
+        }
     }
 }
 

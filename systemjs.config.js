@@ -4,6 +4,7 @@
  */
 (function (global) {
     System.config({
+        defaultJSExtensions: true,
         paths: {
             // paths serve as alias
             'npm:': 'node_modules/'
@@ -27,6 +28,7 @@
             'jquery': 'npm:jquery/',
             'lodash': 'npm:lodash/lodash.js',
             'moment': 'npm:moment/',
+            'jw-bootstrap-switch-ng2': 'npm:jw-bootstrap-switch-ng2',
             'ng2-bootstrap': 'npm:ng2-bootstrap',
             'symbol-observable': 'npm:symbol-observable'
         },
@@ -44,8 +46,11 @@
                 defaultExtension: 'js'
             },
             'moment': { main: 'moment.js', defaultExtension: 'js' },
-            // 'ng2-bootstrap': { main: 'ng2-bootstrap.js', defaultExtension: 'js' },
             'ng2-bootstrap': { format: 'cjs', main: 'bundles/ngx-bootstrap.umd.js', defaultExtension: 'js' },
+            'jw-bootstrap-switch-ng2': {
+                main: './dist/index.js',
+                defaultExtension: 'js'
+            },
             'symbol-observable': { main: 'index.js', defaultExtension: 'js' }
         }
     });

@@ -39,7 +39,7 @@ export class RegionService extends DataService{
         return this.http.get(this._baseUrl + this._uriRegion + '/'+id + '?incluirPlazasImmex='+ incluirPlazasImmex, 
                             { headers: this.authenticationService.getHeaders() })
                    .map((res: Response) => {
-
+                        return res.json()
                    })
                    .catch(this.handleError)
     }
