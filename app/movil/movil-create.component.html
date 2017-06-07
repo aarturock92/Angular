@@ -1,4 +1,4 @@
-<form #createMovilForm="ngForm" novalidate>
+<form #createMovilForm="ngForm" (ngSubmit)="saveEvent(newEventForm.value)" autocomplete="off"  novalidate>
 <div role="content">
     <br>
     <br>
@@ -11,8 +11,11 @@
             </div>
         </div>
         <hr>
-        <!--<div class="alert alert-danger" [hidden]="editScheduleForm.form.valid">
-            <ul *ngIf="creator.dirty && !creator.valid">
+        <div class="alert alert-danger" [hidden]="createMovilForm.form.valid">
+            <ul>
+                <h2>Hola Arturo</h2>
+            </ul>
+            <!--<ul *ngIf="creator.dirty && !creator.valid">
                 <li>Creator name is required <i>(5-50 characters)</i></li>
             </ul>
             <ul *ngIf="title.dirty && !title.valid">
@@ -25,8 +28,8 @@
             </ul>
             <ul *ngIf="location.dirty && !location.valid">
                 <li *ngIf="location.errors.required">Location is required</li>
-            </ul>
-        </div>-->
+            </ul>-->
+        </div>
 
         <div class="row">
             <div class="col-md-12">
@@ -34,13 +37,13 @@
                     <div class="col-md-3">
                         <label class="control-label">Región</label>
                         <select class="form-control" [(ngModel)]="movil.idRegion" name="idRegion" (change)="onChangeSelectRegion($event.target.value)">
-                            <option *ngFor="let region of regiones" [value]="region.id" [selected]="region.id === movil.idRegion">{{region.nombreRegion}}</option>
+                            <!--<option *ngFor="let region of regiones" [value]="region.id" [selected]="region.id === movil.idRegion">{{region.nombreRegion}}</option>-->
                         </select>
                     </div>
                     <div class="col-md-3">
                         <label class="control-label">Plaza IMMEX</label>
                         <select class="form-control" [(ngModel)]="movil.idPlazaImmex" name="idPlazaImmex">
-                            <option *ngFor="let plazaImmex of plazasImmex" [value]="plazaImmex.id" [selected]="plazaImmex.id === movil.idPlazaImmex">{{plazaImmex.nombrePlazaImmex}}</option>
+                            <!--<option *ngFor="let plazaImmex of plazasImmex" [value]="plazaImmex.id" [selected]="plazaImmex.id === movil.idPlazaImmex">{{plazaImmex.nombrePlazaImmex}}</option>-->
                         </select>
                     </div>
                 </div>
@@ -92,7 +95,9 @@
                                 <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> 
                                 Atras 
                             </button> 
-                            <input type="submit"  value="Guardar" onclick="" id="MainContentMP_BtnEditar" class="btn tm btn-success">
+                            <button type="submit" [disabled]="createMovilForm.invalid" class="btn tm btn-success">
+                                Guardar
+                            </button>
                         </div>
                     </div>
                 </div>

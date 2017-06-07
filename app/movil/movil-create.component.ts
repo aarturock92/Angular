@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { NgForm } from '@angular/forms'
+import { IMovil } from '../shared/interfaces'
 
 @Component({
     moduleId: module.id,
@@ -8,9 +9,12 @@ import { NgForm } from '@angular/forms'
     templateUrl: 'movil-create.component.html'
 })
 export class MovilCreateComponent implements OnInit{
-    
+    public movil:any = { }
+
     constructor(private route: ActivatedRoute,
-                private router:Router){}
+                private router:Router){
+
+                }
 
     ngOnInit(){
 

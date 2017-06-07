@@ -14,6 +14,7 @@ var MovilCreateComponent = (function () {
     function MovilCreateComponent(route, router) {
         this.route = route;
         this.router = router;
+        this.movil = {};
     }
     MovilCreateComponent.prototype.ngOnInit = function () {
     };
