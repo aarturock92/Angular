@@ -15,13 +15,14 @@
                 <div class="form-group">
                     <div class="col-md-3">
                         <label class="control-label">Región</label>
-                        <select class="form-control" [(ngModel)]="movil.idRegion" name="idRegion">
+                        <select class="form-control" [(ngModel)]="movil.idRegion" name="idRegion" (change)="onChangeSelectRegion($event.target.value)">
                             <option *ngFor="let region of regiones" [value]="region.id" [selected]="region.id === movil.idRegion">{{region.nombreRegion}}</option>
                         </select>
                     </div>
                     <div class="col-md-3">
                         <label class="control-label">Plaza IMMEX</label>
-                        <select class="form-control" name="idPlazaImmex">
+                        <select class="form-control" [(ngModel)]="movil.idPlazaImmex" name="idPlazaImmex">
+                            <option *ngFor="let plazaImmex of plazasImmex" [value]="plazaImmex.id" [selected]="plazaImmex.id === movil.idPlazaImmex">{{plazaImmex.nombrePlazaImmex}}</option>
                         </select>
                     </div>
                 </div>
