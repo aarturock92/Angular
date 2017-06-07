@@ -29,8 +29,7 @@ var schedule_list_component_1 = require('./schedules/schedule-list.component');
 var user_list_component_1 = require('./users/user-list.component');
 var usuario_create_component_1 = require('./users/usuario-create.component');
 var user_edit_component_1 = require('./users/user-edit.component');
-var movil_list_component_1 = require('./movil/movil-list.component');
-var movil_edit_component_1 = require('./movil/movil-edit.component');
+var index_1 = require('./movil/index');
 var app_routes_1 = require('./app.routes');
 var region_service_1 = require('./shared/services/region.service');
 var plazaimmex_service_1 = require('./shared/services/plazaimmex.service');
@@ -71,8 +70,9 @@ var AppModule = (function () {
                 user_list_component_1.UserListComponent,
                 usuario_create_component_1.UsuarioCrearComponent,
                 user_edit_component_1.UserEditComponent,
-                movil_list_component_1.MovilListComponent,
-                movil_edit_component_1.MovilEditComponent
+                index_1.MovilListComponent,
+                index_1.MovilEditComponent,
+                index_1.MovilCreateComponent
             ],
             providers: [
                 config_service_1.ConfigService,

@@ -38,6 +38,18 @@ var MovilListComponent = (function () {
         this.currentPage = event.page - 1;
         this.loadMoviles();
     };
+    MovilListComponent.prototype.removeMovil = function (movil) {
+        var _this = this;
+        this.notificationService.openConfirmationDialog("¿Ésta seguro de eliminar el movil con el número de telefono: " + movil.numeroTelefono, function () {
+            _this.movilService.deleteMovil(movil.id)
+                .subscribe(function () {
+                _this.itemsService.removeItemFromArray(_this.moviles, movil);
+                _this.notificationService.printSuccessMessage('El movil con el número telefonico ' + movil.numeroTelefono + ' ha sido eliminado');
+            }, function (error) {
+                _this.notificationService.printErrorMessage('Ocurrio un error al eliminar el movil ' + error);
+            });
+        });
+    };
     MovilListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

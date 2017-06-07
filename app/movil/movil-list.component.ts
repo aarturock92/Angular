@@ -63,5 +63,17 @@ export class MovilListComponent implements OnInit{
         this.loadMoviles()
     }
 
+    removeMovil(movil: IMovil){
+        this.notificationService.openConfirmationDialog("¿Ésta seguro de eliminar el movil con el número de telefono: " + movil.numeroTelefono, () => {
+             this.movilService.deleteMovil(movil.id)
+                        .subscribe(() => {
+                            this.itemsService.removeItemFromArray<IMovil>(this.moviles, movil)
+                            this.notificationService.printSuccessMessage('El movil con el número telefonico ' + movil.numeroTelefono + ' ha sido eliminado')
+                        },
+                        error => {
+                            this.notificationService.printErrorMessage('Ocurrio un error al eliminar el movil '+ error)
+                        })  
+        })
+    }
 
 }

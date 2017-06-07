@@ -42,8 +42,6 @@ export class UserListComponent{
     public selectedUsuarioId: number
     public selectedUsuarioLoaded: boolean= false
 
-    // @ViewChild('modal')
-    // modal: any
     constructor(private usuarioService: UsuarioService,
                 private itemsService: ItemsService,
                 private notificationService: NotificationService,

@@ -15,8 +15,6 @@ var items_service_1 = require('../shared/utils/items.service');
 var notification_service_1 = require('../shared/utils/notification.service');
 var config_service_1 = require('../shared/utils/config.service');
 var UserListComponent = (function () {
-    // @ViewChild('modal')
-    // modal: any
     function UserListComponent(usuarioService, itemsService, notificationService, configService) {
         this.usuarioService = usuarioService;
         this.itemsService = itemsService;
