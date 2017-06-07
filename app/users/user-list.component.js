@@ -9,11 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-// import { ModalDirective } from 'ng2-bootstrap'
-var usuario_service_1 = require('../shared/services/usuario.service');
-var items_service_1 = require('../shared/utils/items.service');
-var notification_service_1 = require('../shared/utils/notification.service');
-var config_service_1 = require('../shared/utils/config.service');
+var index_1 = require('../shared/services/index');
+var index_2 = require('../shared/utils/index');
 var UserListComponent = (function () {
     function UserListComponent(usuarioService, itemsService, notificationService, configService) {
         this.usuarioService = usuarioService;
@@ -74,7 +71,7 @@ var UserListComponent = (function () {
                 ])
             ]
         }), 
-        __metadata('design:paramtypes', [usuario_service_1.UsuarioService, items_service_1.ItemsService, notification_service_1.NotificationService, config_service_1.ConfigService])
+        __metadata('design:paramtypes', [index_1.UsuarioService, index_2.ItemsService, index_2.NotificationService, index_2.ConfigService])
     ], UserListComponent);
     return UserListComponent;
 }());

@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild }  from '@angular/core'
 import { NgForm } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router'
-
 import { TabsetComponent  } from 'ng2-bootstrap'
-
 import { PerfilUsuarioService } from '../shared/services/perfilusuario.service'
 
 @Component({

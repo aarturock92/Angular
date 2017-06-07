@@ -9,10 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
 var MovilCreateComponent = (function () {
-    function MovilCreateComponent() {
+    function MovilCreateComponent(route, router) {
+        this.route = route;
+        this.router = router;
     }
     MovilCreateComponent.prototype.ngOnInit = function () {
+    };
+    MovilCreateComponent.prototype.back = function () {
+        this.router.navigate(['/movil']);
     };
     MovilCreateComponent = __decorate([
         core_1.Component({
@@ -20,7 +26,7 @@ var MovilCreateComponent = (function () {
             selector: 'app-movil-create',
             templateUrl: 'movil-create.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router])
     ], MovilCreateComponent);
     return MovilCreateComponent;
 }());

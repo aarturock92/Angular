@@ -2,15 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { NgForm } from '@angular/forms'
 import { TabsetComponent  } from 'ng2-bootstrap'
-
-import { UsuarioService } from '../shared/services/usuario.service'
-import { EstadoService } from '../shared/services/estado.service'
-import { PerfilUsuarioService } from '../shared/services/perfilusuario.service'
-
-import { ItemsService } from '../shared/utils/items.service'
-import { NotificationService } from '../shared/utils/notification.service'
-import { ConfigService } from '../shared/utils/config.service'
-import { MappingService } from '../shared/utils/mapping.service'
+import { UsuarioService, EstadoService, PerfilUsuarioService } from '../shared/services/index'
+import { ItemsService, NotificationService, ConfigService, MappingService } from '../shared/utils/index'
 import { IUsuario, IEstado, IMunicipio, IPerfilUsuario } from '../shared/interfaces'
 
 @Component({

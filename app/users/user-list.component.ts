@@ -1,12 +1,7 @@
 import { Component, OnInit, ViewChild, Input, Output, trigger, state, style,animate, transition }  from '@angular/core'
-
-// import { ModalDirective } from 'ng2-bootstrap'
-import { UsuarioService } from '../shared/services/usuario.service'
-import { ItemsService} from '../shared/utils/items.service'
-import { NotificationService } from '../shared/utils/notification.service'
-import { ConfigService} from '../shared/utils/config.service'
+import { UsuarioService } from '../shared/services/index'
+import { ItemsService, NotificationService, ConfigService } from '../shared/utils/index'
 import { IUsuario, Pagination, PaginatedResult } from '../shared/interfaces'
-
 
 @Component({
     moduleId: module.id,

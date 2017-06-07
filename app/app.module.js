@@ -14,11 +14,6 @@ var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
-var ng2_bootstrap_2 = require('ng2-bootstrap');
-var ng2_bootstrap_3 = require('ng2-bootstrap');
-var ng2_bootstrap_4 = require('ng2-bootstrap');
-var ng2_bootstrap_5 = require('ng2-bootstrap');
-var ng2_bootstrap_6 = require('ng2-bootstrap');
 var jw_bootstrap_switch_ng2_1 = require('jw-bootstrap-switch-ng2');
 var app_component_1 = require('./app.component');
 var date_format_pipe_1 = require('./shared/pipes/date-format.pipe');
@@ -26,17 +21,10 @@ var highlight_directive_1 = require('./shared/directives/highlight.directive');
 var home_component_1 = require('./home/home.component');
 var mobile_hide_directive_1 = require('./shared/directives/mobile-hide.directive');
 var schedule_list_component_1 = require('./schedules/schedule-list.component');
-var user_list_component_1 = require('./users/user-list.component');
-var usuario_create_component_1 = require('./users/usuario-create.component');
-var user_edit_component_1 = require('./users/user-edit.component');
-var index_1 = require('./movil/index');
+var index_1 = require('./users/index');
+var index_2 = require('./movil/index');
 var app_routes_1 = require('./app.routes');
-var region_service_1 = require('./shared/services/region.service');
-var plazaimmex_service_1 = require('./shared/services/plazaimmex.service');
-var movil_service_1 = require('./shared/services/movil.service');
-var estado_service_1 = require('./shared/services/estado.service');
-var usuario_service_1 = require('./shared/services/usuario.service');
-var perfilusuario_service_1 = require('./shared/services/perfilusuario.service');
+var index_3 = require('./shared/services/index');
 var config_service_1 = require('./shared/utils/config.service');
 var items_service_1 = require('./shared/utils/items.service');
 var mapping_service_1 = require('./shared/utils/mapping.service');
@@ -49,15 +37,15 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [
                 platform_browser_1.BrowserModule,
-                ng2_bootstrap_2.DatepickerModule,
+                ng2_bootstrap_1.DatepickerModule,
                 forms_1.FormsModule,
                 http_1.HttpModule,
-                ng2_bootstrap_3.ModalModule.forRoot(),
-                ng2_bootstrap_4.ProgressbarModule.forRoot(),
+                ng2_bootstrap_1.ModalModule.forRoot(),
+                ng2_bootstrap_1.ProgressbarModule.forRoot(),
                 ng2_bootstrap_1.PaginationModule.forRoot(),
                 app_routes_1.routing,
-                ng2_bootstrap_5.TimepickerModule.forRoot(),
-                ng2_bootstrap_6.TabsModule.forRoot(),
+                ng2_bootstrap_1.TimepickerModule.forRoot(),
+                ng2_bootstrap_1.TabsModule.forRoot(),
                 jw_bootstrap_switch_ng2_1.JWBootstrapSwitchModule
             ],
             declarations: [
@@ -67,21 +55,21 @@ var AppModule = (function () {
                 home_component_1.HomeComponent,
                 mobile_hide_directive_1.MobileHideDirective,
                 schedule_list_component_1.ScheduleListComponent,
-                user_list_component_1.UserListComponent,
-                usuario_create_component_1.UsuarioCrearComponent,
-                user_edit_component_1.UserEditComponent,
-                index_1.MovilListComponent,
-                index_1.MovilEditComponent,
-                index_1.MovilCreateComponent
+                index_1.UserListComponent,
+                index_1.UsuarioCrearComponent,
+                index_1.UserEditComponent,
+                index_2.MovilListComponent,
+                index_2.MovilEditComponent,
+                index_2.MovilCreateComponent
             ],
             providers: [
                 config_service_1.ConfigService,
-                plazaimmex_service_1.PlazaImmexService,
-                region_service_1.RegionService,
-                estado_service_1.EstadoService,
-                usuario_service_1.UsuarioService,
-                movil_service_1.MovilService,
-                perfilusuario_service_1.PerfilUsuarioService,
+                index_3.PlazaImmexService,
+                index_3.RegionService,
+                index_3.EstadoService,
+                index_3.UsuarioService,
+                index_3.MovilService,
+                index_3.PerfilUsuarioService,
                 items_service_1.ItemsService,
                 mapping_service_1.MappingService,
                 notification_service_1.NotificationService,

@@ -1,0 +1,7 @@
+export * from './data.service'
+export * from './estado.service'
+export * from './movil.service'
+export * from './perfilusuario.service'
+export * from './plazaimmex.service'
+export * from './region.service'
+export * from './usuario.service'

@@ -9,9 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var movil_service_1 = require('../shared/services/movil.service');
-var items_service_1 = require('../shared/utils/items.service');
-var notification_service_1 = require('../shared/utils/notification.service');
+var index_1 = require('../shared/services/index');
+var index_2 = require('../shared/utils/index');
 var MovilListComponent = (function () {
     function MovilListComponent(movilService, itemsService, notificationService) {
         this.movilService = movilService;
@@ -74,7 +73,7 @@ var MovilListComponent = (function () {
                 ])
             ]
         }), 
-        __metadata('design:paramtypes', [movil_service_1.MovilService, items_service_1.ItemsService, notification_service_1.NotificationService])
+        __metadata('design:paramtypes', [index_1.MovilService, index_2.ItemsService, index_2.NotificationService])
     ], MovilListComponent);
     return MovilListComponent;
 }());

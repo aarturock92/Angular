@@ -11,11 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
-var usuario_service_1 = require('../shared/services/usuario.service');
-var estado_service_1 = require('../shared/services/estado.service');
-var perfilusuario_service_1 = require('../shared/services/perfilusuario.service');
-var items_service_1 = require('../shared/utils/items.service');
-var notification_service_1 = require('../shared/utils/notification.service');
+var index_1 = require('../shared/services/index');
+var index_2 = require('../shared/utils/index');
 var UserEditComponent = (function () {
     function UserEditComponent(route, router, usuarioService, estadoService, perfilUsuarioService, itemsService, notificationService) {
         this.route = route;
@@ -97,7 +94,7 @@ var UserEditComponent = (function () {
             selector: 'app-user-edit',
             templateUrl: 'user-edit.component.html'
         }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, usuario_service_1.UsuarioService, estado_service_1.EstadoService, perfilusuario_service_1.PerfilUsuarioService, items_service_1.ItemsService, notification_service_1.NotificationService])
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, index_1.UsuarioService, index_1.EstadoService, index_1.PerfilUsuarioService, index_2.ItemsService, index_2.NotificationService])
     ], UserEditComponent);
     return UserEditComponent;
 }());

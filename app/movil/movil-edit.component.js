@@ -10,10 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var movil_service_1 = require('../shared/services/movil.service');
-var region_service_1 = require('../shared/services/region.service');
-var items_service_1 = require('../shared/utils/items.service');
-var notification_service_1 = require('../shared/utils/notification.service');
+var index_1 = require('../shared/services/index');
+var index_2 = require('../shared/utils/index');
 var MovilEditComponent = (function () {
     function MovilEditComponent(route, router, itemsService, notificationService, movilService, regionService) {
         this.route = route;
@@ -78,13 +76,16 @@ var MovilEditComponent = (function () {
                 break;
         }
     };
+    MovilEditComponent.prototype.back = function () {
+        this.router.navigate(['/movil']);
+    };
     MovilEditComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'app-movil-edit',
             templateUrl: 'movil-edit.component.html'
         }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, items_service_1.ItemsService, notification_service_1.NotificationService, movil_service_1.MovilService, region_service_1.RegionService])
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, index_2.ItemsService, index_2.NotificationService, index_1.MovilService, index_1.RegionService])
     ], MovilEditComponent);
     return MovilEditComponent;
 }());

@@ -1,9 +1,6 @@
 import { Component, OnInit, trigger, state, style,animate, transition } from '@angular/core'
-
-import { MovilService } from '../shared/services/movil.service'
-import { ItemsService } from '../shared/utils/items.service'
-import { NotificationService } from '../shared/utils/notification.service'
-import { ConfigService } from '../shared/utils/config.service'
+import { MovilService } from  '../shared/services/index'
+import { ItemsService, NotificationService, ConfigService } from '../shared/utils/index'
 import { IMovil, Pagination, PaginatedResult } from '../shared/interfaces'
 
 @Component({

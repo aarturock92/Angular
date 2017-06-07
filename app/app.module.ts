@@ -5,12 +5,7 @@ import { BrowserModule} from '@angular/platform-browser'
 import { FormsModule} from '@angular/forms'
 import { HttpModule} from '@angular/http'
 
-import { PaginationModule} from 'ng2-bootstrap'
-import { DatepickerModule} from 'ng2-bootstrap'
-import { ModalModule } from 'ng2-bootstrap'
-import { ProgressbarModule} from 'ng2-bootstrap'
-import { TimepickerModule} from 'ng2-bootstrap'
-import { TabsModule} from 'ng2-bootstrap'
+import { PaginationModule, DatepickerModule, ModalModule, ProgressbarModule, TimepickerModule, TabsModule} from 'ng2-bootstrap'
 import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2'
 
 import { AppComponent} from './app.component'
@@ -21,20 +16,13 @@ import { MobileHideDirective} from './shared/directives/mobile-hide.directive'
 
 import { ScheduleListComponent} from './schedules/schedule-list.component'
 
-import { UserListComponent} from './users/user-list.component'
-import { UsuarioCrearComponent} from './users/usuario-create.component'
-import { UserEditComponent } from './users/user-edit.component' 
-
+import { UserListComponent, UsuarioCrearComponent, UserEditComponent } from './users/index'
 import { MovilCreateComponent, MovilEditComponent, MovilListComponent  } from  './movil/index'
 
 import { routing } from './app.routes'
 
-import { RegionService } from './shared/services/region.service'
-import { PlazaImmexService } from './shared/services/plazaimmex.service'
-import { MovilService } from './shared/services/movil.service'
-import { EstadoService } from './shared/services/estado.service'
-import { UsuarioService } from './shared/services/usuario.service'
-import { PerfilUsuarioService} from './shared/services/perfilusuario.service' 
+import { RegionService, PlazaImmexService, MovilService, EstadoService, UsuarioService, PerfilUsuarioService, } from './shared/services/index'
+
 import { ConfigService} from './shared/utils/config.service' 
 import { ItemsService} from './shared/utils/items.service'
 import { MappingService} from './shared/utils/mapping.service'
