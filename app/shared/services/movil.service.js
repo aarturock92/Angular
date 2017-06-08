@@ -60,7 +60,7 @@ var MovilService = (function (_super) {
             .catch(this.handleError);
     };
     MovilService.prototype.createMovil = function (movil) {
-        return this.http.post(this._baseUrl + this._uriMovil, JSON.stringify(movil), { headers: this.authenticationService.getHeaders() })
+        return this.http.post(this._baseUrl + this._uriMovil + '/register', JSON.stringify(movil), { headers: this.authenticationService.getHeaders() })
             .map(function (res) {
             return res.json();
         })

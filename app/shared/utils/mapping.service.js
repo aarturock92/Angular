@@ -14,6 +14,20 @@ var MappingService = (function () {
     function MappingService(itemsService) {
         this.itemsService = itemsService;
     }
+    MappingService.prototype.mapMovilCreate = function (formValues) {
+        var movil = {
+            id: 0,
+            idRegion: formValues.idRegion,
+            idPlazaImmex: formValues.idPlazaImmex,
+            marca: formValues.marca,
+            modelo: formValues.modelo,
+            numeroTelefono: formValues.numeroTelefono,
+            numeroSerie: formValues.numeroSerie,
+            imei: formValues.imei,
+            idEstatus: formValues.idEstatus
+        };
+        return movil;
+    };
     MappingService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [items_service_1.ItemsService])

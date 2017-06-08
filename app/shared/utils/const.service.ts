@@ -1,5 +1,13 @@
-export class Constantes{
-    public static readonly ACTIVO: number = 1
-    public static readonly INACTIVO: number = 2
-    public static readonly ELIMINADO: number = 3
+export enum ETypeEstatusRegistro {
+    ACTIVO = 1,
+    INACTIVO = 2,
+    ELIMINADO = 3,
+    TODOS = 0
 }
+
+
+export const ONCOLOR: string = 'success'
+export const OFFCOLOR: string = 'warning'
+export const ONTEXT: string = 'Activo'
+export const OFFTEXT: string = 'Inactivo'
+

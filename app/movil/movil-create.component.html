@@ -1,4 +1,4 @@
-<form #createMovilForm="ngForm" (ngSubmit)="saveEvent(newEventForm.value)" autocomplete="off"  novalidate>
+<form #createMovilForm="ngForm" (ngSubmit)="saveMovil(createMovilForm.value)" *ngIf="regionesLoaded" autocomplete="off"  novalidate>
 <div role="content">
     <br>
     <br>
@@ -12,23 +12,24 @@
         </div>
         <hr>
         <div class="alert alert-danger" [hidden]="createMovilForm.form.valid">
-            <ul>
-                <h2>Hola Arturo</h2>
+            <ul *ngIf="marca.dirty && !marca.valid">
+                <li>Marca es requerido <i>(2-50 caracteres)</i></li>
             </ul>
-            <!--<ul *ngIf="creator.dirty && !creator.valid">
-                <li>Creator name is required <i>(5-50 characters)</i></li>
+            <ul *ngIf="modelo.dirty && !modelo.valid">
+                <li>Modelo es requerido <i>(2-50 caracteres)</i></li>
             </ul>
-            <ul *ngIf="title.dirty && !title.valid">
-                <li *ngIf="title.errors.required">Title is required</li>
-                <li *ngIf="title.errors.pattern">Title should have 5-20 characters</li>
+            <ul *ngIf="numeroTelefono.dirty && !numeroTelefono.valid">
+                <li *ngIf="numeroTelefono.errors.required">Numero Telefono es requerido</li>
+                <li *ngIf="numeroTelefono.errors.pattern">Numero Telefono debe tener caracteres numericos</li>
             </ul>
-            <ul *ngIf="description.dirty && !description.valid">
-                <li *ngIf="description.errors.required">Description is required</li>
-                <li *ngIf="description.errors.pattern">Description should have at least 10 characters</li>
+            <ul *ngIf="numeroSerie.dirty && !numeroSerie.valid">
+                <li *ngIf="numeroSerie.errors.required">Numero de Serie es requerido</li>
+                <li *ngIf="numeroSerie.errors.pattern">Numero de Serie debe tener caracteres numericos</li>
             </ul>
-            <ul *ngIf="location.dirty && !location.valid">
-                <li *ngIf="location.errors.required">Location is required</li>
-            </ul>-->
+            <ul *ngIf="imei.dirty && !imei.valid">
+                <li *ngIf="imei.errors.required">IMEI es requerido</li>
+                <li *ngIf="imei.errors.pattern">IMEI debe tener caracteres numericos</li>
+            </ul>
         </div>
 
         <div class="row">
@@ -37,13 +38,13 @@
                     <div class="col-md-3">
                         <label class="control-label">Región</label>
                         <select class="form-control" [(ngModel)]="movil.idRegion" name="idRegion" (change)="onChangeSelectRegion($event.target.value)">
-                            <!--<option *ngFor="let region of regiones" [value]="region.id" [selected]="region.id === movil.idRegion">{{region.nombreRegion}}</option>-->
+                            <option *ngFor="let region of regiones" [value]="region.id">{{region.nombreRegion}}</option>
                         </select>
                     </div>
                     <div class="col-md-3">
                         <label class="control-label">Plaza IMMEX</label>
                         <select class="form-control" [(ngModel)]="movil.idPlazaImmex" name="idPlazaImmex">
-                            <!--<option *ngFor="let plazaImmex of plazasImmex" [value]="plazaImmex.id" [selected]="plazaImmex.id === movil.idPlazaImmex">{{plazaImmex.nombrePlazaImmex}}</option>-->
+                            <option *ngFor="let plazaImmex of plazasImmex" [value]="plazaImmex.id" >{{plazaImmex.nombrePlazaImmex}}</option>
                         </select>
                     </div>
                 </div>
@@ -53,23 +54,23 @@
             <div class="col-md-12">
                 <div class="form-group col-sm-3">
                     <label class="control-label col-sm-12">Marca </label>
-                    <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.marca" name="marca" #creator="ngModel" required pattern=".{5,50}">
+                    <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.marca" name="marca" #marca="ngModel" required pattern=".{2,50}">
                 </div>
                 <div class="form-group col-sm-3">
                     <label class="control-label col-sm-12">Modelo <span class="req"></span></label>
-                    <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.modelo" name="modelo" #creator="ngModel" required pattern=".{5,50}">
+                    <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.modelo" name="modelo" #modelo="ngModel" required pattern=".{2,50}">
                 </div>
                 <div class="form-group col-sm-3">
                     <label class="control-label col-sm-12">Número de teléfono <span class="req"></span></label>
-                    <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.numeroTelefono" name="numeroTelefono" #creator="ngModel" required pattern=".{5,50}">
+                    <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.numeroTelefono" name="numeroTelefono" #numeroTelefono="ngModel" required pattern="^(0|[1-9][0-9]*)$">
                 </div>
                 <div class="form-group col-sm-3">
                     <label class="control-label col-sm-12">Número de Serie <span class="req"></span></label>
-                    <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.numeroSerie" name="numeroSerie" #creator="ngModel" required pattern=".{5,50}">
+                    <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.numeroSerie" name="numeroSerie" #numeroSerie="ngModel" required pattern="^(0|[1-9][0-9]*)$">
                 </div>
                 <div class="form-group col-sm-3">
                     <label class="control-label col-sm-12">IMEI </label>
-                    <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.imei" name="imei" #creator="ngModel" required pattern=".{5,50}">
+                    <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.imei" name="imei" #imei="ngModel" required pattern="^(0|[1-9][0-9]*)$">
                 </div>
                 <div class="form-group col-sm-3">
                     <label class="control-label col-sm-12">Estatus Movil </label>
@@ -79,13 +80,6 @@
         </div>
         <hr>
         <hr>
-        <div class="row">
-            <div class="col-md-12">
-                <div id="MainContentMP_SummaryPerfil" class="alert alert-danger" style="display:none;">
-
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">

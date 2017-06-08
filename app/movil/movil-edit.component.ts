@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { NgForm } from '@angular/forms' 
 import { MovilService, RegionService } from '../shared/services/index'
-import { ItemsService, NotificationService, ConfigService, MappingService } from '../shared/utils/index'
+import { ItemsService, NotificationService, MappingService } from '../shared/utils/index'
 import { IMovil, IRegion, IPlazaImmex } from '../shared/interfaces'
 
 @Component({

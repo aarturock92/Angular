@@ -59,7 +59,7 @@ export class MovilService extends DataService{
     }
 
     createMovil(movil: IMovil): Observable<IMovil>{
-        return this.http.post(this._baseUrl + this._uriMovil, JSON.stringify(movil), {headers: this.authenticationService.getHeaders()} )
+        return this.http.post(this._baseUrl + this._uriMovil + '/register', JSON.stringify(movil), {headers: this.authenticationService.getHeaders()} )
                .map((res: Response) => {
                    return res.json()
                })

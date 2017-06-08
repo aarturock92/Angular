@@ -7,4 +7,5 @@ __export(require('./config.service'));
 __export(require('./items.service'));
 __export(require('./mapping.service'));
 __export(require('./notification.service'));
+__export(require('./const.service'));
 //# sourceMappingURL=index.js.map
