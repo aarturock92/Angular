@@ -23,8 +23,9 @@ var mobile_hide_directive_1 = require('./shared/directives/mobile-hide.directive
 var schedule_list_component_1 = require('./schedules/schedule-list.component');
 var index_1 = require('./users/index');
 var index_2 = require('./movil/index');
+var index_3 = require('./menu/index');
 var app_routes_1 = require('./app.routes');
-var index_3 = require('./shared/services/index');
+var index_4 = require('./shared/services/index');
 var config_service_1 = require('./shared/utils/config.service');
 var items_service_1 = require('./shared/utils/items.service');
 var mapping_service_1 = require('./shared/utils/mapping.service');
@@ -60,16 +61,17 @@ var AppModule = (function () {
                 index_1.UserEditComponent,
                 index_2.MovilListComponent,
                 index_2.MovilEditComponent,
-                index_2.MovilCreateComponent
+                index_2.MovilCreateComponent,
+                index_3.MenuComponent
             ],
             providers: [
                 config_service_1.ConfigService,
-                index_3.PlazaImmexService,
-                index_3.RegionService,
-                index_3.EstadoService,
-                index_3.UsuarioService,
-                index_3.MovilService,
-                index_3.PerfilUsuarioService,
+                index_4.PlazaImmexService,
+                index_4.RegionService,
+                index_4.EstadoService,
+                index_4.UsuarioService,
+                index_4.MovilService,
+                index_4.PerfilUsuarioService,
                 items_service_1.ItemsService,
                 mapping_service_1.MappingService,
                 notification_service_1.NotificationService,

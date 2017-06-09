@@ -18,6 +18,7 @@ import { ScheduleListComponent} from './schedules/schedule-list.component'
 
 import { UserListComponent, UsuarioCrearComponent, UserEditComponent } from './users/index'
 import { MovilCreateComponent, MovilEditComponent, MovilListComponent  } from  './movil/index'
+import { MenuComponent } from './menu/index'
 
 import { routing } from './app.routes'
 
@@ -54,10 +55,12 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         UserListComponent,
         UsuarioCrearComponent,
         UserEditComponent,
-
+        
         MovilListComponent,
         MovilEditComponent,
-        MovilCreateComponent
+        MovilCreateComponent,
+
+        MenuComponent
     ],
     providers: [
         ConfigService,

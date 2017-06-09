@@ -53,7 +53,6 @@ var MovilCreateComponent = (function () {
     MovilCreateComponent.prototype.saveMovil = function (formValues) {
         var _this = this;
         formValues.idEstatus = (this.EstatusMovil) ? 1 : 2;
-        console.log("formValues", formValues);
         this.movilService.createMovil(this.mappingService.mapMovilCreate(formValues))
             .subscribe(function (movilCreado) {
             console.log("movilCreated", movilCreado);

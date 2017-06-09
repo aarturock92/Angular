@@ -56,15 +56,15 @@ export class MovilCreateComponent implements OnInit {
 
     saveMovil(formValues){
         formValues.idEstatus = (this.EstatusMovil) ? 1: 2
-        console.log("formValues", formValues);
+
         this.movilService.createMovil(this.mappingService.mapMovilCreate(formValues))
             .subscribe((movilCreado: IMovil) => {
                 console.log("movilCreated",movilCreado);
+
             },
             error => {
                 this.notificationService.printErrorMessage('No se pudo crear el movil: '+error)
             })
-
     }
 
     back() {

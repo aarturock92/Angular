@@ -13,7 +13,7 @@ import { MovilEditComponent } from './movil/movil-edit.component'
 import { MovilCreateComponent } from './movil/movil-create.component' 
 
 const appRoutes: Routes = [
-    { path: 'schedules', component: ScheduleListComponent},
+    { path: 'estado', component: ScheduleListComponent},
     { path: 'usuario/:id/edit', component: UserEditComponent },
     { path: 'usuario/crear', component: UsuarioCrearComponent},
     { path: 'usuario', component: UserListComponent}, 

@@ -1,0 +1,21 @@
+<ul class="nav" id="side-menu">
+    <li class="sidebar-search">
+        <div class="input-group custom-search-form">
+            <input type="text" class="form-control" placeholder="Search...">
+            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+        </div>
+    </li>
+
+    <li *ngFor='let menu of MENUJSON'>
+        <a><i class="{{menu.classCss}}"></i> {{menu.tituloMenu}} {{menu.subMenus.length}} </a>
+        <ul *ngIf="menu.subMenus.length > 0" class="nav nav-second-level">
+            <li *ngFor='let submenu of menu.subMenus'>
+                <a [routerLink]="[submenu.url]" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">{{submenu.tituloSubMenu}}</a>
+            </li>
+        </ul>
+    </li>
+</ul>
