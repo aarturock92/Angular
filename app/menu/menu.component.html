@@ -11,7 +11,7 @@
     </li>
 
     <li *ngFor='let menu of MENUJSON'>
-        <a><i class="{{menu.classCss}}"></i> {{menu.tituloMenu}} {{menu.subMenus.length}} </a>
+        <a><i class="{{menu.classCss}}"></i> {{menu.tituloMenu}} </a>
         <ul *ngIf="menu.subMenus.length > 0" class="nav nav-second-level">
             <li *ngFor='let submenu of menu.subMenus'>
                 <a [routerLink]="[submenu.url]" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">{{submenu.tituloSubMenu}}</a>
