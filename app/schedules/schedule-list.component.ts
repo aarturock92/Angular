@@ -1,19 +1,15 @@
 import { Component, OnInit, ViewChild, Input, Output, trigger, state, style,animate, transition }  from '@angular/core'
-
 import { ModalDirective} from 'ng2-bootstrap'
-import { EstadoService } from '../shared/services/estado.service'
+import { EstadoService } from '../shared/services/index'
 import { DateFormatPipe} from '../shared/pipes/date-format.pipe'
-import { ItemsService} from '../shared/utils/items.service'
-import { NotificationService} from '../shared/utils/notification.service'
-import { ConfigService} from '../shared/utils/config.service'
+import { ItemsService, NotificationService, ConfigService} from '../shared/utils/index'
 import { IEstado, Pagination, PaginatedResult} from '../shared/interfaces'
-
 
 @Component({
     moduleId: module.id,
     selector: 'app-schedules',
     templateUrl: 'schedule-list.component.html',
-        animations: [
+     animations: [
         trigger('flyInOut', [
             state('in', style({ opacity: 1, transform: 'translateX(0)'})),
             transition('void => *', [

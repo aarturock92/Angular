@@ -10,10 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
-var estado_service_1 = require('../shared/services/estado.service');
-var items_service_1 = require('../shared/utils/items.service');
-var notification_service_1 = require('../shared/utils/notification.service');
-var config_service_1 = require('../shared/utils/config.service');
+var index_1 = require('../shared/services/index');
+var index_2 = require('../shared/utils/index');
 var ScheduleListComponent = (function () {
     function ScheduleListComponent(estadoService, itemsService, notificationService, configService) {
         this.estadoService = estadoService;
@@ -89,7 +87,7 @@ var ScheduleListComponent = (function () {
                 ])
             ]
         }), 
-        __metadata('design:paramtypes', [estado_service_1.EstadoService, items_service_1.ItemsService, notification_service_1.NotificationService, config_service_1.ConfigService])
+        __metadata('design:paramtypes', [index_1.EstadoService, index_2.ItemsService, index_2.NotificationService, index_2.ConfigService])
     ], ScheduleListComponent);
     return ScheduleListComponent;
 }());
