@@ -30,6 +30,7 @@ export class MovilEditComponent implements OnInit{
                 private router:Router,
                 private itemsService: ItemsService,
                 private notificationService: NotificationService,
+                private mappingService: MappingService,
                 private movilService: MovilService,
                 private regionService: RegionService){}
 
@@ -89,6 +90,18 @@ export class MovilEditComponent implements OnInit{
 
     back(){
         this.router.navigate(['/movil'])
+    }
+
+    saveMovil(formValues){
+         formValues.idEstatus = (this.EstatusMovil) ? 1: 2
+
+          this.movilService.updateMovil(this.idMovil, this.mappingService.mapMovilCreate(formValues))
+            .subscribe((movilCreado: IMovil) => {
+                this.back()
+            },
+            error => {
+                this.notificationService.printErrorMessage('No se pudo crear el movil: '+error)
+            })
     }
 }
 

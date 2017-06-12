@@ -55,7 +55,7 @@ var MovilCreateComponent = (function () {
         formValues.idEstatus = (this.EstatusMovil) ? 1 : 2;
         this.movilService.createMovil(this.mappingService.mapMovilCreate(formValues))
             .subscribe(function (movilCreado) {
-            console.log("movilCreated", movilCreado);
+            _this.back();
         }, function (error) {
             _this.notificationService.printErrorMessage('No se pudo crear el movil: ' + error);
         });

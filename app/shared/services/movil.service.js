@@ -74,7 +74,8 @@ var MovilService = (function (_super) {
             .catch(this.handleError);
     };
     MovilService.prototype.updateMovil = function (id, movil) {
-        return this.http.put(this._baseUrl + this._uriMovil, JSON.stringify(movil), { headers: this.authenticationService.getHeaders() })
+        console.log("movil modified", movil);
+        return this.http.put(this._baseUrl + this._uriMovil + '/' + id, JSON.stringify(movil), { headers: this.authenticationService.getHeaders() })
             .map(function (res) {
             return res.json();
         })
