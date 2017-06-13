@@ -7,6 +7,7 @@ import { HttpModule} from '@angular/http'
 
 import { PaginationModule, DatepickerModule, ModalModule, ProgressbarModule, TimepickerModule, TabsModule} from 'ng2-bootstrap'
 import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2'
+import { SelectModule } from 'ng2-select'
 
 import { AppComponent} from './app.component'
 import { DateFormatPipe} from './shared/pipes/date-format.pipe'
@@ -22,7 +23,13 @@ import { MenuComponent } from './menu/index'
 
 import { routing } from './app.routes'
 
-import { RegionService, PlazaImmexService, MovilService, EstadoService, UsuarioService, PerfilUsuarioService, } from './shared/services/index'
+import { RegionService, 
+         PlazaImmexService, 
+         MovilService, 
+         EstadoService, 
+         UsuarioService, 
+         PerfilUsuarioService, 
+         JerarquiaService} from './shared/services/index'
 
 import { ConfigService} from './shared/utils/config.service' 
 import { ItemsService} from './shared/utils/items.service'
@@ -39,6 +46,7 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         ModalModule.forRoot(),
         ProgressbarModule.forRoot(),
         PaginationModule.forRoot(),
+        SelectModule,
         routing,
         TimepickerModule.forRoot(),
         TabsModule.forRoot(),
@@ -70,6 +78,7 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         UsuarioService,
         MovilService,
         PerfilUsuarioService,
+        JerarquiaService,
         ItemsService,
         MappingService,
         NotificationService,

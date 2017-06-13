@@ -15,6 +15,7 @@ var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
 var jw_bootstrap_switch_ng2_1 = require('jw-bootstrap-switch-ng2');
+var ng2_select_1 = require('ng2-select');
 var app_component_1 = require('./app.component');
 var date_format_pipe_1 = require('./shared/pipes/date-format.pipe');
 var highlight_directive_1 = require('./shared/directives/highlight.directive');
@@ -44,6 +45,7 @@ var AppModule = (function () {
                 ng2_bootstrap_1.ModalModule.forRoot(),
                 ng2_bootstrap_1.ProgressbarModule.forRoot(),
                 ng2_bootstrap_1.PaginationModule.forRoot(),
+                ng2_select_1.SelectModule,
                 app_routes_1.routing,
                 ng2_bootstrap_1.TimepickerModule.forRoot(),
                 ng2_bootstrap_1.TabsModule.forRoot(),
@@ -72,6 +74,7 @@ var AppModule = (function () {
                 index_4.UsuarioService,
                 index_4.MovilService,
                 index_4.PerfilUsuarioService,
+                index_4.JerarquiaService,
                 items_service_1.ItemsService,
                 mapping_service_1.MappingService,
                 notification_service_1.NotificationService,

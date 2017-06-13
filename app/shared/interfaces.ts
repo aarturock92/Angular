@@ -16,10 +16,18 @@ export interface IPlazaImmex{
     plazasOxxo: IPlazaOxxo[]
 }
 
-
 export interface IPlazaOxxo{
     
 }
+
+export interface IJerarquia{
+    id: number,
+    niverlJerarquia: number,
+    nombre: string,
+    descripcion: string, 
+    estatus: number
+}
+
 
 export interface IMenu{
     id: number,
@@ -31,7 +39,6 @@ export interface IMenu{
     idEstatus: number,
     subMenus: IMenu[]
 }
-
 
 export interface IUsuario{
     id: number,
@@ -89,7 +96,7 @@ export interface IPerfilUsuario{
     id:number,
     nombre: string,
     descripcion: string,
-    idJerarquia: number,
+    jerarquiaId: number,
     asignacionMultiple: boolean,
     estatus: number
 }

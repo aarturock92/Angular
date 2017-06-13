@@ -28,6 +28,7 @@ export class PerfilUsuarioService extends DataService{
         return this.http.get(this._baseUrl + this._uriPerfilUsuario + '/list?estatusRegistro='+statusRegistro, 
             {headers: this.authenticationService.getHeaders() })
             .map((res: Response) => {
+                console.log("response", res.json());
                 return res.json()
             })
             .catch(this.handleError)            

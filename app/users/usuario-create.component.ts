@@ -5,6 +5,7 @@ import { TabsetComponent  } from 'ng2-bootstrap'
 import { NotificationService, ItemsService } from '../shared/utils/index'
 import { PerfilUsuarioService, RegionService } from '../shared/services/index'
 import { IPerfilUsuario, IRegion } from '../shared/interfaces'
+import { SelectComponent } from 'ng2-select'
 
 
 @Component({
@@ -16,7 +17,14 @@ export class UsuarioCrearComponent implements OnInit{
     public user: any = {}
     
     perfilUsuarios: IPerfilUsuario[]
+    regiones: IRegion[]
     loadedPerfilesUsuario: boolean = false
+
+    public itemsRegiones: Array<any> = []
+
+    //Variables Controles
+    esControlMultipleRegion: boolean = false
+    selectedAdministracion: boolean = false
 
     @ViewChild('staticTabs') staticTabs: TabsetComponent
 
@@ -29,15 +37,32 @@ export class UsuarioCrearComponent implements OnInit{
 
     ngOnInit(){
         this.loadPerfilesUsuario()
+        this.loadRegiones()
     }
 
 
     onChangeSelectPerfilUsuario(idPerfilUsuario: number){
-        let perfilUsuario =  this.itemsService.getItemFromArray<IPerfilUsuario>(this.perfilUsuarios, (p) => p.id == idPerfilUsuario)
 
-        switch(perfilUsuario.idJerarquia){
-            // case 1:
+        let perfilUsuario =  this.itemsService.getItemFromArray<IPerfilUsuario>(this.perfilUsuarios, (p) => p.id == idPerfilUsuario)
+        switch(perfilUsuario.jerarquiaId){
+           //Administración
+           case 1:
+            this.selectedAdministracion = true
+
+            if(perfilUsuario.asignacionMultiple)
+               this.esControlMultipleRegion = true     
+            else
+               this.esControlMultipleRegion = false
+            break;
+           //Supervisión
+           case 2:
+            this.selectedAdministracion = false
+            break;
+           //Operativo
+           case 3:
+            this.selectedAdministracion = false
             
+            break;           
         }
     }
 
@@ -53,6 +78,21 @@ export class UsuarioCrearComponent implements OnInit{
             error => {
                 this.notificationService.printErrorMessage('Error al cargar los perfiles de Usuario: '+ error)
             });
+    }
+
+    loadRegiones(){
+        this.regionService.getRegionesByEstatus(false, 1)
+            .subscribe((res: IRegion[]) => {
+                  for(var indexRegion = 0; indexRegion< res.length; indexRegion++){
+                    this.itemsRegiones.push({
+                        id: res[indexRegion].id,
+                        text: res[indexRegion].nombreRegion
+                    })
+                  } 
+            },
+            error => {
+                this.notificationService.printErrorMessage('Error al cargar las regiones '+error)     
+            })
     }
 
     /**

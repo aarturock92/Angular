@@ -23,13 +23,34 @@ var UsuarioCrearComponent = (function () {
         this.itemsService = itemsService;
         this.user = {};
         this.loadedPerfilesUsuario = false;
+        this.itemsRegiones = [];
+        //Variables Controles
+        this.esControlMultipleRegion = false;
+        this.selectedAdministracion = false;
     }
     UsuarioCrearComponent.prototype.ngOnInit = function () {
         this.loadPerfilesUsuario();
+        this.loadRegiones();
     };
     UsuarioCrearComponent.prototype.onChangeSelectPerfilUsuario = function (idPerfilUsuario) {
         var perfilUsuario = this.itemsService.getItemFromArray(this.perfilUsuarios, function (p) { return p.id == idPerfilUsuario; });
-        switch (perfilUsuario.idJerarquia) {
+        switch (perfilUsuario.jerarquiaId) {
+            //Administración
+            case 1:
+                this.selectedAdministracion = true;
+                if (perfilUsuario.asignacionMultiple)
+                    this.esControlMultipleRegion = true;
+                else
+                    this.esControlMultipleRegion = false;
+                break;
+            //Supervisión
+            case 2:
+                this.selectedAdministracion = false;
+                break;
+            //Operativo
+            case 3:
+                this.selectedAdministracion = false;
+                break;
         }
     };
     /**
@@ -43,6 +64,20 @@ var UsuarioCrearComponent = (function () {
             _this.loadedPerfilesUsuario = true;
         }, function (error) {
             _this.notificationService.printErrorMessage('Error al cargar los perfiles de Usuario: ' + error);
+        });
+    };
+    UsuarioCrearComponent.prototype.loadRegiones = function () {
+        var _this = this;
+        this.regionService.getRegionesByEstatus(false, 1)
+            .subscribe(function (res) {
+            for (var indexRegion = 0; indexRegion < res.length; indexRegion++) {
+                _this.itemsRegiones.push({
+                    id: res[indexRegion].id,
+                    text: res[indexRegion].nombreRegion
+                });
+            }
+        }, function (error) {
+            _this.notificationService.printErrorMessage('Error al cargar las regiones ' + error);
         });
     };
     /**

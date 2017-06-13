@@ -33,6 +33,7 @@ var PerfilUsuarioService = (function (_super) {
     PerfilUsuarioService.prototype.getListPerfilesUsuario = function (statusRegistro) {
         return this.http.get(this._baseUrl + this._uriPerfilUsuario + '/list?estatusRegistro=' + statusRegistro, { headers: this.authenticationService.getHeaders() })
             .map(function (res) {
+            console.log("response", res.json());
             return res.json();
         })
             .catch(this.handleError);

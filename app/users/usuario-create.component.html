@@ -40,7 +40,6 @@
         <tab heading="INFORMACIÓN GENERAL">
             <br>
             <fieldset>
-
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -185,7 +184,28 @@
 
             </fieldset>
         </tab>
-        <tab heading="ASIGNACIÓN">ASIGNACIÓN</tab>
+        <tab heading="ASIGNACIÓN">
+            <br>
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <legend>ASIGNACIÓN</legend>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="selectedAdministracion">
+                         <div class="form-group col-md-4">
+                            <label class="control-label">Regiones</label>
+                            <ng-select [multiple]="esControlMultipleRegion" [items]="itemsRegiones" placeholder="No city selected"></ng-select>
+                         </div>
+                    </div>
+                 </div>
+                
+            </fieldset>
+        </tab>
     </tabset>
     <br>
     <br>

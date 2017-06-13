@@ -28,6 +28,7 @@
             'jquery': 'npm:jquery/',
             'lodash': 'npm:lodash/lodash.js',
             'moment': 'npm:moment/',
+            'ng2-select': 'npm:ng2-select/bundles/ng2-select.umd.js',
             'jw-bootstrap-switch-ng2': 'npm:jw-bootstrap-switch-ng2',
             'ng2-bootstrap': 'npm:ng2-bootstrap',
             'symbol-observable': 'npm:symbol-observable'
