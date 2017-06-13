@@ -75,7 +75,6 @@ export class MovilService extends DataService{
     }
 
     updateMovil(id:Number, movil: IMovil): Observable<IMovil>{
-        console.log("movil modified", movil);
         return this.http.put(this._baseUrl + this._uriMovil + '/'+ id, JSON.stringify(movil), {headers: this.authenticationService.getHeaders()})
                .map((res: Response) => {
                     return res.json()

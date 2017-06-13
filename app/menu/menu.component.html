@@ -10,11 +10,11 @@
         </div>
     </li>
 
-    <li *ngFor='let menu of MENUJSON'>
-        <a><i class="{{menu.classCss}}"></i> {{menu.tituloMenu}} </a>
+    <li *ngFor='let menu of MenuApp'>
+        <a><i class="{{menu.classCss}}"></i> {{menu.nombre}} </a>
         <ul *ngIf="menu.subMenus.length > 0" class="nav nav-second-level">
             <li *ngFor='let submenu of menu.subMenus'>
-                <a [routerLink]="[submenu.url]" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">{{submenu.tituloSubMenu}}</a>
+                <a [routerLink]="[submenu.url]" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">{{submenu.nombre}}</a>
             </li>
         </ul>
     </li>

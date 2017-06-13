@@ -37,6 +37,14 @@ var PerfilUsuarioService = (function (_super) {
         })
             .catch(this.handleError);
     };
+    PerfilUsuarioService.prototype.getMenuByPerfilUsuarioId = function (idPerfilUsuario) {
+        return this.http.get(this._baseUrl + this._uriPerfilUsuario + '/' + idPerfilUsuario + '/Menu', { headers: this.authenticationService.getHeaders() })
+            .map(function (res) {
+            console.log("menu", res.json());
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
     PerfilUsuarioService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [config_service_1.ConfigService, http_1.Http, authentication_service_1.AuthenticationService])

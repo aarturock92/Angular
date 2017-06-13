@@ -21,6 +21,17 @@ export interface IPlazaOxxo{
     
 }
 
+export interface IMenu{
+    id: number,
+    idMenuPadre: number,
+    nombre: string, 
+    descripcion: string,
+    url: string,
+    cssClass: string, 
+    idEstatus: number,
+    subMenus: IMenu[]
+}
+
 
 export interface IUsuario{
     id: number,

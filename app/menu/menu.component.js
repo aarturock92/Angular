@@ -9,37 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var index_1 = require('../shared/services/index');
+var index_2 = require('../shared/utils/index');
 var MenuComponent = (function () {
-    function MenuComponent() {
-        this.MENUJSON = [
-            {
-                tituloMenu: 'Configuración',
-                subMenus: [
-                    { tituloSubMenu: 'Estados', url: '/estado' },
-                    { tituloSubMenu: 'Usuarios', url: '/usuario' },
-                    { tituloSubMenu: 'Moviles', url: '/movil' },
-                ],
-                url: '',
-                classCss: 'fa fa-wrench fa-fw'
-            },
-            {
-                tituloMenu: 'Encuesta',
-                subMenus: [
-                    { tituloSubMenu: 'Encuestas', url: '' },
-                    { tituloSubMenu: 'Catalogo Respuestas', url: '' },
-                ],
-                url: '',
-                classCss: 'fa fa-files-o fa-fw'
-            }
-        ];
+    function MenuComponent(perfilUsuarioService, notificationService) {
+        this.perfilUsuarioService = perfilUsuarioService;
+        this.notificationService = notificationService;
+        this.idPerfilUsuario = 1;
     }
+    MenuComponent.prototype.ngOnInit = function () {
+        this.loadMenuByPerfilUsuarioId();
+    };
+    MenuComponent.prototype.loadMenuByPerfilUsuarioId = function () {
+        var _this = this;
+        this.perfilUsuarioService.getMenuByPerfilUsuarioId(this.idPerfilUsuario)
+            .subscribe(function (res) {
+            _this.MenuApp = res;
+        }, function (error) {
+            _this.notificationService.printErrorMessage('Surgio un error al crear el menu ' + error);
+        });
+    };
     MenuComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'menu-app',
             templateUrl: 'menu.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [index_1.PerfilUsuarioService, index_2.NotificationService])
     ], MenuComponent);
     return MenuComponent;
 }());

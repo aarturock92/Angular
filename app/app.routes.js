@@ -2,20 +2,16 @@
 var router_1 = require('@angular/router');
 var home_component_1 = require('./home/home.component');
 var schedule_list_component_1 = require('./schedules/schedule-list.component');
-var user_list_component_1 = require('./users/user-list.component');
-var usuario_create_component_1 = require('./users/usuario-create.component');
-var user_edit_component_1 = require('./users/user-edit.component');
-var movil_list_component_1 = require('./movil/movil-list.component');
-var movil_edit_component_1 = require('./movil/movil-edit.component');
-var movil_create_component_1 = require('./movil/movil-create.component');
+var index_1 = require('./users/index');
+var index_2 = require('./movil/index');
 var appRoutes = [
     { path: 'estado', component: schedule_list_component_1.ScheduleListComponent },
-    { path: 'usuario/:id/edit', component: user_edit_component_1.UserEditComponent },
-    { path: 'usuario/crear', component: usuario_create_component_1.UsuarioCrearComponent },
-    { path: 'usuario', component: user_list_component_1.UserListComponent },
-    { path: 'movil/:id/edit', component: movil_edit_component_1.MovilEditComponent },
-    { path: 'movil/create', component: movil_create_component_1.MovilCreateComponent },
-    { path: 'movil', component: movil_list_component_1.MovilListComponent },
+    { path: 'usuario/:id/edit', component: index_1.UserEditComponent },
+    { path: 'usuario/crear', component: index_1.UsuarioCrearComponent },
+    { path: 'usuario', component: index_1.UserListComponent },
+    { path: 'movil/:id/edit', component: index_2.MovilEditComponent },
+    { path: 'movil/create', component: index_2.MovilCreateComponent },
+    { path: 'movil', component: index_2.MovilListComponent },
     { path: '', component: home_component_1.HomeComponent }
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);

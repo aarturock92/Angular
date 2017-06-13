@@ -33,4 +33,14 @@ export class PerfilUsuarioService extends DataService{
             .catch(this.handleError)            
     }
 
+    getMenuByPerfilUsuarioId(idPerfilUsuario: number){
+        return this.http.get(this._baseUrl + this._uriPerfilUsuario + '/'+ idPerfilUsuario + '/Menu', 
+               { headers: this.authenticationService.getHeaders()})
+               .map((res: Response) => {
+                   console.log("menu", res.json());
+                    return res.json()
+               })
+               .catch(this.handleError)
+    }
+
 }

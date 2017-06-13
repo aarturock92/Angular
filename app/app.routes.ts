@@ -4,13 +4,8 @@ import { Routes, RouterModule } from '@angular/router'
 import { HomeComponent} from './home/home.component'
 import { ScheduleListComponent} from './schedules/schedule-list.component'
 
-import { UserListComponent } from './users/user-list.component'
-import { UsuarioCrearComponent } from './users/usuario-create.component'
-import { UserEditComponent } from './users/user-edit.component'
-
-import { MovilListComponent } from './movil/movil-list.component'
-import { MovilEditComponent } from './movil/movil-edit.component'
-import { MovilCreateComponent } from './movil/movil-create.component' 
+import { UserListComponent, UsuarioCrearComponent, UserEditComponent } from './users/index'
+import { MovilListComponent, MovilEditComponent, MovilCreateComponent  } from './movil/index'
 
 const appRoutes: Routes = [
     { path: 'estado', component: ScheduleListComponent},
