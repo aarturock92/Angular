@@ -6,6 +6,7 @@ import { ScheduleListComponent} from './schedules/schedule-list.component'
 
 import { UserListComponent, UsuarioCrearComponent, UserEditComponent } from './users/index'
 import { MovilListComponent, MovilEditComponent, MovilCreateComponent  } from './movil/index'
+import { PerfilUsuarioList } from './perfilUsuario/index'
 
 const appRoutes: Routes = [
     { path: 'estado', component: ScheduleListComponent},
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
     { path: 'movil/:id/edit', component: MovilEditComponent },
     { path: 'movil/create', component: MovilCreateComponent },
     { path: 'movil', component: MovilListComponent},
+    { path: 'perfilusuario', component: PerfilUsuarioList },
     { path: '', component: HomeComponent}
 ];
 
