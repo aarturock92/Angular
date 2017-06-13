@@ -40,7 +40,6 @@ var PerfilUsuarioService = (function (_super) {
     PerfilUsuarioService.prototype.getMenuByPerfilUsuarioId = function (idPerfilUsuario) {
         return this.http.get(this._baseUrl + this._uriPerfilUsuario + '/' + idPerfilUsuario + '/Menu', { headers: this.authenticationService.getHeaders() })
             .map(function (res) {
-            console.log("menu", res.json());
             return res.json();
         })
             .catch(this.handleError);

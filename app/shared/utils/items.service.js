@@ -40,6 +40,13 @@ var ItemsService = (function () {
             array.push(item);
         }
     };
+    ItemsService.prototype.getItemFromArray = function (array, predicate) {
+        var item = _.find(array, predicate);
+        if (typeof (item) !== 'undefined')
+            return item;
+        else
+            return null;
+    };
     /*
     *Adds an item to zero index
     */
