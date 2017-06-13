@@ -198,8 +198,30 @@
                  <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="selectedAdministracion">
                          <div class="form-group col-md-4">
-                            <label class="control-label">Regiones</label>
-                            <ng-select [multiple]="esControlMultipleRegion" [items]="itemsRegiones" placeholder="No city selected"></ng-select>
+                            <label class="control-label">Regiones:</label>
+                            <ng-select [multiple]="esControlMultiple" [items]="itemsRegiones" placeholder="No city selected"></ng-select>
+                         </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="selectedSupervision">
+                         <div class="form-group col-md-3">
+                            <label class="control-label">Regiones:</label>
+                            <ng-select [items]="itemsRegiones" (selected)="onChangeSelectRegion($event.id)" placeholder="Selecciona una Región"></ng-select>
+                         </div>
+
+                         <div class="form-group col-md-3">
+                             <label class="control-label">Plazas Immex:</label>
+                             <ng-select [items]="itemsPlazasImmex" placeholder="Selecciona una Plaza Immex"></ng-select>
+                         </div>
+
+                         <div class="form-group col-md-3">
+                            <label class="control-label">Plazas Oxxo:</label>
+                            <ng-select [items]="itemsPlazasOxxo" placeholder="Selecciona una Plaza Oxxo"></ng-select>
+                         </div>
+
+                         <div class="form-group col-md-3">
+                            <label class="control-label">Distritos:</label>
+                            <ng-select [multiple]="esControlMultiple" [items]="itemsDistritos" placeholder="Selecciona un Distrito"></ng-select>
                          </div>
                     </div>
                  </div>

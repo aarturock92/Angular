@@ -17,14 +17,18 @@ export class UsuarioCrearComponent implements OnInit{
     public user: any = {}
     
     perfilUsuarios: IPerfilUsuario[]
-    regiones: IRegion[]
     loadedPerfilesUsuario: boolean = false
 
     public itemsRegiones: Array<any> = []
+    public itemsPlazasImmex: Array<any> = []
+    public itemsPlazasOxxo: Array<any> = []
+    public itemsDistritos: Array<any> = []
 
     //Variables Controles
-    esControlMultipleRegion: boolean = false
+    esControlMultiple: boolean = false
     selectedAdministracion: boolean = false
+    selectedSupervision: boolean = false
+    selectedOperativo: boolean = false   
 
     @ViewChild('staticTabs') staticTabs: TabsetComponent
 
@@ -40,31 +44,57 @@ export class UsuarioCrearComponent implements OnInit{
         this.loadRegiones()
     }
 
-
+    /**
+     * Metodo que ejecuta el control Select al realizar el evento change.
+     * @param idPerfilUsuario  
+     */
     onChangeSelectPerfilUsuario(idPerfilUsuario: number){
 
         let perfilUsuario =  this.itemsService.getItemFromArray<IPerfilUsuario>(this.perfilUsuarios, (p) => p.id == idPerfilUsuario)
+        this.selectedAdministracion = false
+        this.selectedSupervision = false
+        this.selectedOperativo = false
+        this.esControlMultiple = perfilUsuario.asignacionMultiple
+        
         switch(perfilUsuario.jerarquiaId){
            //Administración
            case 1:
             this.selectedAdministracion = true
-
-            if(perfilUsuario.asignacionMultiple)
-               this.esControlMultipleRegion = true     
-            else
-               this.esControlMultipleRegion = false
-            break;
+            break;           
            //Supervisión
            case 2:
-            this.selectedAdministracion = false
+            this.selectedSupervision = true
             break;
            //Operativo
            case 3:
-            this.selectedAdministracion = false
-            
+            this.selectedOperativo = true            
             break;           
         }
     }
+
+    /**
+     * Metodo que ejecuta el control de Región 
+     * @param idRegion 
+     */
+    onChangeSelectRegion(idRegion: number){
+        this.regionService.getRegionDetails(idRegion,true)
+            .subscribe((res: IRegion) => {
+                var plazasImmex = res.plazasImmex
+
+                for(var indexPlazaImmex = 0;indexPlazaImmex < plazasImmex.length; indexPlazaImmex++){
+                     this.itemsPlazasImmex.push({
+                        id: plazasImmex[indexPlazaImmex].id,
+                        text: plazasImmex[indexPlazaImmex].nombrePlazaImmex
+                    })
+                }    
+
+                console.log("this.itemsPlazasImmex", this.itemsPlazasImmex)
+            },
+            error => {
+                this.notificationService.printErrorMessage('Error al cargar las plazas Immex: '+error)
+            })
+    }
+
 
     /**
      * Metodo para cargar los perfiles de Usuario a partir de un servicio.
