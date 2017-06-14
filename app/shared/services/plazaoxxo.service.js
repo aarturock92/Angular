@@ -24,6 +24,7 @@ var PlazaOxxoService = (function (_super) {
         this.http = http;
         this.configService = configService;
         this.authenticationService = authenticationService;
+        this._uriPlazaOxxo = 'PlazaOxxo';
         this._baseUrl = this.configService.getApiURI();
     }
     PlazaOxxoService.prototype.getPlazaOxxoByEstatus = function (idEstatusRegistro, incluirDistritos) {

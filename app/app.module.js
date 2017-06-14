@@ -68,6 +68,7 @@ var AppModule = (function () {
             ],
             providers: [
                 config_service_1.ConfigService,
+                index_4.PlazaOxxoService,
                 index_4.PlazaImmexService,
                 index_4.RegionService,
                 index_4.EstadoService,

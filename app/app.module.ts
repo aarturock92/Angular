@@ -25,6 +25,7 @@ import { routing } from './app.routes'
 
 import { RegionService, 
          PlazaImmexService, 
+         PlazaOxxoService,
          MovilService, 
          EstadoService, 
          UsuarioService, 
@@ -72,6 +73,7 @@ import { AuthenticationService } from './shared/utils/authentication.service'
     ],
     providers: [
         ConfigService,
+        PlazaOxxoService,
         PlazaImmexService,
         RegionService,
         EstadoService,

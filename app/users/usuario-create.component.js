@@ -29,6 +29,7 @@ var UsuarioCrearComponent = (function () {
         this.itemsPlazasImmex = [];
         this.itemsPlazasOxxo = [];
         this.itemsDistritos = [];
+        this.itemsPerfilesUsuario = [];
         //Variables Controles
         this.esControlMultiple = false;
         this.selectedAdministracion = false;
@@ -39,13 +40,12 @@ var UsuarioCrearComponent = (function () {
         this.loadPerfilesUsuario();
         this.loadRegiones();
     };
-    UsuarioCrearComponent.prototype.ngOnChanges = function () {
-    };
     /**
-     * Metodo que ejecuta el control Select al realizar el evento change.
-     * @param idPerfilUsuario
-     */
+    * Metodo que ejecuta el control Select al realizar el evento change.
+    * @param idPerfilUsuario
+    */
     UsuarioCrearComponent.prototype.onChangeSelectPerfilUsuario = function (idPerfilUsuario) {
+        console.log("idPerfilUsuario", idPerfilUsuario);
         var perfilUsuario = this.itemsService.getItemFromArray(this.perfilUsuarios, function (p) { return p.id == idPerfilUsuario; });
         this.selectedAdministracion = false;
         this.selectedSupervision = false;
@@ -75,37 +75,71 @@ var UsuarioCrearComponent = (function () {
         this.regionService.getRegionDetails(idRegion, true)
             .subscribe(function (res) {
             _this.itemsPlazasImmex = [];
-            var plazasImmex = res.plazasImmex;
-            for (var indexPlazaImmex = 0; indexPlazaImmex < plazasImmex.length; indexPlazaImmex++) {
-                _this.itemsPlazasImmex.push({
-                    id: plazasImmex[indexPlazaImmex].id,
-                    text: plazasImmex[indexPlazaImmex].nombrePlazaImmex
-                });
+            _this.itemsPlazasOxxo = [];
+            _this.itemsDistritos = [];
+            if (res.plazasImmex.length > 0) {
+                var plazasImmex = res.plazasImmex;
+                for (var indexPlazaImmex = 0; indexPlazaImmex < plazasImmex.length; indexPlazaImmex++) {
+                    _this.itemsPlazasImmex.push({
+                        id: plazasImmex[indexPlazaImmex].id,
+                        text: plazasImmex[indexPlazaImmex].nombrePlazaImmex
+                    });
+                }
+            }
+            else {
+                _this.notificationService.printErrorMessage('No se encontraron Plazas Immex en esta Región');
             }
         }, function (error) {
             _this.notificationService.printErrorMessage('Error al cargar las plazas Immex: ' + error);
         });
     };
+    /**
+     *
+     * @param idPlazaImmex
+     */
     UsuarioCrearComponent.prototype.onChangeSelectPlazaImmex = function (idPlazaImmex) {
         var _this = this;
         this.plazaImmexService.getPlazaImmexDetails(idPlazaImmex, true)
             .subscribe(function (res) {
             _this.itemsPlazasOxxo = [];
-            var plazasOxxo = res.plazasOxxo;
-            for (var indexPlazaOxxo = 0; indexPlazaOxxo < plazasOxxo.length; indexPlazaOxxo++) {
-                _this.itemsPlazasOxxo.push({
-                    id: plazasOxxo[indexPlazaOxxo].id,
-                    text: plazasOxxo[indexPlazaOxxo].nombrePlazaOxxo
-                });
+            _this.itemsDistritos = [];
+            if (res.plazasOxxo.length > 0) {
+                var plazasOxxo = res.plazasOxxo;
+                for (var indexPlazaOxxo = 0; indexPlazaOxxo < plazasOxxo.length; indexPlazaOxxo++) {
+                    _this.itemsPlazasOxxo.push({
+                        id: plazasOxxo[indexPlazaOxxo].id,
+                        text: plazasOxxo[indexPlazaOxxo].nombrePlazaOxxo
+                    });
+                }
+            }
+            else {
+                _this.notificationService.printErrorMessage('No se encontraron Plazas Oxxo en esta Plaza Immex');
             }
         }, function (error) {
             _this.notificationService.printErrorMessage('Error al cargar las Plazas Immex: ' + error);
         });
     };
+    /**
+     *
+     * @param idPlazaOxxo
+     */
     UsuarioCrearComponent.prototype.onChangeSelectPlazaOxxo = function (idPlazaOxxo) {
         var _this = this;
         this.plazaOxxoService.getPlazaOxxoDetails(idPlazaOxxo, true)
             .subscribe(function (res) {
+            _this.itemsDistritos = [];
+            if (res.distritos.length > 0) {
+                var distritos = res.distritos;
+                for (var indexDistrito = 0; indexDistrito < distritos.length; indexDistrito++) {
+                    _this.itemsDistritos.push({
+                        id: distritos[indexDistrito].id,
+                        text: distritos[indexDistrito].nombreDistrito
+                    });
+                }
+            }
+            else {
+                _this.notificationService.printErrorMessage('No se encontraron distritos en esta Plaza Oxxo');
+            }
         }, function (error) {
             _this.notificationService.printErrorMessage('Error al cargar los distritos: ' + error);
         });
@@ -117,7 +151,18 @@ var UsuarioCrearComponent = (function () {
         var _this = this;
         this.perfilUsuarioService.getListPerfilesUsuario(1)
             .subscribe(function (res) {
-            _this.perfilUsuarios = res;
+            if (res.length > 0) {
+                for (var indexPerfil = 0; indexPerfil < res.length; indexPerfil++) {
+                    _this.itemsPerfilesUsuario.push({
+                        id: res[indexPerfil].id,
+                        text: res[indexPerfil].nombre
+                    });
+                }
+                _this.perfilUsuarios = res;
+            }
+            else {
+                _this.notificationService.printErrorMessage("No se encontraron perfiles de Usuario");
+            }
             _this.loadedPerfilesUsuario = true;
         }, function (error) {
             _this.notificationService.printErrorMessage('Error al cargar los perfiles de Usuario: ' + error);

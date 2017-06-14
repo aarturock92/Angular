@@ -24,9 +24,16 @@ export interface IPlazaOxxo{
     distritos: IDistrito[]
 }
 
-
 export interface IDistrito{
-    
+    id:number, 
+    claveDistrito: string,
+    nombreDistrito: string,
+    estatus: number,
+    tiendas: ITienda[]
+}
+
+export interface ITienda{
+
 }
 
 export interface IJerarquia{

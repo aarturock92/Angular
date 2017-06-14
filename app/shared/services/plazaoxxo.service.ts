@@ -6,7 +6,7 @@ import { DataService } from './data.service'
 @Injectable()
 export class PlazaOxxoService extends DataService{
     private _baseUrl: string
-    private _uriPlazaOxxo: 'PlazaOxxo'
+    private _uriPlazaOxxo: string = 'PlazaOxxo'
 
     constructor(private http: Http,
                 private configService: ConfigService,
