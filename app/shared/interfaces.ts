@@ -20,7 +20,13 @@ export interface IPlazaOxxo{
     id:number,
     crPlazaOxxo: string,
     nombrePlazaOxxo: string,
-    estatus: number
+    estatus: number,
+    distritos: IDistrito[]
+}
+
+
+export interface IDistrito{
+    
 }
 
 export interface IJerarquia{

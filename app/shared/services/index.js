@@ -10,4 +10,5 @@ __export(require('./plazaimmex.service'));
 __export(require('./region.service'));
 __export(require('./usuario.service'));
 __export(require('./jerarquia.service'));
+__export(require('./plazaoxxo.service'));
 //# sourceMappingURL=index.js.map

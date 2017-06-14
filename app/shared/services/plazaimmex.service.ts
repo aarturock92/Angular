@@ -1,9 +1,6 @@
 import { Injectable }  from '@angular/core'
 import { Http, Response, Headers } from '@angular/http'
-
-import { IPlazaImmex } from '../interfaces'
-import { ConfigService } from '../utils/config.service'
-import { AuthenticationService } from '../utils/authentication.service'
+import { ConfigService, AuthenticationService } from '../utils/index'
 import { DataService } from './data.service'
 
 @Injectable()

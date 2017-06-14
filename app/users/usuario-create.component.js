@@ -14,12 +14,13 @@ var ng2_bootstrap_1 = require('ng2-bootstrap');
 var index_1 = require('../shared/utils/index');
 var index_2 = require('../shared/services/index');
 var UsuarioCrearComponent = (function () {
-    function UsuarioCrearComponent(route, router, perfilUsuarioService, regionService, plazaImmexService, notificationService, itemsService) {
+    function UsuarioCrearComponent(route, router, perfilUsuarioService, regionService, plazaImmexService, plazaOxxoService, notificationService, itemsService) {
         this.route = route;
         this.router = router;
         this.perfilUsuarioService = perfilUsuarioService;
         this.regionService = regionService;
         this.plazaImmexService = plazaImmexService;
+        this.plazaOxxoService = plazaOxxoService;
         this.notificationService = notificationService;
         this.itemsService = itemsService;
         this.user = {};
@@ -101,6 +102,14 @@ var UsuarioCrearComponent = (function () {
             _this.notificationService.printErrorMessage('Error al cargar las Plazas Immex: ' + error);
         });
     };
+    UsuarioCrearComponent.prototype.onChangeSelectPlazaOxxo = function (idPlazaOxxo) {
+        var _this = this;
+        this.plazaOxxoService.getPlazaOxxoDetails(idPlazaOxxo, true)
+            .subscribe(function (res) {
+        }, function (error) {
+            _this.notificationService.printErrorMessage('Error al cargar los distritos: ' + error);
+        });
+    };
     /**
      * Metodo para cargar los perfiles de Usuario a partir de un servicio.
      */
@@ -157,7 +166,7 @@ var UsuarioCrearComponent = (function () {
             selector: 'app-user-create',
             templateUrl: 'usuario-create.component.html'
         }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, index_2.PerfilUsuarioService, index_2.RegionService, index_2.PlazaImmexService, index_1.NotificationService, index_1.ItemsService])
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, index_2.PerfilUsuarioService, index_2.RegionService, index_2.PlazaImmexService, index_2.PlazaOxxoService, index_1.NotificationService, index_1.ItemsService])
     ], UsuarioCrearComponent);
     return UsuarioCrearComponent;
 }());

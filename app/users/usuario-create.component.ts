@@ -3,8 +3,8 @@ import { NgForm } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router'
 import { TabsetComponent  } from 'ng2-bootstrap'
 import { NotificationService, ItemsService } from '../shared/utils/index'
-import { PerfilUsuarioService, RegionService, PlazaImmexService } from '../shared/services/index'
-import { IPerfilUsuario, IRegion, IPlazaImmex } from '../shared/interfaces'
+import { PerfilUsuarioService, RegionService, PlazaImmexService, PlazaOxxoService } from '../shared/services/index'
+import { IPerfilUsuario, IRegion, IPlazaImmex, IPlazaOxxo } from '../shared/interfaces'
 import { SelectComponent } from 'ng2-select'
 
 
@@ -37,6 +37,7 @@ export class UsuarioCrearComponent implements OnInit, OnChanges{
                 private perfilUsuarioService: PerfilUsuarioService,
                 private regionService: RegionService,
                 private plazaImmexService: PlazaImmexService,
+                private plazaOxxoService: PlazaOxxoService,
                 private notificationService: NotificationService,
                 private itemsService: ItemsService){}
 
@@ -99,7 +100,6 @@ export class UsuarioCrearComponent implements OnInit, OnChanges{
     }
 
     onChangeSelectPlazaImmex(idPlazaImmex: number){
-        
         this.plazaImmexService.getPlazaImmexDetails(idPlazaImmex, true)
             .subscribe((res: IPlazaImmex) => {
                 this.itemsPlazasOxxo = []
@@ -113,6 +113,16 @@ export class UsuarioCrearComponent implements OnInit, OnChanges{
             },
             error => {
                 this.notificationService.printErrorMessage('Error al cargar las Plazas Immex: '+error)
+            })
+    }
+
+    onChangeSelectPlazaOxxo(idPlazaOxxo: number){
+        this.plazaOxxoService.getPlazaOxxoDetails(idPlazaOxxo, true)
+            .subscribe((res: IPlazaOxxo) => {
+                
+            }, 
+            error => {
+                this.notificationService.printErrorMessage('Error al cargar los distritos: '+error)
             })
     }
 

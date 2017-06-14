@@ -17,35 +17,34 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var index_1 = require('../utils/index');
 var data_service_1 = require('./data.service');
-var PlazaImmexService = (function (_super) {
-    __extends(PlazaImmexService, _super);
-    function PlazaImmexService(http, configService, authenticationService) {
+var PlazaOxxoService = (function (_super) {
+    __extends(PlazaOxxoService, _super);
+    function PlazaOxxoService(http, configService, authenticationService) {
         _super.call(this);
         this.http = http;
         this.configService = configService;
         this.authenticationService = authenticationService;
-        this._uriPlazaImmex = 'PlazaImmex';
         this._baseUrl = this.configService.getApiURI();
     }
-    PlazaImmexService.prototype.getPlazasImmexByEstatus = function (incluirPlazaOxxo, estatusRegistro) {
-        return this.http.get(this._baseUrl + this._uriPlazaImmex + '/list?incluirPlazasOxxo=' + incluirPlazaOxxo + '&estatusRegistro=' + estatusRegistro, { headers: this.authenticationService.getHeaders() })
+    PlazaOxxoService.prototype.getPlazaOxxoByEstatus = function (idEstatusRegistro, incluirDistritos) {
+        return this.http.get(this._baseUrl + this._uriPlazaOxxo + '/list?incluirDistritos' + incluirDistritos + '&estatusRegistro=' + idEstatusRegistro, { headers: this.authenticationService.getHeaders() })
             .map(function (res) {
             return res.json();
         })
             .catch(this.handleError);
     };
-    PlazaImmexService.prototype.getPlazaImmexDetails = function (id, incluirPlazaOxxo) {
-        return this.http.get(this._baseUrl + this._uriPlazaImmex + '/' + id + '?incluirPlazaOxxo=' + incluirPlazaOxxo, { headers: this.authenticationService.getHeaders() })
+    PlazaOxxoService.prototype.getPlazaOxxoDetails = function (idPlazaOxxo, incluirDistritos) {
+        return this.http.get(this._baseUrl + this._uriPlazaOxxo + '/' + idPlazaOxxo + '?incluirDistritos=' + incluirDistritos, { headers: this.authenticationService.getHeaders() })
             .map(function (res) {
             return res.json();
         })
             .catch(this.handleError);
     };
-    PlazaImmexService = __decorate([
+    PlazaOxxoService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http, index_1.ConfigService, index_1.AuthenticationService])
-    ], PlazaImmexService);
-    return PlazaImmexService;
+    ], PlazaOxxoService);
+    return PlazaOxxoService;
 }(data_service_1.DataService));
-exports.PlazaImmexService = PlazaImmexService;
-//# sourceMappingURL=plazaimmex.service.js.map
+exports.PlazaOxxoService = PlazaOxxoService;
+//# sourceMappingURL=plazaoxxo.service.js.map
