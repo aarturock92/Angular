@@ -14,11 +14,12 @@ var ng2_bootstrap_1 = require('ng2-bootstrap');
 var index_1 = require('../shared/utils/index');
 var index_2 = require('../shared/services/index');
 var UsuarioCrearComponent = (function () {
-    function UsuarioCrearComponent(route, router, perfilUsuarioService, regionService, notificationService, itemsService) {
+    function UsuarioCrearComponent(route, router, perfilUsuarioService, regionService, plazaImmexService, notificationService, itemsService) {
         this.route = route;
         this.router = router;
         this.perfilUsuarioService = perfilUsuarioService;
         this.regionService = regionService;
+        this.plazaImmexService = plazaImmexService;
         this.notificationService = notificationService;
         this.itemsService = itemsService;
         this.user = {};
@@ -36,6 +37,8 @@ var UsuarioCrearComponent = (function () {
     UsuarioCrearComponent.prototype.ngOnInit = function () {
         this.loadPerfilesUsuario();
         this.loadRegiones();
+    };
+    UsuarioCrearComponent.prototype.ngOnChanges = function () {
     };
     /**
      * Metodo que ejecuta el control Select al realizar el evento change.
@@ -70,6 +73,7 @@ var UsuarioCrearComponent = (function () {
         var _this = this;
         this.regionService.getRegionDetails(idRegion, true)
             .subscribe(function (res) {
+            _this.itemsPlazasImmex = [];
             var plazasImmex = res.plazasImmex;
             for (var indexPlazaImmex = 0; indexPlazaImmex < plazasImmex.length; indexPlazaImmex++) {
                 _this.itemsPlazasImmex.push({
@@ -77,9 +81,24 @@ var UsuarioCrearComponent = (function () {
                     text: plazasImmex[indexPlazaImmex].nombrePlazaImmex
                 });
             }
-            console.log("this.itemsPlazasImmex", _this.itemsPlazasImmex);
         }, function (error) {
             _this.notificationService.printErrorMessage('Error al cargar las plazas Immex: ' + error);
+        });
+    };
+    UsuarioCrearComponent.prototype.onChangeSelectPlazaImmex = function (idPlazaImmex) {
+        var _this = this;
+        this.plazaImmexService.getPlazaImmexDetails(idPlazaImmex, true)
+            .subscribe(function (res) {
+            _this.itemsPlazasOxxo = [];
+            var plazasOxxo = res.plazasOxxo;
+            for (var indexPlazaOxxo = 0; indexPlazaOxxo < plazasOxxo.length; indexPlazaOxxo++) {
+                _this.itemsPlazasOxxo.push({
+                    id: plazasOxxo[indexPlazaOxxo].id,
+                    text: plazasOxxo[indexPlazaOxxo].nombrePlazaOxxo
+                });
+            }
+        }, function (error) {
+            _this.notificationService.printErrorMessage('Error al cargar las Plazas Immex: ' + error);
         });
     };
     /**
@@ -138,7 +157,7 @@ var UsuarioCrearComponent = (function () {
             selector: 'app-user-create',
             templateUrl: 'usuario-create.component.html'
         }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, index_2.PerfilUsuarioService, index_2.RegionService, index_1.NotificationService, index_1.ItemsService])
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, index_2.PerfilUsuarioService, index_2.RegionService, index_2.PlazaImmexService, index_1.NotificationService, index_1.ItemsService])
     ], UsuarioCrearComponent);
     return UsuarioCrearComponent;
 }());

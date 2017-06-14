@@ -17,7 +17,10 @@ export interface IPlazaImmex{
 }
 
 export interface IPlazaOxxo{
-    
+    id:number,
+    crPlazaOxxo: string,
+    nombrePlazaOxxo: string,
+    estatus: number
 }
 
 export interface IJerarquia{

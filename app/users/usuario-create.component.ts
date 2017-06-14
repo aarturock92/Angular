@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild }  from '@angular/core'
+import { Component, OnInit, ViewChild, OnChanges }  from '@angular/core'
 import { NgForm } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router'
 import { TabsetComponent  } from 'ng2-bootstrap'
 import { NotificationService, ItemsService } from '../shared/utils/index'
-import { PerfilUsuarioService, RegionService } from '../shared/services/index'
-import { IPerfilUsuario, IRegion } from '../shared/interfaces'
+import { PerfilUsuarioService, RegionService, PlazaImmexService } from '../shared/services/index'
+import { IPerfilUsuario, IRegion, IPlazaImmex } from '../shared/interfaces'
 import { SelectComponent } from 'ng2-select'
 
 
@@ -13,12 +13,12 @@ import { SelectComponent } from 'ng2-select'
     selector: 'app-user-create',
     templateUrl: 'usuario-create.component.html'
 })
-export class UsuarioCrearComponent implements OnInit{
+export class UsuarioCrearComponent implements OnInit, OnChanges{
     public user: any = {}
     
     perfilUsuarios: IPerfilUsuario[]
     loadedPerfilesUsuario: boolean = false
-
+  
     public itemsRegiones: Array<any> = []
     public itemsPlazasImmex: Array<any> = []
     public itemsPlazasOxxo: Array<any> = []
@@ -36,6 +36,7 @@ export class UsuarioCrearComponent implements OnInit{
                 private router: Router,
                 private perfilUsuarioService: PerfilUsuarioService,
                 private regionService: RegionService,
+                private plazaImmexService: PlazaImmexService,
                 private notificationService: NotificationService,
                 private itemsService: ItemsService){}
 
@@ -44,12 +45,15 @@ export class UsuarioCrearComponent implements OnInit{
         this.loadRegiones()
     }
 
+    ngOnChanges(){
+
+    }
+
     /**
      * Metodo que ejecuta el control Select al realizar el evento change.
      * @param idPerfilUsuario  
      */
     onChangeSelectPerfilUsuario(idPerfilUsuario: number){
-
         let perfilUsuario =  this.itemsService.getItemFromArray<IPerfilUsuario>(this.perfilUsuarios, (p) => p.id == idPerfilUsuario)
         this.selectedAdministracion = false
         this.selectedSupervision = false
@@ -77,21 +81,38 @@ export class UsuarioCrearComponent implements OnInit{
      * @param idRegion 
      */
     onChangeSelectRegion(idRegion: number){
+        
         this.regionService.getRegionDetails(idRegion,true)
             .subscribe((res: IRegion) => {
+                this.itemsPlazasImmex = [] 
                 var plazasImmex = res.plazasImmex
-
                 for(var indexPlazaImmex = 0;indexPlazaImmex < plazasImmex.length; indexPlazaImmex++){
                      this.itemsPlazasImmex.push({
                         id: plazasImmex[indexPlazaImmex].id,
                         text: plazasImmex[indexPlazaImmex].nombrePlazaImmex
                     })
                 }    
-
-                console.log("this.itemsPlazasImmex", this.itemsPlazasImmex)
             },
             error => {
                 this.notificationService.printErrorMessage('Error al cargar las plazas Immex: '+error)
+            })
+    }
+
+    onChangeSelectPlazaImmex(idPlazaImmex: number){
+        
+        this.plazaImmexService.getPlazaImmexDetails(idPlazaImmex, true)
+            .subscribe((res: IPlazaImmex) => {
+                this.itemsPlazasOxxo = []
+                var plazasOxxo = res.plazasOxxo
+                for(var indexPlazaOxxo = 0; indexPlazaOxxo < plazasOxxo.length; indexPlazaOxxo++){
+                    this.itemsPlazasOxxo.push({
+                        id: plazasOxxo[indexPlazaOxxo].id,
+                        text: plazasOxxo[indexPlazaOxxo].nombrePlazaOxxo
+                    })
+                }
+            },
+            error => {
+                this.notificationService.printErrorMessage('Error al cargar las Plazas Immex: '+error)
             })
     }
 
@@ -111,6 +132,7 @@ export class UsuarioCrearComponent implements OnInit{
     }
 
     loadRegiones(){
+
         this.regionService.getRegionesByEstatus(false, 1)
             .subscribe((res: IRegion[]) => {
                   for(var indexRegion = 0; indexRegion< res.length; indexRegion++){
