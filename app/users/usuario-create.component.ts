@@ -3,8 +3,8 @@ import { NgForm } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router'
 import { TabsetComponent  } from 'ng2-bootstrap'
 import { NotificationService, ItemsService } from '../shared/utils/index'
-import { PerfilUsuarioService, RegionService, PlazaImmexService, PlazaOxxoService } from '../shared/services/index'
-import { IPerfilUsuario, IRegion, IPlazaImmex, IPlazaOxxo } from '../shared/interfaces'
+import { PerfilUsuarioService, RegionService, PlazaImmexService, PlazaOxxoService, EstadoService } from '../shared/services/index'
+import { IPerfilUsuario, IRegion, IPlazaImmex, IPlazaOxxo, IEstado } from '../shared/interfaces'
 import { SelectComponent } from 'ng2-select'
 
 
@@ -17,6 +17,7 @@ export class UsuarioCrearComponent implements OnInit{
     public user: any = {}
     
     perfilUsuarios: IPerfilUsuario[]
+
     loadedPerfilesUsuario: boolean = false
   
     public itemsRegiones: Array<any> = []
@@ -24,12 +25,15 @@ export class UsuarioCrearComponent implements OnInit{
     public itemsPlazasOxxo: Array<any> = []
     public itemsDistritos: Array<any> = []
     public itemsPerfilesUsuario: Array<any> = []
+    public itemsEstados: Array<any> = []
+    public itemsMunicipios: Array<any> = []
 
     //Variables Controles
     esControlMultiple: boolean = false
     selectedAdministracion: boolean = false
     selectedSupervision: boolean = false
-    selectedOperativo: boolean = false   
+    selectedOperativo: boolean = false
+ 
 
     @ViewChild('staticTabs') staticTabs: TabsetComponent
 
@@ -39,12 +43,14 @@ export class UsuarioCrearComponent implements OnInit{
                 private regionService: RegionService,
                 private plazaImmexService: PlazaImmexService,
                 private plazaOxxoService: PlazaOxxoService,
+                private estadoService: EstadoService,
                 private notificationService: NotificationService,
                 private itemsService: ItemsService){}
 
     ngOnInit(){
         this.loadPerfilesUsuario()
         this.loadRegiones()
+        this.loadEstados()
     }
 
     /**
@@ -52,8 +58,6 @@ export class UsuarioCrearComponent implements OnInit{
     * @param idPerfilUsuario  
     */
     onChangeSelectPerfilUsuario(idPerfilUsuario: number){
-        console.log("idPerfilUsuario",idPerfilUsuario)
-        
         let perfilUsuario =  this.itemsService.getItemFromArray<IPerfilUsuario>(this.perfilUsuarios, (p) => p.id == idPerfilUsuario)
         this.selectedAdministracion = false
         this.selectedSupervision = false
@@ -169,7 +173,7 @@ export class UsuarioCrearComponent implements OnInit{
                             text: res[indexPerfil].nombre
                         })
                     }   
-                    
+
                     this.perfilUsuarios = res                 
                 }else{
                     this.notificationService.printErrorMessage("No se encontraron perfiles de Usuario")
@@ -179,6 +183,53 @@ export class UsuarioCrearComponent implements OnInit{
             error => {
                 this.notificationService.printErrorMessage('Error al cargar los perfiles de Usuario: '+ error)
             });
+    }
+
+    /**
+     * Metodo para cargar los Estados
+     */
+    loadEstados(){
+        this.estadoService.getEstadoByStatus(false, 1)
+            .subscribe((res: IEstado[]) => {
+                this.itemsEstados = []
+                if(res.length > 0){
+                    for(var indexEstado = 0; indexEstado < res.length; indexEstado++){
+                        this.itemsEstados.push({
+                            id: res[indexEstado].id,
+                            text: res[indexEstado].nombre
+                        })
+                    }   
+                }else{
+                    this.notificationService.printErrorMessage('No se encontraron estados')
+                }
+            },
+            error => {
+                this.notificationService.printErrorMessage('Error al cargar el Catalogo de Estados')
+            })
+    }
+
+     /**
+     * Metodo que carga los municipios a partir de un IdEstado
+     */
+    onChangeSelectEstado(idEstado: number){
+        this.estadoService.getEstadoDetails(idEstado, true)
+            .subscribe((res: IEstado) => {
+                this.itemsMunicipios = []
+                if(res.municipios.length > 0){
+                    var municipios = res.municipios
+                    for(var indexMunicipio = 0; indexMunicipio < municipios.length; indexMunicipio++){
+                        this.itemsMunicipios.push({
+                            id: municipios[indexMunicipio].id,
+                            text: municipios[indexMunicipio].nombre
+                        })
+                    }                   
+                }else{
+                    this.notificationService.printErrorMessage('No se encontraron municipios')
+                }
+            },
+            error => {
+                this.notificationService.printErrorMessage("Error al cargar el Catalogo de Municipios")
+            })
     }
 
     loadRegiones(){

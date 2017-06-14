@@ -166,16 +166,12 @@
 
                         <div class="form-group col-md-4">
                             <label class="control-label">Estado</label>
-                            <select class="form-control" [(ngModel)]="user.idEstado" name="idEstado" (change)="onChangeSelectEstado($event.target.value)">
-                        <option *ngFor="let estado of estados" [value]="estado.id" [selected]="estado.id === user.idEstado">{{estado.nombre}}</option>
-                    </select>
+                            <ng-select [items]="itemsEstados" (selected)="onChangeSelectEstado($event.id)" placeholder="Selecciona un Estado"></ng-select>
                         </div>
 
                         <div class="form-group col-md-4">
                             <label class="control-label">Municipio</label>
-                            <select class="form-control" [(ngModel)]="user.idMunicipio" name="idMunicipio">
-                        <option *ngFor="let municipio of municipios" [value]="municipio.id" [selected]="municipio.id === user.idMunicipio">{{municipio.nombre}}</option>
-                    </select>
+                            <ng-select [items]="itemsMunicipios" placeholder="Selecciona un Municipio"></ng-select>
                         </div>
                     </div>
                 </div>
@@ -185,45 +181,97 @@
         <tab heading="ASIGNACIÓN">
             <br>
             <fieldset>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <legend>ASIGNACIÓN</legend>
+                <!-- Div Asignación de Plaza -->
+                <div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <legend>Asignación de Plaza</legend>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="selectedAdministracion">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Regiones:</label>
+                                <ng-select [multiple]="esControlMultiple" [items]="itemsRegiones" placeholder="No city selected"></ng-select>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="selectedSupervision">
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Regiones:</label>
+                                <ng-select [items]="itemsRegiones" (selected)="onChangeSelectRegion($event.id)" placeholder="Selecciona una Región"></ng-select>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Plazas Immex:</label>
+                                <ng-select [items]="itemsPlazasImmex" (selected)="onChangeSelectPlazaImmex($event.id)" placeholder="Selecciona una Plaza Immex"></ng-select>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Plazas Oxxo:</label>
+                                <ng-select [items]="itemsPlazasOxxo" (selected)="onChangeSelectPlazaOxxo($event.id)" placeholder="Selecciona una Plaza Oxxo"></ng-select>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Distritos:</label>
+                                <ng-select [multiple]="esControlMultiple" [items]="itemsDistritos" placeholder="Selecciona un Distrito"></ng-select>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="selectedOperativo">
+                            <div class="row">
+                                
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Regiones:</label>
+                                <ng-select [items]="itemsRegiones" (selected)="onChangeSelectRegion($event.id)" placeholder="Selecciona una Región"></ng-select>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Plazas Immex:</label>
+                                <ng-select [items]="itemsPlazasImmex" (selected)="onChangeSelectPlazaImmex($event.id)" placeholder="Selecciona una Plaza Immex"></ng-select>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Plazas Oxxo:</label>
+                                <ng-select [items]="itemsPlazasOxxo" (selected)="onChangeSelectPlazaOxxo($event.id)" placeholder="Selecciona una Plaza Oxxo"></ng-select>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Distritos:</label>
+                                <ng-select [multiple]="esControlMultiple" [items]="itemsDistritos" placeholder="Selecciona un Distrito"></ng-select>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="selectedAdministracion">
-                         <div class="form-group col-md-4">
-                            <label class="control-label">Regiones:</label>
-                            <ng-select [multiple]="esControlMultiple" [items]="itemsRegiones" placeholder="No city selected"></ng-select>
-                         </div>
+                <!--Div Asignación de Herramientas -->
+                <div *ngIf="selectedOperativo">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <legend>Asignación de Herramientas</legend>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="selectedSupervision">
-                         <div class="form-group col-md-3">
-                            <label class="control-label">Regiones:</label>
-                            <ng-select [items]="itemsRegiones" (selected)="onChangeSelectRegion($event.id)" placeholder="Selecciona una Región"></ng-select>
-                         </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Moviles:</label>
+                                <ng-select [multiple]="esControlMultiple" [items]="itemsRegiones" placeholder="No city selected"></ng-select>
+                            </div>
 
-                         <div class="form-group col-md-3" >
-                             <label class="control-label">Plazas Immex:</label>
-                             <ng-select [items]="itemsPlazasImmex" (selected)="onChangeSelectPlazaImmex($event.id)" placeholder="Selecciona una Plaza Immex"></ng-select>
-                         </div>
-
-                         <div class="form-group col-md-3">
-                            <label class="control-label">Plazas Oxxo:</label>
-                            <ng-select [items]="itemsPlazasOxxo" (selected)="onChangeSelectPlazaOxxo($event.id)" placeholder="Selecciona una Plaza Oxxo"></ng-select>
-                         </div>
-
-                         <div class="form-group col-md-3">
-                            <label class="control-label">Distritos:</label>
-                            <ng-select [multiple]="esControlMultiple" [items]="itemsDistritos" placeholder="Selecciona un Distrito"></ng-select>
-                         </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Automovil:</label>
+                                <ng-select [multiple]="esControlMultiple" [items]="itemsRegiones" placeholder="No city selected"></ng-select>
+                            </div>
+                        </div>
                     </div>
-                 </div>
-                
+                </div>
             </fieldset>
         </tab>
     </tabset>

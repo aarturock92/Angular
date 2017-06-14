@@ -14,13 +14,14 @@ var ng2_bootstrap_1 = require('ng2-bootstrap');
 var index_1 = require('../shared/utils/index');
 var index_2 = require('../shared/services/index');
 var UsuarioCrearComponent = (function () {
-    function UsuarioCrearComponent(route, router, perfilUsuarioService, regionService, plazaImmexService, plazaOxxoService, notificationService, itemsService) {
+    function UsuarioCrearComponent(route, router, perfilUsuarioService, regionService, plazaImmexService, plazaOxxoService, estadoService, notificationService, itemsService) {
         this.route = route;
         this.router = router;
         this.perfilUsuarioService = perfilUsuarioService;
         this.regionService = regionService;
         this.plazaImmexService = plazaImmexService;
         this.plazaOxxoService = plazaOxxoService;
+        this.estadoService = estadoService;
         this.notificationService = notificationService;
         this.itemsService = itemsService;
         this.user = {};
@@ -30,6 +31,8 @@ var UsuarioCrearComponent = (function () {
         this.itemsPlazasOxxo = [];
         this.itemsDistritos = [];
         this.itemsPerfilesUsuario = [];
+        this.itemsEstados = [];
+        this.itemsMunicipios = [];
         //Variables Controles
         this.esControlMultiple = false;
         this.selectedAdministracion = false;
@@ -39,13 +42,13 @@ var UsuarioCrearComponent = (function () {
     UsuarioCrearComponent.prototype.ngOnInit = function () {
         this.loadPerfilesUsuario();
         this.loadRegiones();
+        this.loadEstados();
     };
     /**
     * Metodo que ejecuta el control Select al realizar el evento change.
     * @param idPerfilUsuario
     */
     UsuarioCrearComponent.prototype.onChangeSelectPerfilUsuario = function (idPerfilUsuario) {
-        console.log("idPerfilUsuario", idPerfilUsuario);
         var perfilUsuario = this.itemsService.getItemFromArray(this.perfilUsuarios, function (p) { return p.id == idPerfilUsuario; });
         this.selectedAdministracion = false;
         this.selectedSupervision = false;
@@ -168,6 +171,53 @@ var UsuarioCrearComponent = (function () {
             _this.notificationService.printErrorMessage('Error al cargar los perfiles de Usuario: ' + error);
         });
     };
+    /**
+     * Metodo para cargar los Estados
+     */
+    UsuarioCrearComponent.prototype.loadEstados = function () {
+        var _this = this;
+        this.estadoService.getEstadoByStatus(false, 1)
+            .subscribe(function (res) {
+            _this.itemsEstados = [];
+            if (res.length > 0) {
+                for (var indexEstado = 0; indexEstado < res.length; indexEstado++) {
+                    _this.itemsEstados.push({
+                        id: res[indexEstado].id,
+                        text: res[indexEstado].nombre
+                    });
+                }
+            }
+            else {
+                _this.notificationService.printErrorMessage('No se encontraron estados');
+            }
+        }, function (error) {
+            _this.notificationService.printErrorMessage('Error al cargar el Catalogo de Estados');
+        });
+    };
+    /**
+    * Metodo que carga los municipios a partir de un IdEstado
+    */
+    UsuarioCrearComponent.prototype.onChangeSelectEstado = function (idEstado) {
+        var _this = this;
+        this.estadoService.getEstadoDetails(idEstado, true)
+            .subscribe(function (res) {
+            _this.itemsMunicipios = [];
+            if (res.municipios.length > 0) {
+                var municipios = res.municipios;
+                for (var indexMunicipio = 0; indexMunicipio < municipios.length; indexMunicipio++) {
+                    _this.itemsMunicipios.push({
+                        id: municipios[indexMunicipio].id,
+                        text: municipios[indexMunicipio].nombre
+                    });
+                }
+            }
+            else {
+                _this.notificationService.printErrorMessage('No se encontraron municipios');
+            }
+        }, function (error) {
+            _this.notificationService.printErrorMessage("Error al cargar el Catalogo de Municipios");
+        });
+    };
     UsuarioCrearComponent.prototype.loadRegiones = function () {
         var _this = this;
         this.regionService.getRegionesByEstatus(false, 1)
@@ -211,7 +261,7 @@ var UsuarioCrearComponent = (function () {
             selector: 'app-user-create',
             templateUrl: 'usuario-create.component.html'
         }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, index_2.PerfilUsuarioService, index_2.RegionService, index_2.PlazaImmexService, index_2.PlazaOxxoService, index_1.NotificationService, index_1.ItemsService])
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, index_2.PerfilUsuarioService, index_2.RegionService, index_2.PlazaImmexService, index_2.PlazaOxxoService, index_2.EstadoService, index_1.NotificationService, index_1.ItemsService])
     ], UsuarioCrearComponent);
     return UsuarioCrearComponent;
 }());
