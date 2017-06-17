@@ -7,9 +7,7 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
  
 import { IUsuario, Pagination, PaginatedResult}  from '../interfaces'
-import { ItemsService} from '../utils/items.service'
-import { ConfigService } from '../utils/config.service'
-import { AuthenticationService } from '../utils/authentication.service'
+import { ItemsService, ConfigService, AuthenticationService} from '../utils/index'
 import { DataService } from './data.service'
 
 @Injectable()
