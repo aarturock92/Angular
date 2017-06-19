@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input, Output, trigger, state, style,anim
 import { UsuarioService } from '../shared/services/index'
 import { ItemsService, NotificationService, ConfigService } from '../shared/utils/index'
 import { IUsuario, Pagination, PaginatedResult } from '../shared/interfaces'
+import { SpinnerComponent } from 'ng2-component-spinner'
 
 @Component({
     moduleId: module.id,
@@ -36,6 +37,7 @@ export class UserListComponent{
     public usuarioDetails: IUsuario
     public selectedUsuarioId: number
     public selectedUsuarioLoaded: boolean= false
+    public showSpinner: boolean = true
 
     constructor(private usuarioService: UsuarioService,
                 private itemsService: ItemsService,
@@ -51,6 +53,7 @@ export class UserListComponent{
             .subscribe((res: PaginatedResult<IUsuario[]>) => {
                 this.usuarios = res.result
                 this.totalItems = res.totalCount
+                this.showSpinner = false
             },
             error => {
                 this.notificationService.printErrorMessage('Fallo la carga de Usuarios'+ error)
@@ -60,8 +63,10 @@ export class UserListComponent{
     removeUsuario(usuario: IUsuario){
         this.notificationService.openConfirmationDialog('Are you sure you want to delete this user?', 
                 () => {
+                    this.showSpinner = true
                     this.usuarioService.deleteUser(usuario.id)
                         .subscribe(() => {
+                            this.showSpinner = false
                             this.itemsService.removeItemFromArray<IUsuario>(this.usuarios, usuario)
                             this.notificationService.printSuccessMessage(usuario.nombreUsuario + ' has been deleted.')
                         },

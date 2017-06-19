@@ -7,6 +7,7 @@ import { HttpModule} from '@angular/http'
 
 import { PaginationModule, DatepickerModule, ModalModule, ProgressbarModule, TimepickerModule, TabsModule} from 'ng2-bootstrap'
 import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2'
+import { SpinnerComponentModule } from 'ng2-component-spinner'
 import { SelectModule } from 'ng2-select'
 
 import { AppComponent} from './app.component'
@@ -51,7 +52,8 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         routing,
         TimepickerModule.forRoot(),
         TabsModule.forRoot(),
-        JWBootstrapSwitchModule
+        JWBootstrapSwitchModule,
+        SpinnerComponentModule
     ],
     declarations: [
         AppComponent,

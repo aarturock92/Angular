@@ -21,6 +21,7 @@ var UserListComponent = (function () {
         this.totalItems = 0;
         this.currentPage = 0;
         this.selectedUsuarioLoaded = false;
+        this.showSpinner = true;
     }
     UserListComponent.prototype.ngOnInit = function () {
         this.loadUsuarios();
@@ -31,6 +32,7 @@ var UserListComponent = (function () {
             .subscribe(function (res) {
             _this.usuarios = res.result;
             _this.totalItems = res.totalCount;
+            _this.showSpinner = false;
         }, function (error) {
             _this.notificationService.printErrorMessage('Fallo la carga de Usuarios' + error);
         });
@@ -38,8 +40,10 @@ var UserListComponent = (function () {
     UserListComponent.prototype.removeUsuario = function (usuario) {
         var _this = this;
         this.notificationService.openConfirmationDialog('Are you sure you want to delete this user?', function () {
+            _this.showSpinner = true;
             _this.usuarioService.deleteUser(usuario.id)
                 .subscribe(function () {
+                _this.showSpinner = false;
                 _this.itemsService.removeItemFromArray(_this.usuarios, usuario);
                 _this.notificationService.printSuccessMessage(usuario.nombreUsuario + ' has been deleted.');
             }, function (error) {

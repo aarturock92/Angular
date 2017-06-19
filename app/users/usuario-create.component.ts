@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild }  from '@angular/core'
+import { Component, OnInit, ViewChild, OnDestroy }  from '@angular/core'
 import { NgForm } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router'
 import { TabsetComponent  } from 'ng2-bootstrap'

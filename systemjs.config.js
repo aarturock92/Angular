@@ -31,6 +31,7 @@
             'ng2-select': 'npm:ng2-select/bundles/ng2-select.umd.js',
             'jw-bootstrap-switch-ng2': 'npm:jw-bootstrap-switch-ng2',
             'ng2-bootstrap': 'npm:ng2-bootstrap',
+            'ng2-component-spinner': 'npm:ng2-component-spinner',
             'symbol-observable': 'npm:symbol-observable'
         },
         // packages tells the System loader how to load when no filename and/or no extension
@@ -49,6 +50,10 @@
             'moment': { main: 'moment.js', defaultExtension: 'js' },
             'ng2-bootstrap': { format: 'cjs', main: 'bundles/ngx-bootstrap.umd.js', defaultExtension: 'js' },
             'jw-bootstrap-switch-ng2': {
+                main: './dist/index.js',
+                defaultExtension: 'js'
+            },
+            'ng2-component-spinner':{
                 main: './dist/index.js',
                 defaultExtension: 'js'
             },

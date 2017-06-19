@@ -7,9 +7,7 @@ declare var alertify: any
 export class NotificationService{
     private _notifier: any = alertify
 
-    constructor(){
-
-    }
+    constructor(){}
 
     /*
     Opens a confirmation dialog using the alertify.js lib
