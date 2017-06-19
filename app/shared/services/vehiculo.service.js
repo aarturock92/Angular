@@ -17,59 +17,46 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
-var interfaces_1 = require('../interfaces');
 var index_1 = require('../utils/index');
 var data_service_1 = require('./data.service');
-var UsuarioService = (function (_super) {
-    __extends(UsuarioService, _super);
-    function UsuarioService(http, configService, authentication) {
+var VehiculoService = (function (_super) {
+    __extends(VehiculoService, _super);
+    function VehiculoService(http, configService, authenticationService) {
         _super.call(this);
         this.http = http;
         this.configService = configService;
-        this.authentication = authentication;
-        this._uriUsuario = "Usuario";
-        this._baseUrl = configService.getApiURI();
+        this.authenticationService = authenticationService;
+        this._uriVehiculo = 'Vehiculo';
+        this._baseUrl = this.configService.getApiURI();
     }
-    UsuarioService.prototype.getUsuarios = function (page, itemsPerPage) {
-        var paginatedResult = new interfaces_1.PaginatedResult();
-        return this.http.get(this._baseUrl + this._uriUsuario + '/search/' + page + '/' + itemsPerPage, { headers: this.authentication.getHeaders() })
-            .map(function (res) {
-            var data = res.json();
-            paginatedResult.count = data.count;
-            paginatedResult.page = data.page;
-            paginatedResult.result = data.items;
-            paginatedResult.totalCount = data.totalCount;
-            paginatedResult.totalPages = data.totalPages;
-            return paginatedResult;
-        })
-            .catch(this.handleError);
-    };
-    UsuarioService.prototype.getUsuarioDetails = function (id) {
-        return this.http.get(this._baseUrl + this._uriUsuario + '/' + id, { headers: this.authentication.getHeaders() })
+    VehiculoService.prototype.getVehiculosByEstatusRegistro = function (estatusRegistro) {
+        this.http.get(this._baseUrl + this._uriVehiculo + '/list?estatusRegistro=' + estatusRegistro, { headers: this.authenticationService.getHeaders() })
             .map(function (res) {
             return res.json();
         })
             .catch(this.handleError);
     };
-    UsuarioService.prototype.createUsuario = function (usuario) {
-        return this.http.post(this._baseUrl + this._uriUsuario + '/register', JSON.stringify(usuario), { headers: this.authentication.getHeaders() })
+    VehiculoService.prototype.getVehiculoDetails = function (idVehiculo) {
+        return this.http.get(this._baseUrl + this._uriVehiculo + '/' + idVehiculo, { headers: this.authenticationService.getHeaders() })
             .map(function (res) {
             return res.json();
         })
             .catch(this.handleError);
     };
-    UsuarioService.prototype.deleteUser = function (idUser) {
-        return this.http.delete(this._baseUrl + 'usuario/' + idUser, { headers: this.authentication.getHeaders() })
+    VehiculoService.prototype.registerVehiculo = function (vehiculo) {
+        this.http.post(this._baseUrl + this._uriVehiculo + '/register', JSON.stringify(vehiculo), { headers: this.authenticationService.getHeaders() })
             .map(function (res) {
-            return;
+            return res.json();
         })
             .catch(this.handleError);
     };
-    UsuarioService = __decorate([
+    VehiculoService.prototype.updateVehiculo = function () {
+    };
+    VehiculoService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http, index_1.ConfigService, index_1.AuthenticationService])
-    ], UsuarioService);
-    return UsuarioService;
+    ], VehiculoService);
+    return VehiculoService;
 }(data_service_1.DataService));
-exports.UsuarioService = UsuarioService;
-//# sourceMappingURL=usuario.service.js.map
+exports.VehiculoService = VehiculoService;
+//# sourceMappingURL=vehiculo.service.js.map

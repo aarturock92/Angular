@@ -93,6 +93,16 @@ export interface IMovil{
     idEstatus: number
 }
 
+export interface IVehiculo{
+    id: number,
+    plazaImmexId: number,
+    marca: string,
+    modelo: string,
+    numeroPlaca: string, 
+    numeroEconomico: string, 
+    idEstatus: number, 
+}
+
 export interface IEstado{
     id: number,
     nombre: string,

@@ -11,4 +11,5 @@ __export(require('./region.service'));
 __export(require('./usuario.service'));
 __export(require('./jerarquia.service'));
 __export(require('./plazaoxxo.service'));
+__export(require('./vehiculo.service'));
 //# sourceMappingURL=index.js.map
