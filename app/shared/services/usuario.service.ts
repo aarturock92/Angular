@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Http, Response, Headers} from '@angular/http'
+import { AuthHttp } from 'angular2-jwt'
 
 import { Observable } from 'rxjs/Rx'
 import { Observer} from 'rxjs/Observer'
@@ -17,7 +18,8 @@ export class UsuarioService extends DataService{
 
     constructor(private http: Http, 
                 private configService: ConfigService,
-                private authentication: AuthenticationService){
+                private authentication: AuthenticationService,
+                private authHttp: AuthHttp){
         super()
 
         this._baseUrl = configService.getApiURI()       
@@ -25,18 +27,17 @@ export class UsuarioService extends DataService{
     
     getUsuarios(page?:number,itemsPerPage?:number): Observable<PaginatedResult<IUsuario[]>>{
         let paginatedResult: PaginatedResult<IUsuario[]> = new PaginatedResult<IUsuario[]>()
-
-        return this.http.get(this._baseUrl + this._uriUsuario +'/search/' + page + '/' + itemsPerPage, { headers: this.authentication.getHeaders()})
-               .map((res: Response) => {
-                    let data = res.json()
-                    paginatedResult.count = data.count
-                    paginatedResult.page = data.page
-                    paginatedResult.result = data.items
-                    paginatedResult.totalCount = data.totalCount
-                    paginatedResult.totalPages = data.totalPages
-                    return paginatedResult
-               })
-               .catch(this.handleError)
+        return this.authHttp.get(this._baseUrl + this._uriUsuario + '/search/' + page + '/' + itemsPerPage)
+                   .map((res: Response) => {
+                       let data = res.json()
+                       paginatedResult.count = data.count
+                       paginatedResult.page = data.page
+                       paginatedResult.result = data.items
+                       paginatedResult.totalCount = data.totalCount
+                       paginatedResult.totalPages = data.totalPages
+                       return paginatedResult
+                })
+                .catch(this.handleError)
     }
 
     getUsuarioDetails(id:number): Observable<IUsuario>{

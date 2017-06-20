@@ -32,7 +32,8 @@
             'jw-bootstrap-switch-ng2': 'npm:jw-bootstrap-switch-ng2',
             'ng2-bootstrap': 'npm:ng2-bootstrap',
             'ng2-component-spinner': 'npm:ng2-component-spinner',
-            'symbol-observable': 'npm:symbol-observable'
+            'symbol-observable': 'npm:symbol-observable',
+            'angular2-jwt': 'npm:angular2-jwt'
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -56,6 +57,10 @@
             'ng2-component-spinner':{
                 main: './dist/index.js',
                 defaultExtension: 'js'
+            },
+            'angular2-jwt':{
+                 main: 'angular2-jwt.js',
+                 defaultExtension: 'js'   
             },
             'symbol-observable': { main: 'index.js', defaultExtension: 'js' }
         }

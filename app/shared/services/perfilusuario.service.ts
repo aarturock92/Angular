@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Http, Response, Headers} from '@angular/http'
+import { AuthHttp } from 'angular2-jwt'
 
 import { Observable } from 'rxjs/Rx'
 import { Observer} from 'rxjs/Observer'
@@ -18,7 +19,8 @@ export class PerfilUsuarioService extends DataService{
 
     constructor(private configService: ConfigService,   
                 private http: Http,
-                private authenticationService: AuthenticationService){
+                private authenticationService: AuthenticationService,
+                private authHttp: AuthHttp){
         super()
 
         this._baseUrl = configService.getApiURI()
@@ -35,12 +37,11 @@ export class PerfilUsuarioService extends DataService{
     }
 
     getMenuByPerfilUsuarioId(idPerfilUsuario: number){
-        return this.http.get(this._baseUrl + this._uriPerfilUsuario + '/'+ idPerfilUsuario + '/Menu', 
-               { headers: this.authenticationService.getHeaders()})
-               .map((res: Response) => {
-                    return res.json()
-               })
-               .catch(this.handleError)
+        return this.authHttp.get(this._baseUrl + this._uriPerfilUsuario + '/'+ idPerfilUsuario + '/Menu')
+                   .map((res: Response) => {
+                        return res.json()
+                    })
+                    .catch(this.handleError)
     }
 
 }

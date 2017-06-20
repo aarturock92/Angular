@@ -86,8 +86,7 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         ItemsService,
         MappingService,
         NotificationService,
-        AuthenticationService
-    ],
+        AuthenticationService],
     bootstrap: [AppComponent]
 })
 export class AppModule{}

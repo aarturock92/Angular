@@ -81,8 +81,7 @@ var AppModule = (function () {
                 items_service_1.ItemsService,
                 mapping_service_1.MappingService,
                 notification_service_1.NotificationService,
-                authentication_service_1.AuthenticationService
-            ],
+                authentication_service_1.AuthenticationService],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

@@ -15,6 +15,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var angular2_jwt_1 = require('angular2-jwt');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
 var interfaces_1 = require('../interfaces');
@@ -22,17 +23,18 @@ var index_1 = require('../utils/index');
 var data_service_1 = require('./data.service');
 var UsuarioService = (function (_super) {
     __extends(UsuarioService, _super);
-    function UsuarioService(http, configService, authentication) {
+    function UsuarioService(http, configService, authentication, authHttp) {
         _super.call(this);
         this.http = http;
         this.configService = configService;
         this.authentication = authentication;
+        this.authHttp = authHttp;
         this._uriUsuario = "Usuario";
         this._baseUrl = configService.getApiURI();
     }
     UsuarioService.prototype.getUsuarios = function (page, itemsPerPage) {
         var paginatedResult = new interfaces_1.PaginatedResult();
-        return this.http.get(this._baseUrl + this._uriUsuario + '/search/' + page + '/' + itemsPerPage, { headers: this.authentication.getHeaders() })
+        return this.authHttp.get(this._baseUrl + this._uriUsuario + '/search/' + page + '/' + itemsPerPage)
             .map(function (res) {
             var data = res.json();
             paginatedResult.count = data.count;
@@ -67,7 +69,7 @@ var UsuarioService = (function (_super) {
     };
     UsuarioService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, index_1.ConfigService, index_1.AuthenticationService])
+        __metadata('design:paramtypes', [http_1.Http, index_1.ConfigService, index_1.AuthenticationService, angular2_jwt_1.AuthHttp])
     ], UsuarioService);
     return UsuarioService;
 }(data_service_1.DataService));
