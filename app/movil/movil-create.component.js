@@ -25,6 +25,7 @@ var MovilCreateComponent = (function () {
         this.OffColor = 'warning';
         this.OnText = 'Activo';
         this.OffText = 'Inactivo';
+        this.showSpinner = true;
         this.EstatusMovil = true;
         this.regionesLoaded = false;
     }
@@ -37,24 +38,29 @@ var MovilCreateComponent = (function () {
             .subscribe(function (res) {
             _this.regiones = res;
             _this.regionesLoaded = true;
+            _this.showSpinner = false;
         }, function (error) {
             _this.notificationService.printErrorMessage("Error al cargar las Regiones " + error);
         });
     };
     MovilCreateComponent.prototype.onChangeSelectRegion = function (idRegion) {
         var _this = this;
+        this.showSpinner = true;
         this.regionService.getRegionDetails(idRegion, true)
             .subscribe(function (res) {
             _this.plazasImmex = res.plazasImmex;
+            _this.showSpinner = false;
         }, function (error) {
             _this.notificationService.printErrorMessage("Error al cargar las Plazas Immex " + error);
         });
     };
     MovilCreateComponent.prototype.saveMovil = function (formValues) {
         var _this = this;
+        this.showSpinner = true;
         formValues.idEstatus = (this.EstatusMovil) ? 1 : 2;
         this.movilService.createMovil(this.mappingService.mapMovilCreate(formValues))
             .subscribe(function (movilCreado) {
+            _this.showSpinner = false;
             _this.back();
         }, function (error) {
             _this.notificationService.printErrorMessage('No se pudo crear el movil: ' + error);

@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms'
 import { IMovil, IRegion, IPlazaImmex } from '../shared/interfaces'
 import { MovilService, RegionService } from '../shared/services/index'
 import { ItemsService, NotificationService, MappingService } from '../shared/utils/index'
+import { SpinnerComponent } from 'ng2-component-spinner'
 
 @Component({
     moduleId: module.id,
@@ -16,6 +17,8 @@ export class MovilCreateComponent implements OnInit {
     public OffColor: string = 'warning'
     public OnText: string = 'Activo'
     public OffText: string = 'Inactivo'
+    public showSpinner: boolean = true
+
     EstatusMovil: boolean = true
 
     regiones: IRegion[]
@@ -38,6 +41,7 @@ export class MovilCreateComponent implements OnInit {
             .subscribe((res: IRegion[]) => {
                 this.regiones = res
                 this.regionesLoaded = true
+                this.showSpinner = false
             },
             error => {
                 this.notificationService.printErrorMessage("Error al cargar las Regiones " + error)
@@ -45,9 +49,11 @@ export class MovilCreateComponent implements OnInit {
     }
 
     onChangeSelectRegion(idRegion: number){
+        this.showSpinner = true
         this.regionService.getRegionDetails(idRegion, true)
             .subscribe((res: IRegion) => {
                 this.plazasImmex = res.plazasImmex
+                this.showSpinner = false
             },
             error => {
                 this.notificationService.printErrorMessage("Error al cargar las Plazas Immex "+error)
@@ -55,10 +61,12 @@ export class MovilCreateComponent implements OnInit {
     }
 
     saveMovil(formValues){
+        this.showSpinner = true
         formValues.idEstatus = (this.EstatusMovil) ? 1: 2
 
         this.movilService.createMovil(this.mappingService.mapMovilCreate(formValues))
             .subscribe((movilCreado: IMovil) => {
+                this.showSpinner = false
                 this.back()
             },
             error => {

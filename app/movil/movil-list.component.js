@@ -19,6 +19,7 @@ var MovilListComponent = (function () {
         this.currentPage = 0;
         this.itemsPerPage = 10;
         this.totalItems = 0;
+        this.showSpinner = true;
     }
     MovilListComponent.prototype.ngOnInit = function () {
         this.loadMoviles();
@@ -29,20 +30,24 @@ var MovilListComponent = (function () {
             .subscribe(function (res) {
             _this.moviles = res.result;
             _this.totalItems = res.totalCount;
+            _this.showSpinner = false;
         }, function (error) {
             _this.notificationService.printErrorMessage('Fallo la carga de Moviles ' + error);
         });
     };
     MovilListComponent.prototype.pageChanged = function (event) {
+        this.showSpinner = true;
         this.currentPage = event.page - 1;
         this.loadMoviles();
     };
     MovilListComponent.prototype.removeMovil = function (movil) {
         var _this = this;
         this.notificationService.openConfirmationDialog("¿Ésta seguro de eliminar el movil con el número de telefono: " + movil.numeroTelefono, function () {
+            _this.showSpinner = true;
             _this.movilService.deleteMovil(movil.id)
                 .subscribe(function () {
                 _this.itemsService.removeItemFromArray(_this.moviles, movil);
+                _this.showSpinner = false;
                 _this.notificationService.printSuccessMessage('El movil con el número telefonico ' + movil.numeroTelefono + ' ha sido eliminado');
             }, function (error) {
                 _this.notificationService.printErrorMessage('Ocurrio un error al eliminar el movil ' + error);

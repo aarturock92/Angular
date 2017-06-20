@@ -2,6 +2,7 @@
 <div role="content">
     <br>
     <br>
+    <spinner-component [spinnerShow]="showSpinner"></spinner-component>
     <div class="widget-body">
         <div class="row">
             <div class="col-md-12">
@@ -31,7 +32,7 @@
                 <li *ngIf="imei.errors.pattern">IMEI debe tener caracteres numericos</li>
             </ul>
         </div>
-
+        
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">

@@ -2,6 +2,7 @@ import { Component, OnInit, trigger, state, style,animate, transition } from '@a
 import { MovilService } from  '../shared/services/index'
 import { ItemsService, NotificationService, ConfigService } from '../shared/utils/index'
 import { IMovil, Pagination, PaginatedResult } from '../shared/interfaces'
+import { SpinnerComponent } from 'ng2-component-spinner'
 
 @Component({
     moduleId: module.id,
@@ -32,6 +33,7 @@ export class MovilListComponent implements OnInit{
     public currentPage: number = 0
     public itemsPerPage: number= 10
     public totalItems: number = 0
+    public showSpinner: boolean = true
     
 
     constructor(private movilService: MovilService,
@@ -49,6 +51,7 @@ export class MovilListComponent implements OnInit{
             .subscribe((res: PaginatedResult<IMovil[]>) => {
                 this.moviles = res.result
                 this.totalItems = res.totalCount
+                this.showSpinner = false
             },
             error=>{
                 this.notificationService.printErrorMessage('Fallo la carga de Moviles ' +error)
@@ -56,15 +59,19 @@ export class MovilListComponent implements OnInit{
     }
 
     pageChanged(event: any): void{
+        this.showSpinner = true;
         this.currentPage = event.page -1
         this.loadMoviles()
     }
 
     removeMovil(movil: IMovil){
+
         this.notificationService.openConfirmationDialog("¿Ésta seguro de eliminar el movil con el número de telefono: " + movil.numeroTelefono, () => {
+             this.showSpinner = true
              this.movilService.deleteMovil(movil.id)
                         .subscribe(() => {
                             this.itemsService.removeItemFromArray<IMovil>(this.moviles, movil)
+                            this.showSpinner = false
                             this.notificationService.printSuccessMessage('El movil con el número telefonico ' + movil.numeroTelefono + ' ha sido eliminado')
                         },
                         error => {
