@@ -21,6 +21,7 @@ var MovilEditComponent = (function () {
         this.mappingService = mappingService;
         this.movilService = movilService;
         this.regionService = regionService;
+        this.showSpinner = true;
         this.movilLoaded = false;
         this.regionesLoaded = false;
         this.plazasImmexLoaded = false;
@@ -43,6 +44,7 @@ var MovilEditComponent = (function () {
             _this.movilLoaded = true;
             _this.loadControlEstatus(_this.movil.idEstatus);
             _this.onChangeSelectRegion(_this.movil.idRegion);
+            _this.showSpinner = false;
         }, function (error) {
             _this.notificationService.printErrorMessage('Failed to load movil ' + error);
         });
@@ -59,10 +61,12 @@ var MovilEditComponent = (function () {
     };
     MovilEditComponent.prototype.onChangeSelectRegion = function (idRegion) {
         var _this = this;
+        this.showSpinner = true;
         this.regionService.getRegionDetails(idRegion, true)
             .subscribe(function (res) {
             _this.plazasImmex = res.plazasImmex;
             _this.plazasImmexLoaded = true;
+            _this.showSpinner = false;
         }, function (error) {
             _this.notificationService.printErrorMessage("Error al cargar las Plazas Immex " + error);
         });
@@ -82,9 +86,11 @@ var MovilEditComponent = (function () {
     };
     MovilEditComponent.prototype.saveMovil = function (formValues) {
         var _this = this;
+        this.showSpinner = true;
         formValues.idEstatus = (this.EstatusMovil) ? 1 : 2;
         this.movilService.updateMovil(this.idMovil, this.mappingService.mapMovilCreate(formValues))
             .subscribe(function (movilCreado) {
+            _this.showSpinner = false;
             _this.back();
         }, function (error) {
             _this.notificationService.printErrorMessage('No se pudo crear el movil: ' + error);

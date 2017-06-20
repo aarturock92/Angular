@@ -33,6 +33,7 @@ var UsuarioCrearComponent = (function () {
         this.itemsPerfilesUsuario = [];
         this.itemsEstados = [];
         this.itemsMunicipios = [];
+        this.showSpinner = false;
         //Variables Controles
         this.esControlMultiple = false;
         this.selectedAdministracion = false;
@@ -43,6 +44,7 @@ var UsuarioCrearComponent = (function () {
         this.loadPerfilesUsuario();
         this.loadRegiones();
         this.loadEstados();
+        this.showSpinner = false;
     };
     /**
     * Metodo que ejecuta el control Select al realizar el evento change.
@@ -75,6 +77,7 @@ var UsuarioCrearComponent = (function () {
      */
     UsuarioCrearComponent.prototype.onChangeSelectRegion = function (idRegion) {
         var _this = this;
+        this.showSpinner = true;
         this.regionService.getRegionDetails(idRegion, true)
             .subscribe(function (res) {
             _this.itemsPlazasImmex = [];
@@ -92,6 +95,7 @@ var UsuarioCrearComponent = (function () {
             else {
                 _this.notificationService.printErrorMessage('No se encontraron Plazas Immex en esta Región');
             }
+            _this.showSpinner = false;
         }, function (error) {
             _this.notificationService.printErrorMessage('Error al cargar las plazas Immex: ' + error);
         });
@@ -102,6 +106,7 @@ var UsuarioCrearComponent = (function () {
      */
     UsuarioCrearComponent.prototype.onChangeSelectPlazaImmex = function (idPlazaImmex) {
         var _this = this;
+        this.showSpinner = true;
         this.plazaImmexService.getPlazaImmexDetails(idPlazaImmex, true)
             .subscribe(function (res) {
             _this.itemsPlazasOxxo = [];
@@ -118,6 +123,7 @@ var UsuarioCrearComponent = (function () {
             else {
                 _this.notificationService.printErrorMessage('No se encontraron Plazas Oxxo en esta Plaza Immex');
             }
+            _this.showSpinner = false;
         }, function (error) {
             _this.notificationService.printErrorMessage('Error al cargar las Plazas Immex: ' + error);
         });
@@ -128,6 +134,7 @@ var UsuarioCrearComponent = (function () {
      */
     UsuarioCrearComponent.prototype.onChangeSelectPlazaOxxo = function (idPlazaOxxo) {
         var _this = this;
+        this.showSpinner = true;
         this.plazaOxxoService.getPlazaOxxoDetails(idPlazaOxxo, true)
             .subscribe(function (res) {
             _this.itemsDistritos = [];
@@ -143,6 +150,7 @@ var UsuarioCrearComponent = (function () {
             else {
                 _this.notificationService.printErrorMessage('No se encontraron distritos en esta Plaza Oxxo');
             }
+            _this.showSpinner = false;
         }, function (error) {
             _this.notificationService.printErrorMessage('Error al cargar los distritos: ' + error);
         });
@@ -199,6 +207,7 @@ var UsuarioCrearComponent = (function () {
     */
     UsuarioCrearComponent.prototype.onChangeSelectEstado = function (idEstado) {
         var _this = this;
+        this.showSpinner = true;
         this.estadoService.getEstadoDetails(idEstado, true)
             .subscribe(function (res) {
             _this.itemsMunicipios = [];
@@ -214,6 +223,7 @@ var UsuarioCrearComponent = (function () {
             else {
                 _this.notificationService.printErrorMessage('No se encontraron municipios');
             }
+            _this.showSpinner = false;
         }, function (error) {
             _this.notificationService.printErrorMessage("Error al cargar el Catalogo de Municipios");
         });

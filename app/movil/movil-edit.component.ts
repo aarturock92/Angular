@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms'
 import { MovilService, RegionService } from '../shared/services/index'
 import { ItemsService, NotificationService, MappingService } from '../shared/utils/index'
 import { IMovil, IRegion, IPlazaImmex } from '../shared/interfaces'
+import { SpinnerComponent } from 'ng2-component-spinner'
 
 @Component({
     moduleId: module.id,
@@ -15,6 +16,7 @@ export class MovilEditComponent implements OnInit{
     private idMovil: number
     public regiones: IRegion[]
     public plazasImmex: IPlazaImmex[]
+    public showSpinner: boolean = true
 
     movilLoaded: boolean = false
     regionesLoaded: boolean = false
@@ -48,6 +50,7 @@ export class MovilEditComponent implements OnInit{
                 this.movilLoaded = true
                 this.loadControlEstatus(this.movil.idEstatus)
                 this.onChangeSelectRegion(this.movil.idRegion)
+                this.showSpinner = false
             },
             error => {
                 this.notificationService.printErrorMessage('Failed to load movil '+error)
@@ -66,10 +69,12 @@ export class MovilEditComponent implements OnInit{
     }
 
     onChangeSelectRegion(idRegion: number){
+        this.showSpinner = true
         this.regionService.getRegionDetails(idRegion, true)
             .subscribe((res: IRegion) => {
                 this.plazasImmex = res.plazasImmex
                 this.plazasImmexLoaded = true
+                this.showSpinner = false
             },
             error => {
                 this.notificationService.printErrorMessage("Error al cargar las Plazas Immex "+error)
@@ -93,10 +98,12 @@ export class MovilEditComponent implements OnInit{
     }
 
     saveMovil(formValues){
+         this.showSpinner = true
          formValues.idEstatus = (this.EstatusMovil) ? 1: 2
 
           this.movilService.updateMovil(this.idMovil, this.mappingService.mapMovilCreate(formValues))
             .subscribe((movilCreado: IMovil) => {
+                this.showSpinner = false
                 this.back()
             },
             error => {

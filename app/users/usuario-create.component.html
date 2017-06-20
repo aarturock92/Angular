@@ -1,6 +1,7 @@
 <form #createUserForm="ngForm" *ngIf="loadedPerfilesUsuario" novalidate>
     <br>
     <br>
+    <spinner-component [spinnerShow]="showSpinner"></spinner-component>
     <tabset #staticTabs>
         <tab heading="PERFIL DE USUARIO">
             <br>

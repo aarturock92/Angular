@@ -6,7 +6,7 @@ import { NotificationService, ItemsService } from '../shared/utils/index'
 import { PerfilUsuarioService, RegionService, PlazaImmexService, PlazaOxxoService, EstadoService } from '../shared/services/index'
 import { IPerfilUsuario, IRegion, IPlazaImmex, IPlazaOxxo, IEstado } from '../shared/interfaces'
 import { SelectComponent } from 'ng2-select'
-
+import { SpinnerComponent } from 'ng2-component-spinner'
 
 @Component({
     moduleId: module.id,
@@ -28,6 +28,7 @@ export class UsuarioCrearComponent implements OnInit{
     public itemsEstados: Array<any> = []
     public itemsMunicipios: Array<any> = []
 
+    public showSpinner: boolean = false
     //Variables Controles
     esControlMultiple: boolean = false
     selectedAdministracion: boolean = false
@@ -51,6 +52,7 @@ export class UsuarioCrearComponent implements OnInit{
         this.loadPerfilesUsuario()
         this.loadRegiones()
         this.loadEstados()
+        this.showSpinner = false
     }
 
     /**
@@ -85,6 +87,7 @@ export class UsuarioCrearComponent implements OnInit{
      * @param idRegion 
      */
     onChangeSelectRegion(idRegion: number){
+        this.showSpinner = true
         this.regionService.getRegionDetails(idRegion,true)
             .subscribe((res: IRegion) => {
                 this.itemsPlazasImmex = [] 
@@ -101,7 +104,8 @@ export class UsuarioCrearComponent implements OnInit{
                     }   
                 }else{
                     this.notificationService.printErrorMessage('No se encontraron Plazas Immex en esta Región')
-                }                 
+                }  
+                this.showSpinner = false               
             },
             error => {
                 this.notificationService.printErrorMessage('Error al cargar las plazas Immex: '+error)
@@ -113,13 +117,14 @@ export class UsuarioCrearComponent implements OnInit{
      * @param idPlazaImmex 
      */
     onChangeSelectPlazaImmex(idPlazaImmex: number){
+        this.showSpinner = true
         this.plazaImmexService.getPlazaImmexDetails(idPlazaImmex, true)
             .subscribe((res: IPlazaImmex) => {
                 this.itemsPlazasOxxo = []
                 this.itemsDistritos = []
                 if(res.plazasOxxo.length> 0){
-                    var plazasOxxo = res.plazasOxxo
-                    for(var indexPlazaOxxo = 0; indexPlazaOxxo < plazasOxxo.length; indexPlazaOxxo++){
+                    let plazasOxxo = res.plazasOxxo
+                    for(let indexPlazaOxxo = 0; indexPlazaOxxo < plazasOxxo.length; indexPlazaOxxo++){
                         this.itemsPlazasOxxo.push({
                             id: plazasOxxo[indexPlazaOxxo].id,
                             text: plazasOxxo[indexPlazaOxxo].nombrePlazaOxxo
@@ -127,7 +132,8 @@ export class UsuarioCrearComponent implements OnInit{
                     }    
                 }else{
                     this.notificationService.printErrorMessage('No se encontraron Plazas Oxxo en esta Plaza Immex')
-                }                
+                }
+                this.showSpinner = false                
             },
             error => {
                 this.notificationService.printErrorMessage('Error al cargar las Plazas Immex: '+error)
@@ -139,12 +145,13 @@ export class UsuarioCrearComponent implements OnInit{
      * @param idPlazaOxxo 
      */
     onChangeSelectPlazaOxxo(idPlazaOxxo: number){
+        this.showSpinner = true
         this.plazaOxxoService.getPlazaOxxoDetails(idPlazaOxxo, true)
             .subscribe((res: IPlazaOxxo) => {
                 this.itemsDistritos = []
                 if(res.distritos.length > 0){
-                    var distritos = res.distritos
-                    for(var indexDistrito = 0; indexDistrito < distritos.length; indexDistrito++){
+                    let distritos = res.distritos
+                    for(let indexDistrito = 0; indexDistrito < distritos.length; indexDistrito++){
                         this.itemsDistritos.push({
                             id: distritos[indexDistrito].id,
                             text: distritos[indexDistrito].nombreDistrito
@@ -152,7 +159,8 @@ export class UsuarioCrearComponent implements OnInit{
                     }
                 }else{
                     this.notificationService.printErrorMessage('No se encontraron distritos en esta Plaza Oxxo')
-                }                
+                }
+                this.showSpinner = false                
             }, 
             error => {
                 this.notificationService.printErrorMessage('Error al cargar los distritos: '+error)
@@ -212,6 +220,7 @@ export class UsuarioCrearComponent implements OnInit{
      * Metodo que carga los municipios a partir de un IdEstado
      */
     onChangeSelectEstado(idEstado: number){
+        this.showSpinner = true
         this.estadoService.getEstadoDetails(idEstado, true)
             .subscribe((res: IEstado) => {
                 this.itemsMunicipios = []
@@ -226,6 +235,7 @@ export class UsuarioCrearComponent implements OnInit{
                 }else{
                     this.notificationService.printErrorMessage('No se encontraron municipios')
                 }
+                this.showSpinner = false
             },
             error => {
                 this.notificationService.printErrorMessage("Error al cargar el Catalogo de Municipios")
