@@ -13,6 +13,8 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
+var http_2 = require('@angular/http');
+var angular2_jwt_1 = require('angular2-jwt');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
 var jw_bootstrap_switch_ng2_1 = require('jw-bootstrap-switch-ng2');
 var ng2_component_spinner_1 = require('ng2-component-spinner');
@@ -81,7 +83,13 @@ var AppModule = (function () {
                 items_service_1.ItemsService,
                 mapping_service_1.MappingService,
                 notification_service_1.NotificationService,
-                authentication_service_1.AuthenticationService],
+                authentication_service_1.AuthenticationService,
+                {
+                    provide: angular2_jwt_1.AuthHttp,
+                    useFactory: authHttpServiceFactory,
+                    deps: [http_2.Http, http_2.RequestOptions]
+                }
+            ],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
@@ -89,4 +97,12 @@ var AppModule = (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
+function authHttpServiceFactory(http, options) {
+    return new angular2_jwt_1.AuthHttp(new angular2_jwt_1.AuthConfig({
+        tokenName: 'token',
+        tokenGetter: (function () { return sessionStorage.getItem('token'); }),
+        globalHeaders: [{ 'Content-Type': 'application/json' }],
+    }), http, options);
+}
+exports.authHttpServiceFactory = authHttpServiceFactory;
 //# sourceMappingURL=app.module.js.map

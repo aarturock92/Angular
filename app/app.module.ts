@@ -4,6 +4,8 @@ import { NgModule} from '@angular/core'
 import { BrowserModule} from '@angular/platform-browser'
 import { FormsModule} from '@angular/forms'
 import { HttpModule} from '@angular/http'
+import { Http, RequestOptions } from '@angular/http'
+import { AuthHttp, AuthConfig } from 'angular2-jwt'
 
 import { PaginationModule, DatepickerModule, ModalModule, ProgressbarModule, TimepickerModule, TabsModule} from 'ng2-bootstrap'
 import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2'
@@ -86,7 +88,21 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         ItemsService,
         MappingService,
         NotificationService,
-        AuthenticationService],
+        AuthenticationService,
+        {
+            provide: AuthHttp,
+            useFactory: authHttpServiceFactory,
+            deps: [Http, RequestOptions]
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule{}
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+    return new AuthHttp(new AuthConfig({
+        tokenName: 'token',
+            tokenGetter: (() => sessionStorage.getItem('token')),
+            globalHeaders: [{'Content-Type':'application/json'}],
+        }), http, options);
+}
