@@ -14,31 +14,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
+var angular2_jwt_1 = require('angular2-jwt');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
-var config_service_1 = require('../utils/config.service');
-var authentication_service_1 = require('../utils/authentication.service');
+var index_1 = require('../utils/index');
 var data_service_1 = require('./data.service');
 var RegionService = (function (_super) {
     __extends(RegionService, _super);
-    function RegionService(http, configService, authenticationService) {
+    function RegionService(authHttp, configService) {
         _super.call(this);
-        this.http = http;
+        this.authHttp = authHttp;
         this.configService = configService;
-        this.authenticationService = authenticationService;
         this._uriRegion = 'Region';
         this._baseUrl = configService.getApiURI();
     }
     RegionService.prototype.getRegionesByEstatus = function (incluirPlazasImmex, estatusRegisto) {
-        return this.http.get(this._baseUrl + this._uriRegion + '/list?incluirPlazaImmex=' + incluirPlazasImmex + '&estatusRegistro=' + estatusRegisto, { headers: this.authenticationService.getHeaders() })
+        return this.authHttp.get(this._baseUrl + this._uriRegion + '/list?incluirPlazaImmex=' + incluirPlazasImmex + '&estatusRegistro=' + estatusRegisto)
             .map(function (res) {
             return res.json();
         })
             .catch(this.handleError);
     };
     RegionService.prototype.getRegionDetails = function (id, incluirPlazasImmex) {
-        return this.http.get(this._baseUrl + this._uriRegion + '/' + id + '?incluirPlazasImmex=' + incluirPlazasImmex, { headers: this.authenticationService.getHeaders() })
+        return this.authHttp.get(this._baseUrl + this._uriRegion + '/' + id + '?incluirPlazasImmex=' + incluirPlazasImmex)
             .map(function (res) {
             return res.json();
         })
@@ -46,7 +44,7 @@ var RegionService = (function (_super) {
     };
     RegionService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, config_service_1.ConfigService, authentication_service_1.AuthenticationService])
+        __metadata('design:paramtypes', [angular2_jwt_1.AuthHttp, index_1.ConfigService])
     ], RegionService);
     return RegionService;
 }(data_service_1.DataService));

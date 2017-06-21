@@ -14,25 +14,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
+var angular2_jwt_1 = require('angular2-jwt');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
 var interfaces_1 = require('../interfaces');
-var config_service_1 = require('../utils/config.service');
-var authentication_service_1 = require('../utils/authentication.service');
+var index_1 = require('../utils/index');
 var data_service_1 = require('./data.service');
 var MovilService = (function (_super) {
     __extends(MovilService, _super);
-    function MovilService(http, configService, authenticationService) {
+    function MovilService(authHttp, configService) {
         _super.call(this);
-        this.http = http;
+        this.authHttp = authHttp;
         this.configService = configService;
-        this.authenticationService = authenticationService;
         this._uriMovil = "Movil";
         this._baseUrl = configService.getApiURI();
     }
     MovilService.prototype.getMovilesByEstatus = function (estatusRegistro) {
-        return this.http.get(this._baseUrl + this._uriMovil + '/list?estatusRegistro=' + estatusRegistro, { headers: this.authenticationService.getHeaders() })
+        return this.authHttp.get(this._baseUrl + this._uriMovil + '/list?estatusRegistro=' + estatusRegistro)
             .map(function (res) {
             return res.json();
         })
@@ -40,7 +38,7 @@ var MovilService = (function (_super) {
     };
     MovilService.prototype.getMovilesPagination = function (page, itemsPerPage) {
         var paginatedResult = new interfaces_1.PaginatedResult();
-        return this.http.get(this._baseUrl + this._uriMovil + '/search/' + page + '/' + itemsPerPage, { headers: this.authenticationService.getHeaders() })
+        return this.authHttp.get(this._baseUrl + this._uriMovil + '/search/' + page + '/' + itemsPerPage)
             .map(function (res) {
             var data = res.json();
             paginatedResult.count = data.count;
@@ -53,28 +51,28 @@ var MovilService = (function (_super) {
             .catch(this.handleError);
     };
     MovilService.prototype.getMovilDetails = function (id) {
-        return this.http.get(this._baseUrl + this._uriMovil + '/' + id, { headers: this.authenticationService.getHeaders() })
+        return this.authHttp.get(this._baseUrl + this._uriMovil + '/' + id)
             .map(function (res) {
             return res.json();
         })
             .catch(this.handleError);
     };
     MovilService.prototype.createMovil = function (movil) {
-        return this.http.post(this._baseUrl + this._uriMovil + '/register', JSON.stringify(movil), { headers: this.authenticationService.getHeaders() })
+        return this.authHttp.post(this._baseUrl + this._uriMovil + '/register', JSON.stringify(movil))
             .map(function (res) {
             return res.json();
         })
             .catch(this.handleError);
     };
     MovilService.prototype.deleteMovil = function (id) {
-        return this.http.delete(this._baseUrl + this._uriMovil + '/' + id, { headers: this.authenticationService.getHeaders() })
+        return this.authHttp.delete(this._baseUrl + this._uriMovil + '/' + id)
             .map(function (res) {
             return;
         })
             .catch(this.handleError);
     };
     MovilService.prototype.updateMovil = function (id, movil) {
-        return this.http.put(this._baseUrl + this._uriMovil + '/' + id, JSON.stringify(movil), { headers: this.authenticationService.getHeaders() })
+        return this.authHttp.put(this._baseUrl + this._uriMovil + '/' + id, JSON.stringify(movil))
             .map(function (res) {
             return res.json();
         })
@@ -82,7 +80,7 @@ var MovilService = (function (_super) {
     };
     MovilService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, config_service_1.ConfigService, authentication_service_1.AuthenticationService])
+        __metadata('design:paramtypes', [angular2_jwt_1.AuthHttp, index_1.ConfigService])
     ], MovilService);
     return MovilService;
 }(data_service_1.DataService));

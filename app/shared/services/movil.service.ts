@@ -1,5 +1,6 @@
 import { Injectable }  from '@angular/core'
-import { Http, Response, Headers } from '@angular/http'
+import { Response } from '@angular/http'
+import { AuthHttp } from 'angular2-jwt'
 
 import { Observable } from 'rxjs/Rx'
 import { Observer } from 'rxjs/Observer' 
@@ -7,9 +8,7 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
 
 import { IMovil, Pagination, PaginatedResult } from '../interfaces'
-import { ItemsService } from '../utils/items.service'
-import { ConfigService } from '../utils/config.service'
-import { AuthenticationService } from '../utils/authentication.service'
+import { ItemsService, ConfigService } from '../utils/index'
 import { DataService } from './data.service'
 
 @Injectable()
@@ -17,9 +16,8 @@ export class MovilService extends DataService{
     private _baseUrl: string
     private _uriMovil: string ="Movil"
 
-    constructor(private http: Http,
-                private configService: ConfigService,
-                private authenticationService: AuthenticationService){
+    constructor(private authHttp: AuthHttp,
+                private configService: ConfigService){
 
         super()
 
@@ -27,7 +25,7 @@ export class MovilService extends DataService{
     }
 
     getMovilesByEstatus(estatusRegistro:number){
-        return this.http.get(this._baseUrl + this._uriMovil + '/list?estatusRegistro='+estatusRegistro, {headers: this.authenticationService.getHeaders()})
+        return this.authHttp.get(this._baseUrl + this._uriMovil + '/list?estatusRegistro='+estatusRegistro)
                .map((res: Response) => {
                    return res.json()
                })
@@ -37,7 +35,7 @@ export class MovilService extends DataService{
     getMovilesPagination(page?:number, itemsPerPage?:number):Observable<PaginatedResult<IMovil[]>>{
         let paginatedResult: PaginatedResult<IMovil[]> = new PaginatedResult<IMovil[]>()
 
-        return this.http.get(this._baseUrl + this._uriMovil + '/search/'+page+'/'+itemsPerPage, { headers: this.authenticationService.getHeaders()})
+        return this.authHttp.get(this._baseUrl + this._uriMovil + '/search/'+page+'/'+itemsPerPage)
                 .map((res: Response) => {
                     let data = res.json();
                     paginatedResult.count = data.count
@@ -51,7 +49,7 @@ export class MovilService extends DataService{
     }
 
     getMovilDetails(id:number): Observable<IMovil> {
-        return this.http.get(this._baseUrl + this._uriMovil + '/'+id, {headers: this.authenticationService.getHeaders()} )
+        return this.authHttp.get(this._baseUrl + this._uriMovil + '/'+id)
                .map((res: Response) => {
                     return res.json()
                })
@@ -59,7 +57,7 @@ export class MovilService extends DataService{
     }
 
     createMovil(movil: IMovil): Observable<IMovil>{
-        return this.http.post(this._baseUrl + this._uriMovil + '/register', JSON.stringify(movil), {headers: this.authenticationService.getHeaders()} )
+        return this.authHttp.post(this._baseUrl + this._uriMovil + '/register', JSON.stringify(movil))
                .map((res: Response) => {
                    return res.json()
                })
@@ -67,7 +65,7 @@ export class MovilService extends DataService{
     }
 
     deleteMovil(id:number): Observable<void>{
-        return this.http.delete(this._baseUrl + this._uriMovil + '/'+id, {headers: this.authenticationService.getHeaders() })
+        return this.authHttp.delete(this._baseUrl + this._uriMovil + '/'+id)
                .map((res: Response) => {
                    return;
                })
@@ -75,7 +73,7 @@ export class MovilService extends DataService{
     }
 
     updateMovil(id:Number, movil: IMovil): Observable<IMovil>{
-        return this.http.put(this._baseUrl + this._uriMovil + '/'+ id, JSON.stringify(movil), {headers: this.authenticationService.getHeaders()})
+        return this.authHttp.put(this._baseUrl + this._uriMovil + '/'+ id, JSON.stringify(movil))
                .map((res: Response) => {
                     return res.json()
                })

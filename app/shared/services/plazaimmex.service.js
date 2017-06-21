@@ -14,28 +14,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
 var index_1 = require('../utils/index');
 var data_service_1 = require('./data.service');
+var angular2_jwt_1 = require('angular2-jwt');
 var PlazaImmexService = (function (_super) {
     __extends(PlazaImmexService, _super);
-    function PlazaImmexService(http, configService, authenticationService) {
+    function PlazaImmexService(authHttp, configService) {
         _super.call(this);
-        this.http = http;
+        this.authHttp = authHttp;
         this.configService = configService;
-        this.authenticationService = authenticationService;
         this._uriPlazaImmex = 'PlazaImmex';
         this._baseUrl = this.configService.getApiURI();
     }
     PlazaImmexService.prototype.getPlazasImmexByEstatus = function (incluirPlazaOxxo, estatusRegistro) {
-        return this.http.get(this._baseUrl + this._uriPlazaImmex + '/list?incluirPlazasOxxo=' + incluirPlazaOxxo + '&estatusRegistro=' + estatusRegistro, { headers: this.authenticationService.getHeaders() })
+        return this.authHttp.get(this._baseUrl + this._uriPlazaImmex + '/list?incluirPlazasOxxo=' + incluirPlazaOxxo + '&estatusRegistro=' + estatusRegistro)
             .map(function (res) {
             return res.json();
         })
             .catch(this.handleError);
     };
     PlazaImmexService.prototype.getPlazaImmexDetails = function (id, incluirPlazaOxxo) {
-        return this.http.get(this._baseUrl + this._uriPlazaImmex + '/' + id + '?incluirPlazaOxxo=' + incluirPlazaOxxo, { headers: this.authenticationService.getHeaders() })
+        return this.authHttp.get(this._baseUrl + this._uriPlazaImmex + '/' + id + '?incluirPlazaOxxo=' + incluirPlazaOxxo)
             .map(function (res) {
             return res.json();
         })
@@ -43,7 +42,7 @@ var PlazaImmexService = (function (_super) {
     };
     PlazaImmexService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, index_1.ConfigService, index_1.AuthenticationService])
+        __metadata('design:paramtypes', [angular2_jwt_1.AuthHttp, index_1.ConfigService])
     ], PlazaImmexService);
     return PlazaImmexService;
 }(data_service_1.DataService));

@@ -14,27 +14,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
+var angular2_jwt_1 = require('angular2-jwt');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
 var interfaces_1 = require('../interfaces');
 var items_service_1 = require('../utils/items.service');
 var config_service_1 = require('../utils/config.service');
-var authentication_service_1 = require('../utils/authentication.service');
 var data_service_1 = require('./data.service');
 var EstadoService = (function (_super) {
     __extends(EstadoService, _super);
-    function EstadoService(http, itemsService, configService, authentication) {
+    function EstadoService(authHttp, itemsService, configService) {
         _super.call(this);
-        this.http = http;
+        this.authHttp = authHttp;
         this.itemsService = itemsService;
         this.configService = configService;
-        this.authentication = authentication;
         this._uriEstado = 'Estado';
         this._baseUrl = configService.getApiURI();
     }
     EstadoService.prototype.getEstadoByStatus = function (includeMunicipios, statusRegistro) {
-        return this.http.get(this._baseUrl + this._uriEstado + '/list?incluirMunicipios=' + includeMunicipios + '&estatusRegistro=' + statusRegistro, { headers: this.authentication.getHeaders() })
+        return this.authHttp.get(this._baseUrl + this._uriEstado + '/list?incluirMunicipios=' + includeMunicipios + '&estatusRegistro=' + statusRegistro)
             .map(function (res) {
             return res.json();
         })
@@ -42,7 +40,7 @@ var EstadoService = (function (_super) {
     };
     EstadoService.prototype.getEstados = function (page, itemsPerPage) {
         var paginatedResult = new interfaces_1.PaginatedResult();
-        return this.http.get(this._baseUrl + this._uriEstado + '/search/' + page + '/' + itemsPerPage, { headers: this.authentication.getHeaders() })
+        return this.authHttp.get(this._baseUrl + this._uriEstado + '/search/' + page + '/' + itemsPerPage)
             .map(function (res) {
             var data = res.json();
             paginatedResult.count = data.count;
@@ -55,7 +53,7 @@ var EstadoService = (function (_super) {
             .catch(this.handleError);
     };
     EstadoService.prototype.getEstadoDetails = function (id, incluirMunicipios) {
-        return this.http.get(this._baseUrl + this._uriEstado + '/' + id + '?incluirMunicipios=' + incluirMunicipios, { headers: this.authentication.getHeaders() })
+        return this.authHttp.get(this._baseUrl + this._uriEstado + '/' + id + '?incluirMunicipios=' + incluirMunicipios)
             .map(function (res) {
             return res.json();
         })
@@ -63,7 +61,7 @@ var EstadoService = (function (_super) {
     };
     EstadoService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, items_service_1.ItemsService, config_service_1.ConfigService, authentication_service_1.AuthenticationService])
+        __metadata('design:paramtypes', [angular2_jwt_1.AuthHttp, items_service_1.ItemsService, config_service_1.ConfigService])
     ], EstadoService);
     return EstadoService;
 }(data_service_1.DataService));

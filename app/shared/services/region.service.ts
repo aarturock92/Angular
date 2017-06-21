@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
-import { Http, Response, Headers } from '@angular/http'
+import { Response } from '@angular/http'
+import { AuthHttp } from 'angular2-jwt'
 
 import { Observable } from 'rxjs/Rx'
 import { Observer } from 'rxjs/Observer' 
@@ -7,8 +8,7 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
 
 import { IRegion, Pagination, PaginatedResult } from '../interfaces'
-import { ConfigService } from '../utils/config.service'
-import { AuthenticationService } from '../utils/authentication.service'
+import { ConfigService } from '../utils/index'
 import { DataService } from './data.service'
 
 
@@ -17,9 +17,8 @@ export class RegionService extends DataService{
     private _baseUrl: string
     private _uriRegion: string = 'Region'
 
-    constructor(private http: Http,
-                private configService: ConfigService,
-                private authenticationService: AuthenticationService){
+    constructor(private authHttp: AuthHttp,
+                private configService: ConfigService){
          super()
 
          this._baseUrl = configService.getApiURI()
@@ -27,8 +26,7 @@ export class RegionService extends DataService{
 
 
     getRegionesByEstatus(incluirPlazasImmex:boolean, estatusRegisto:number){
-        return this.http.get(this._baseUrl + this._uriRegion + '/list?incluirPlazaImmex='+incluirPlazasImmex +'&estatusRegistro='+estatusRegisto,
-                             { headers: this.authenticationService.getHeaders()} )
+        return this.authHttp.get(this._baseUrl + this._uriRegion + '/list?incluirPlazaImmex='+incluirPlazasImmex +'&estatusRegistro='+estatusRegisto)
                    .map((res: Response) => {
                         return res.json()
                    })
@@ -36,8 +34,7 @@ export class RegionService extends DataService{
     }
 
     getRegionDetails(id:number, incluirPlazasImmex: boolean){
-        return this.http.get(this._baseUrl + this._uriRegion + '/'+id + '?incluirPlazasImmex='+ incluirPlazasImmex, 
-                            { headers: this.authenticationService.getHeaders() })
+        return this.authHttp.get(this._baseUrl + this._uriRegion + '/'+id + '?incluirPlazasImmex='+ incluirPlazasImmex)
                    .map((res: Response) => {
                         return res.json()
                    })

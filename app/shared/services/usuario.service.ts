@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Http, Response, Headers} from '@angular/http'
+import { Response } from '@angular/http'
 import { AuthHttp } from 'angular2-jwt'
 
 import { Observable } from 'rxjs/Rx'
@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
  
 import { IUsuario, Pagination, PaginatedResult}  from '../interfaces'
-import { ItemsService, ConfigService, AuthenticationService} from '../utils/index'
+import { ItemsService, ConfigService} from '../utils/index'
 import { DataService } from './data.service'
 
 @Injectable()
@@ -16,10 +16,8 @@ export class UsuarioService extends DataService{
     private _baseUrl: string
     private _uriUsuario: string = "Usuario"
 
-    constructor(private http: Http, 
-                private configService: ConfigService,
-                private authentication: AuthenticationService,
-                private authHttp: AuthHttp){
+    constructor(private authHttp: AuthHttp,
+                private configService: ConfigService){
         super()
 
         this._baseUrl = configService.getApiURI()       
@@ -41,15 +39,15 @@ export class UsuarioService extends DataService{
     }
 
     getUsuarioDetails(id:number): Observable<IUsuario>{
-        return this.http.get(this._baseUrl + this._uriUsuario + '/'+ id, {headers: this.authentication.getHeaders() })
-               .map((res: Response) => {
+        return this.authHttp.get(this._baseUrl + this._uriUsuario + '/'+ id)
+                 .map((res: Response) => {
                      return res.json()
                })
                .catch(this.handleError)
     }
 
     createUsuario(usuario:IUsuario): Observable<IUsuario>{
-        return this.http.post(this._baseUrl + this._uriUsuario + '/register', JSON.stringify(usuario), {headers: this.authentication.getHeaders() })
+        return this.authHttp.post(this._baseUrl + this._uriUsuario + '/register', JSON.stringify(usuario))
             .map((res: Response) => {
                 return res.json()
             })
@@ -57,7 +55,7 @@ export class UsuarioService extends DataService{
     }
 
     deleteUser(idUser: number): Observable<void>{
-        return this.http.delete(this._baseUrl + 'usuario/'+ idUser, {headers: this.authentication.getHeaders() })
+        return this.authHttp.delete(this._baseUrl + 'usuario/'+ idUser)
             .map((res: Response) => {
                 return;
             })
