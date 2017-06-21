@@ -34,7 +34,6 @@ export class MovilService extends DataService{
 
     getMovilesPagination(page?:number, itemsPerPage?:number):Observable<PaginatedResult<IMovil[]>>{
         let paginatedResult: PaginatedResult<IMovil[]> = new PaginatedResult<IMovil[]>()
-
         return this.authHttp.get(this._baseUrl + this._uriMovil + '/search/'+page+'/'+itemsPerPage)
                 .map((res: Response) => {
                     let data = res.json();
