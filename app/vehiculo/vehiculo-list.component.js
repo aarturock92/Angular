@@ -1,8 +1,8 @@
 "use strict";
-var AutomovilListComponent = (function () {
-    function AutomovilListComponent() {
+var VehiculoListComponent = (function () {
+    function VehiculoListComponent() {
     }
-    return AutomovilListComponent;
+    return VehiculoListComponent;
 }());
-exports.AutomovilListComponent = AutomovilListComponent;
+exports.VehiculoListComponent = VehiculoListComponent;
 //# sourceMappingURL=vehiculo-list.component.js.map

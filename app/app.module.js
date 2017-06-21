@@ -25,11 +25,12 @@ var highlight_directive_1 = require('./shared/directives/highlight.directive');
 var home_component_1 = require('./home/home.component');
 var mobile_hide_directive_1 = require('./shared/directives/mobile-hide.directive');
 var schedule_list_component_1 = require('./schedules/schedule-list.component');
-var index_1 = require('./users/index');
-var index_2 = require('./movil/index');
-var index_3 = require('./menu/index');
+var index_1 = require('./vehiculo/index');
+var index_2 = require('./users/index');
+var index_3 = require('./movil/index');
+var index_4 = require('./menu/index');
 var app_routes_1 = require('./app.routes');
-var index_4 = require('./shared/services/index');
+var index_5 = require('./shared/services/index');
 var config_service_1 = require('./shared/utils/config.service');
 var items_service_1 = require('./shared/utils/items.service');
 var mapping_service_1 = require('./shared/utils/mapping.service');
@@ -62,24 +63,26 @@ var AppModule = (function () {
                 home_component_1.HomeComponent,
                 mobile_hide_directive_1.MobileHideDirective,
                 schedule_list_component_1.ScheduleListComponent,
-                index_1.UserListComponent,
-                index_1.UsuarioCrearComponent,
-                index_1.UserEditComponent,
-                index_2.MovilListComponent,
-                index_2.MovilEditComponent,
-                index_2.MovilCreateComponent,
-                index_3.MenuComponent
+                index_2.UserListComponent,
+                index_2.UsuarioCrearComponent,
+                index_2.UserEditComponent,
+                index_3.MovilListComponent,
+                index_3.MovilEditComponent,
+                index_3.MovilCreateComponent,
+                index_4.MenuComponent,
+                index_1.VehiculoComponent,
+                index_1.VehiculoListComponent
             ],
             providers: [
                 config_service_1.ConfigService,
-                index_4.PlazaOxxoService,
-                index_4.PlazaImmexService,
-                index_4.RegionService,
-                index_4.EstadoService,
-                index_4.UsuarioService,
-                index_4.MovilService,
-                index_4.PerfilUsuarioService,
-                index_4.JerarquiaService,
+                index_5.PlazaOxxoService,
+                index_5.PlazaImmexService,
+                index_5.RegionService,
+                index_5.EstadoService,
+                index_5.UsuarioService,
+                index_5.MovilService,
+                index_5.PerfilUsuarioService,
+                index_5.JerarquiaService,
                 items_service_1.ItemsService,
                 mapping_service_1.MappingService,
                 notification_service_1.NotificationService,

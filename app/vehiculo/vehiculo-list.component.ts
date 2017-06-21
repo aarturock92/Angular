@@ -1,3 +1,3 @@
-export class AutomovilListComponent{
+export class VehiculoListComponent{
     
 }
