@@ -81,6 +81,11 @@ export interface IUsuario{
     estatus: number
 }
 
+export interface IDetalleUsuarioAsignacion{
+    id: number, 
+    
+}
+
 export interface IMovil{
     id:number,
     regionId: number,
