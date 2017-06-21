@@ -49,7 +49,7 @@ export class MovilEditComponent implements OnInit{
                 this.movil = this.itemsService.getSerialized<IMovil>(movil)
                 this.movilLoaded = true
                 this.loadControlEstatus(this.movil.idEstatus)
-                this.onChangeSelectRegion(this.movil.idRegion)
+                this.onChangeSelectRegion(this.movil.regionId)
                 this.showSpinner = false
             },
             error => {

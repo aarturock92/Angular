@@ -10,8 +10,8 @@ export class MappingService{
     mapMovilCreate(formValues: any): IMovil{
         var movil: IMovil = {
             id: 0,
-            idRegion: formValues.idRegion,
-            idPlazaImmex: formValues.idPlazaImmex,
+            regionId: formValues.regionId,
+            plazaImmexId: formValues.plazaImmexId,
             marca: formValues.marca,
             modelo: formValues.modelo,
             numeroTelefono: formValues.numeroTelefono,

@@ -43,7 +43,7 @@ var MovilEditComponent = (function () {
             _this.movil = _this.itemsService.getSerialized(movil);
             _this.movilLoaded = true;
             _this.loadControlEstatus(_this.movil.idEstatus);
-            _this.onChangeSelectRegion(_this.movil.idRegion);
+            _this.onChangeSelectRegion(_this.movil.regionId);
             _this.showSpinner = false;
         }, function (error) {
             _this.notificationService.printErrorMessage('Failed to load movil ' + error);

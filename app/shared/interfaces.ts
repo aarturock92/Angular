@@ -83,8 +83,8 @@ export interface IUsuario{
 
 export interface IMovil{
     id:number,
-    idRegion: number,
-    idPlazaImmex: number,
+    regionId: number,
+    plazaImmexId: number,
     marca: string,
     modelo: string, 
     numeroTelefono: string,
