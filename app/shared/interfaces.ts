@@ -78,12 +78,15 @@ export interface IUsuario{
     idEstado: number,
     idMunicipio: number,
     imagen: string,
-    estatus: number
+    estatus: number,
+    detallesUsuarioAsignacion: IDetalleUsuarioAsignacion[]
 }
 
 export interface IDetalleUsuarioAsignacion{
     id: number, 
-    
+    usuarioId: number,
+    referenciaId: number,
+    idEstatus: number
 }
 
 export interface IMovil{

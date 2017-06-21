@@ -14,6 +14,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+require('rxjs/add/operator/map');
+require('rxjs/add/operator/catch');
 var index_1 = require('../utils/index');
 var data_service_1 = require('./data.service');
 var angular2_jwt_1 = require('angular2-jwt');
@@ -35,6 +37,20 @@ var PlazaImmexService = (function (_super) {
     };
     PlazaImmexService.prototype.getPlazaImmexDetails = function (id, incluirPlazaOxxo) {
         return this.authHttp.get(this._baseUrl + this._uriPlazaImmex + '/' + id + '?incluirPlazaOxxo=' + incluirPlazaOxxo)
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
+    PlazaImmexService.prototype.getMovilesByIdPlazaImmex = function (idPlazaImmex, estatusRegistro) {
+        return this.authHttp.get(this._baseUrl + this._uriPlazaImmex + '/' + idPlazaImmex + '/Moviles?estatusRegistro=' + estatusRegistro)
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
+    PlazaImmexService.prototype.getVehiculosByIdPlazaImmex = function (idPlazaImmex, estatusRegistro) {
+        return this.authHttp.get(this._baseUrl + this._uriPlazaImmex + '/' + idPlazaImmex + '/Vehiculos')
             .map(function (res) {
             return res.json();
         })

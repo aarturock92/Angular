@@ -26,6 +26,8 @@ var UsuarioCrearComponent = (function () {
         this.itemsService = itemsService;
         this.user = {};
         this.loadedPerfilesUsuario = false;
+        this.loadedMoviles = false;
+        this.loadedPlazaOxxo = false;
         this.itemsRegiones = [];
         this.itemsPlazasImmex = [];
         this.itemsPlazasOxxo = [];
@@ -33,6 +35,8 @@ var UsuarioCrearComponent = (function () {
         this.itemsPerfilesUsuario = [];
         this.itemsEstados = [];
         this.itemsMunicipios = [];
+        this.itemsMoviles = [];
+        this.itemsVehiculos = [];
         this.showSpinner = false;
         //Variables Controles
         this.esControlMultiple = false;
@@ -105,8 +109,12 @@ var UsuarioCrearComponent = (function () {
      * @param idPlazaImmex
      */
     UsuarioCrearComponent.prototype.onChangeSelectPlazaImmex = function (idPlazaImmex) {
-        var _this = this;
         this.showSpinner = true;
+        this.loadPlazasImmex(idPlazaImmex);
+        this.loadMovilesByIdPlazaImmex(idPlazaImmex);
+    };
+    UsuarioCrearComponent.prototype.loadPlazasImmex = function (idPlazaImmex) {
+        var _this = this;
         this.plazaImmexService.getPlazaImmexDetails(idPlazaImmex, true)
             .subscribe(function (res) {
             _this.itemsPlazasOxxo = [];
@@ -126,6 +134,27 @@ var UsuarioCrearComponent = (function () {
             _this.showSpinner = false;
         }, function (error) {
             _this.notificationService.printErrorMessage('Error al cargar las Plazas Immex: ' + error);
+        });
+    };
+    UsuarioCrearComponent.prototype.loadMovilesByIdPlazaImmex = function (idPlazaImmex) {
+        var _this = this;
+        this.plazaImmexService.getMovilesByIdPlazaImmex(idPlazaImmex, 1)
+            .subscribe(function (res) {
+            _this.itemsMoviles = [];
+            if (res.length > 0) {
+                for (var indexMovil = 0; indexMovil < res.length; indexMovil++) {
+                    _this.itemsMoviles.push({
+                        id: res[indexMovil].id,
+                        text: res[indexMovil].numeroTelefono
+                    });
+                }
+            }
+            else {
+                _this.notificationService.printErrorMessage('No se encontraron moviles en esta Plaza Immex');
+            }
+            _this.showSpinner = false;
+        }, function (error) {
+            _this.notificationService.printErrorMessage('Error al cargar Moviles');
         });
     };
     /**

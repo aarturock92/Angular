@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { TabsetComponent  } from 'ng2-bootstrap'
 import { NotificationService, ItemsService } from '../shared/utils/index'
 import { PerfilUsuarioService, RegionService, PlazaImmexService, PlazaOxxoService, EstadoService } from '../shared/services/index'
-import { IPerfilUsuario, IRegion, IPlazaImmex, IPlazaOxxo, IEstado } from '../shared/interfaces'
+import { IPerfilUsuario, IRegion, IPlazaImmex, IPlazaOxxo, IEstado, IMovil } from '../shared/interfaces'
 import { SelectComponent } from 'ng2-select'
 import { SpinnerComponent } from 'ng2-component-spinner'
 
@@ -19,6 +19,8 @@ export class UsuarioCrearComponent implements OnInit{
     perfilUsuarios: IPerfilUsuario[]
 
     loadedPerfilesUsuario: boolean = false
+    loadedMoviles:boolean = false
+    loadedPlazaOxxo: boolean = false
   
     public itemsRegiones: Array<any> = []
     public itemsPlazasImmex: Array<any> = []
@@ -27,6 +29,8 @@ export class UsuarioCrearComponent implements OnInit{
     public itemsPerfilesUsuario: Array<any> = []
     public itemsEstados: Array<any> = []
     public itemsMunicipios: Array<any> = []
+    public itemsMoviles: Array<any> = []
+    public itemsVehiculos: Array<any> = []
 
     public showSpinner: boolean = false
     //Variables Controles
@@ -118,7 +122,12 @@ export class UsuarioCrearComponent implements OnInit{
      */
     onChangeSelectPlazaImmex(idPlazaImmex: number){
         this.showSpinner = true
-        this.plazaImmexService.getPlazaImmexDetails(idPlazaImmex, true)
+        this.loadPlazasImmex(idPlazaImmex)
+        this.loadMovilesByIdPlazaImmex(idPlazaImmex)
+    }
+
+    loadPlazasImmex(idPlazaImmex:number){
+         this.plazaImmexService.getPlazaImmexDetails(idPlazaImmex, true)
             .subscribe((res: IPlazaImmex) => {
                 this.itemsPlazasOxxo = []
                 this.itemsDistritos = []
@@ -137,6 +146,27 @@ export class UsuarioCrearComponent implements OnInit{
             },
             error => {
                 this.notificationService.printErrorMessage('Error al cargar las Plazas Immex: '+error)
+            })
+    }
+
+    loadMovilesByIdPlazaImmex(idPlazaImmex:number){
+        this.plazaImmexService.getMovilesByIdPlazaImmex(idPlazaImmex,1)
+            .subscribe((res: IMovil[]) => {
+                this.itemsMoviles = [];
+                if(res.length > 0){
+                    for(let indexMovil = 0; indexMovil < res.length; indexMovil++){
+                        this.itemsMoviles.push({
+                            id: res[indexMovil].id,
+                            text: res[indexMovil].numeroTelefono
+                        })
+                    }
+                }else{
+                    this.notificationService.printErrorMessage('No se encontraron moviles en esta Plaza Immex')
+                }
+                this.showSpinner = false
+            }, 
+            error => {
+                this.notificationService.printErrorMessage('Error al cargar Moviles')
             })
     }
 
