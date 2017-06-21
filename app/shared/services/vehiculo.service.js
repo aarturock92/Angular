@@ -49,7 +49,12 @@ var VehiculoService = (function (_super) {
         })
             .catch(this.handleError);
     };
-    VehiculoService.prototype.updateVehiculo = function () {
+    VehiculoService.prototype.updateVehiculo = function (idVehiculo, vehiculo) {
+        return this.authHttp.put(this._baseUrl + this._uriVehiculo + '/' + idVehiculo, JSON.stringify(vehiculo))
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
     };
     VehiculoService = __decorate([
         core_1.Injectable(), 

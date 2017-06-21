@@ -46,7 +46,11 @@ export class VehiculoService extends DataService{
                        .catch(this.handleError)
     }
 
-    updateVehiculo(){
-
+    updateVehiculo(idVehiculo: number, vehiculo: IVehiculo):Observable<IVehiculo>{
+        return this.authHttp.put(this._baseUrl + this._uriVehiculo+ '/'+idVehiculo, JSON.stringify(vehiculo))
+                .map((res: Response) => {
+                    return res.json()
+                })
+                .catch(this.handleError)
     }
 }

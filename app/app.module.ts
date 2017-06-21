@@ -20,6 +20,7 @@ import { MobileHideDirective} from './shared/directives/mobile-hide.directive'
 
 import { ScheduleListComponent} from './schedules/schedule-list.component'
 
+import { VehiculoListComponent } from './vehiculo/index'
 import { UserListComponent, UsuarioCrearComponent, UserEditComponent } from './users/index'
 import { MovilCreateComponent, MovilEditComponent, MovilListComponent  } from  './movil/index'
 import { MenuComponent } from './menu/index'
