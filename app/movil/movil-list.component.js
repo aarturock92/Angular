@@ -57,7 +57,7 @@ var MovilListComponent = (function () {
     MovilListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'app-movil',
+            selector: 'app-movil-list',
             templateUrl: 'movil-list.component.html',
             animations: [
                 core_1.trigger('flyInOut', [

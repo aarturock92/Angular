@@ -69,6 +69,7 @@ var AppModule = (function () {
                 index_3.MovilListComponent,
                 index_3.MovilEditComponent,
                 index_3.MovilCreateComponent,
+                index_3.MovilComponent,
                 index_4.MenuComponent,
                 index_1.VehiculoComponent,
                 index_1.VehiculoListComponent

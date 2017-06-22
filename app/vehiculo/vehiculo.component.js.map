@@ -1,1 +1,1 @@
-{"version":3,"file":"vehiculo.component.js","sourceRoot":"","sources":["vehiculo.component.ts"],"names":[],"mappings":";AAAA;IAAA;IAEA,CAAC;IAAD,wBAAC;AAAD,CAAC,AAFD,IAEC;AAFY,yBAAiB,oBAE7B,CAAA"}
+{"version":3,"file":"vehiculo.component.js","sourceRoot":"","sources":["vehiculo.component.ts"],"names":[],"mappings":";;;;;;;;;;AAAA,qBAA0B,eAE1B,CAAC,CAFwC;AAOzC;IAAA;IAEA,CAAC;IAPD;QAAC,gBAAS,CAAC;YACP,QAAQ,EAAE,MAAM,CAAC,EAAE;YACnB,QAAQ,EAAE,cAAc;YACxB,WAAW,EAAE,yBAAyB;SACzC,CAAC;;yBAAA;IAGF,wBAAC;AAAD,CAAC,AAFD,IAEC;AAFY,yBAAiB,oBAE7B,CAAA"}

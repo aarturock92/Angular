@@ -5,4 +5,5 @@ function __export(m) {
 __export(require('./movil-create.component'));
 __export(require('./movil-edit.component'));
 __export(require('./movil-list.component'));
+__export(require('./movil.component'));
 //# sourceMappingURL=index.js.map

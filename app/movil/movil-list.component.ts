@@ -6,7 +6,7 @@ import { SpinnerComponent } from 'ng2-component-spinner'
 
 @Component({
     moduleId: module.id,
-    selector: 'app-movil',
+    selector: 'app-movil-list',
     templateUrl: 'movil-list.component.html',
     animations: [
         trigger('flyInOut', [

@@ -22,7 +22,7 @@ import { ScheduleListComponent} from './schedules/schedule-list.component'
 
 import { VehiculoListComponent, VehiculoComponent  } from './vehiculo/index'
 import { UserListComponent, UsuarioCrearComponent, UserEditComponent } from './users/index'
-import { MovilCreateComponent, MovilEditComponent, MovilListComponent  } from  './movil/index'
+import { MovilCreateComponent, MovilEditComponent, MovilListComponent , MovilComponent } from  './movil/index'
 import { MenuComponent } from './menu/index'
 
 import { routing } from './app.routes'
@@ -73,6 +73,7 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         MovilListComponent,
         MovilEditComponent,
         MovilCreateComponent,
+        MovilComponent,
 
         MenuComponent,
 

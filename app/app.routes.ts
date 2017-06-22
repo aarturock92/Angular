@@ -5,18 +5,22 @@ import { HomeComponent} from './home/home.component'
 import { ScheduleListComponent} from './schedules/schedule-list.component'
 
 import { UserListComponent, UsuarioCrearComponent, UserEditComponent } from './users/index'
-import { MovilListComponent, MovilEditComponent, MovilCreateComponent  } from './movil/index'
+import { MovilListComponent, MovilEditComponent, MovilCreateComponent, MovilComponent  } from './movil/index'
 import { PerfilUsuarioList } from './perfilUsuario/index'
+import { VehiculoComponent, VehiculoListComponent } from './vehiculo/index'
 
 const appRoutes: Routes = [
     { path: 'estado', component: ScheduleListComponent},
     { path: 'usuario/:id/edit', component: UserEditComponent },
     { path: 'usuario/crear', component: UsuarioCrearComponent},
     { path: 'usuario', component: UserListComponent}, 
-    { path: 'movil/:id/edit', component: MovilEditComponent },
-    { path: 'movil/create', component: MovilCreateComponent },
+    { path: 'movil/:id/edit', component: MovilComponent },
+    { path: 'movil/create', component: MovilComponent },
     { path: 'movil', component: MovilListComponent},
     { path: 'perfilusuario', component: PerfilUsuarioList },
+    { path: 'vehiculo', component: VehiculoListComponent },
+    { path: 'vehiculo/:id/edit', component: VehiculoComponent },
+    { path: 'vehiculo/create', component: VehiculoComponent },
     { path: '', component: HomeComponent}
 ];
 
