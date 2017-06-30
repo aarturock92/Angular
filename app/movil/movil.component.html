@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <legend>Información General</legend>
+                    <legend> {{ !esEdicion ? 'Crear Movil' : 'Editar Movil'}}</legend>
                 </div>
             </div>
         </div>
@@ -36,45 +36,50 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label class="control-label">Región</label>
-                        <ng-select  [items]="itemsRegiones" placeholder="Selecciona una Region"></ng-select>
+                        <ng-select  [items]="itemsRegiones" [active]="[itemsRegiones[1]]" placeholder="Selecciona una Region" *ngIf="esEdicion" (selected)="onChangeSelectRegion($event.id)"></ng-select>
                         <!--<select class="form-control" [(ngModel)]="movil.regionId" name="regionId" (change)="onChangeSelectRegion($event.target.value)">
                             <option *ngFor="let region of regiones" [value]="region.id">{{region.nombreRegion}}</option>
                         </select>-->
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label class="control-label">Plaza IMMEX</label>
-                        <select class="form-control" [(ngModel)]="movil.plazaImmexId" name="plazaImmexId">
+                        <ng-select [items]="itemsPlazasImmex" placeholder="Selecciona una Plaza Immex" *ngIf="esEdicion"></ng-select>
+                        <!--<select class="form-control" [(ngModel)]="movil.plazaImmexId" name="plazaImmexId">
                             <option *ngFor="let plazaImmex of plazasImmex" [value]="plazaImmex.id" >{{plazaImmex.nombrePlazaImmex}}</option>
-                        </select>
+                        </select>-->
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group col-sm-3">
+                <div class="form-group col-sm-4">
                     <label class="control-label col-sm-12">Marca </label>
                     <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.marca" name="marca" #marca="ngModel" required pattern=".{2,50}">
                 </div>
-                <div class="form-group col-sm-3">
+                <div class="form-group col-sm-4">
                     <label class="control-label col-sm-12">Modelo <span class="req"></span></label>
                     <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.modelo" name="modelo" #modelo="ngModel" required pattern=".{2,50}">
                 </div>
-                <div class="form-group col-sm-3">
+                <div class="form-group col-sm-4">
                     <label class="control-label col-sm-12">Número de teléfono <span class="req"></span></label>
                     <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.numeroTelefono" name="numeroTelefono" #numeroTelefono="ngModel" required pattern="^(0|[1-9][0-9]*)$">
                 </div>
-                <div class="form-group col-sm-3">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group col-sm-4">
                     <label class="control-label col-sm-12">Número de Serie <span class="req"></span></label>
                     <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.numeroSerie" name="numeroSerie" #numeroSerie="ngModel" required pattern="^(0|[1-9][0-9]*)$">
                 </div>
-                <div class="form-group col-sm-3">
+                <div class="form-group col-sm-4">
                     <label class="control-label col-sm-12">IMEI </label>
                     <input type="text" class="form-control col-sm-12" [(ngModel)]="movil.imei" name="imei" #imei="ngModel" required pattern="^(0|[1-9][0-9]*)$">
                 </div>
-                <div class="form-group col-sm-3">
+                <div class="form-group col-sm-4">
                     <label class="control-label col-sm-12">Estatus Movil </label>
                     <bSwitch [switch-on-color]="OnColor" [switch-off-color]="OffColor" [switch-off-text]="OffText" [switch-on-text]="OnText" [(ngModel)]="EstatusMovil" [ngModelOptions]="{standalone: true}"></bSwitch>
                 </div>                

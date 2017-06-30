@@ -65,7 +65,6 @@ export class MovilListComponent implements OnInit{
     }
 
     removeMovil(movil: IMovil){
-
         this.notificationService.openConfirmationDialog("¿Ésta seguro de eliminar el movil con el número de telefono: " + movil.numeroTelefono, () => {
              this.showSpinner = true
              this.movilService.deleteMovil(movil.id)
