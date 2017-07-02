@@ -1,4 +1,4 @@
-<form #createMovilForm="ngForm" (ngSubmit)="saveMovil(createMovilForm.value)" *ngIf="regionesLoaded" autocomplete="off"  novalidate>
+<form #movilForm="ngForm" (ngSubmit)="(esEdicion) ? crearMovil(movilForm.value) : editarMovil(movilForm.value)" *ngIf="regionesLoaded" autocomplete="off"  novalidate>
 <div role="content">
     <br>
     <br>
@@ -12,7 +12,7 @@
             </div>
         </div>
         <hr>
-        <div class="alert alert-danger" [hidden]="createMovilForm.form.valid">
+        <div class="alert alert-danger" [hidden]="movilForm.form.valid">
             <ul *ngIf="marca.dirty && !marca.valid">
                 <li>Marca es requerido <i>(2-50 caracteres)</i></li>
             </ul>
@@ -38,7 +38,7 @@
                 <div class="form-group">
                     <div class="col-md-4">
                         <label class="control-label">Región</label>
-                        <ng-select  [items]="itemsRegiones" [active]="[itemsRegiones[1]]" placeholder="Selecciona una Region" *ngIf="esEdicion" (selected)="onChangeSelectRegion($event.id)"></ng-select>
+                        <ng-select  [items]="itemsRegiones"  placeholder="Selecciona una Region" *ngIf="esEdicion" (selected)="onChangeSelectRegion($event.id)"></ng-select>
                         <!--<select class="form-control" [(ngModel)]="movil.regionId" name="regionId" (change)="onChangeSelectRegion($event.target.value)">
                             <option *ngFor="let region of regiones" [value]="region.id">{{region.nombreRegion}}</option>
                         </select>-->
@@ -96,8 +96,11 @@
                                 <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> 
                                 Atras 
                             </button> 
-                            <button type="submit" [disabled]="createMovilForm.invalid" class="btn tm btn-success">
-                                Guardar
+                            <button *ngIf="esEdicion" type="submit" [disabled]="movilForm.invalid" class="btn tm btn-success">
+                                Editar
+                            </button>
+                            <button *ngIf="!esEdicion" type="submit" [disabled]="movilForm.invalid" class="btn tm btn-warning">
+                                Crear
                             </button>
                         </div>
                     </div>

@@ -5,7 +5,7 @@ import { SpinnerComponent } from 'ng2-component-spinner'
 import { SelectComponent } from 'ng2-select'
 import { IMovil, IRegion, IPlazaImmex } from '../shared/interfaces'
 import { MovilService, RegionService } from '../shared/services/index'
-import { NotificationService, ItemsService } from '../shared/utils/index'
+import { NotificationService, ItemsService, MappingService } from '../shared/utils/index'
 
 @Component({
     moduleId: module.id,
@@ -35,7 +35,8 @@ export class MovilComponent implements OnInit{
                 private regionService: RegionService,
                 private movilService: MovilService,
                 private itemsService: ItemsService,
-                private notificationService: NotificationService){}
+                private notificationService: NotificationService,
+                private mappingService: MappingService){}
 
     ngOnInit(){
         this.loadRegiones()
@@ -99,11 +100,11 @@ export class MovilComponent implements OnInit{
     }
 
     onChangeSelectRegion(idRegion: number){
-         this.itemsPlazasImmex = []
+         this.showSpinner = true
          this.regionService.getRegionDetails(idRegion, true)
              .subscribe((region: IRegion)=> {
+                this.itemsPlazasImmex = []
                 if(region.plazasImmex.length > 0){
-                    console.log("plazasImmex", region.plazasImmex);
                     for(let indexPlaza= 0; indexPlaza < region.plazasImmex.length; indexPlaza++){
                         let plaza = region.plazasImmex[indexPlaza]
                         this.itemsPlazasImmex.push({
@@ -111,13 +112,44 @@ export class MovilComponent implements OnInit{
                             text: plaza.nombrePlazaImmex
                         })
                     }
-                    console.log("itemsPlazasImmex", this.itemsPlazasImmex)
                 }else{
                     this.notificationService.printErrorMessage('No se encontraron Plazas Immex para esta Región')
-                }       
+                } 
+                console.log('this.itemsPlazasImmex', this.itemsPlazasImmex)
+                this.showSpinner= false      
              }, 
              error => {
                 this.notificationService.printErrorMessage('Ocurrio un problema la cargar las Plazas Immex')
+                this.showSpinner= false
              })                
+    }
+
+
+    crearMovil(formValues){
+        console.log("crearMovil", formValues)
+        this.showSpinner = true
+         this.movilService.createMovil(this.mappingService.mapMovilCreate(formValues))
+            .subscribe((movilCreado: IMovil) => {
+                this.showSpinner = false
+                this.back()
+            },
+            error => {
+                this.notificationService.printErrorMessage('No se pudo crear el movil: '+error)
+            })
+    }
+
+    editarMovil(formValues){
+        console.log("editarMovil", formValues)
+         this.showSpinner = true
+         this.movilService.updateMovil(this.idMovil, this.mappingService.mapMovilCreate(formValues))
+            .subscribe((movilCreado: IMovil) => {
+                this.showSpinner = false
+                this.back()
+            },
+            error => {
+                this.showSpinner = false
+                console.log('error',error)
+                this.notificationService.printErrorMessage('No se pudo crear el movil: '+error)                
+            })
     }
 }

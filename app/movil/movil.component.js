@@ -13,13 +13,14 @@ var router_1 = require('@angular/router');
 var index_1 = require('../shared/services/index');
 var index_2 = require('../shared/utils/index');
 var MovilComponent = (function () {
-    function MovilComponent(route, router, regionService, movilService, itemsService, notificationService) {
+    function MovilComponent(route, router, regionService, movilService, itemsService, notificationService, mappingService) {
         this.route = route;
         this.router = router;
         this.regionService = regionService;
         this.movilService = movilService;
         this.itemsService = itemsService;
         this.notificationService = notificationService;
+        this.mappingService = mappingService;
         this.itemsRegiones = [];
         this.itemsPlazasImmex = [];
         this.EstatusMovil = true;
@@ -87,11 +88,11 @@ var MovilComponent = (function () {
     };
     MovilComponent.prototype.onChangeSelectRegion = function (idRegion) {
         var _this = this;
-        this.itemsPlazasImmex = [];
+        this.showSpinner = true;
         this.regionService.getRegionDetails(idRegion, true)
             .subscribe(function (region) {
+            _this.itemsPlazasImmex = [];
             if (region.plazasImmex.length > 0) {
-                console.log("plazasImmex", region.plazasImmex);
                 for (var indexPlaza = 0; indexPlaza < region.plazasImmex.length; indexPlaza++) {
                     var plaza = region.plazasImmex[indexPlaza];
                     _this.itemsPlazasImmex.push({
@@ -99,13 +100,41 @@ var MovilComponent = (function () {
                         text: plaza.nombrePlazaImmex
                     });
                 }
-                console.log("itemsPlazasImmex", _this.itemsPlazasImmex);
             }
             else {
                 _this.notificationService.printErrorMessage('No se encontraron Plazas Immex para esta Región');
             }
+            console.log('this.itemsPlazasImmex', _this.itemsPlazasImmex);
+            _this.showSpinner = false;
         }, function (error) {
             _this.notificationService.printErrorMessage('Ocurrio un problema la cargar las Plazas Immex');
+            _this.showSpinner = false;
+        });
+    };
+    MovilComponent.prototype.crearMovil = function (formValues) {
+        var _this = this;
+        console.log("crearMovil", formValues);
+        this.showSpinner = true;
+        this.movilService.createMovil(this.mappingService.mapMovilCreate(formValues))
+            .subscribe(function (movilCreado) {
+            _this.showSpinner = false;
+            _this.back();
+        }, function (error) {
+            _this.notificationService.printErrorMessage('No se pudo crear el movil: ' + error);
+        });
+    };
+    MovilComponent.prototype.editarMovil = function (formValues) {
+        var _this = this;
+        console.log("editarMovil", formValues);
+        this.showSpinner = true;
+        this.movilService.updateMovil(this.idMovil, this.mappingService.mapMovilCreate(formValues))
+            .subscribe(function (movilCreado) {
+            _this.showSpinner = false;
+            _this.back();
+        }, function (error) {
+            _this.showSpinner = false;
+            console.log('error', error);
+            _this.notificationService.printErrorMessage('No se pudo crear el movil: ' + error);
         });
     };
     MovilComponent = __decorate([
@@ -114,7 +143,7 @@ var MovilComponent = (function () {
             selector: 'app-movil',
             templateUrl: 'movil.component.html'
         }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, index_1.RegionService, index_1.MovilService, index_2.ItemsService, index_2.NotificationService])
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, index_1.RegionService, index_1.MovilService, index_2.ItemsService, index_2.NotificationService, index_2.MappingService])
     ], MovilComponent);
     return MovilComponent;
 }());
