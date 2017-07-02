@@ -1,4 +1,4 @@
-<form #movilForm="ngForm" (ngSubmit)="(esEdicion) ? crearMovil(movilForm.value) : editarMovil(movilForm.value)" *ngIf="regionesLoaded" autocomplete="off"  novalidate>
+<form #movilForm="ngForm" (ngSubmit)="(esEdicion) ? editarMovil(movilForm.value) : crearMovil(movilForm.value)"  *ngIf="regionesLoaded" autocomplete="off"  novalidate>
 <div role="content">
     <br>
     <br>
@@ -38,14 +38,16 @@
                 <div class="form-group">
                     <div class="col-md-4">
                         <label class="control-label">Región</label>
-                        <ng-select  [items]="itemsRegiones"  placeholder="Selecciona una Region" *ngIf="esEdicion" (selected)="onChangeSelectRegion($event.id)"></ng-select>
+                        <ng-select [items]="itemsRegiones" [active]="activeIdRegion" placeholder="Selecciona una Region" *ngIf="esEdicion" (selected)="onChangeSelectRegion($event.id)" [(ngModel)]="idRegion" [ngModelOptions]="{standalone: true}"></ng-select>
+                        <ng-select [items]="itemsRegiones" placeholder="Selecciona una Región" *ngIf="!esEdicion" (selected)="onChangeSelectRegion($event.id)" [(ngModel)]="idRegion" [ngModelOptions]="{standalone: true}"></ng-select>
                         <!--<select class="form-control" [(ngModel)]="movil.regionId" name="regionId" (change)="onChangeSelectRegion($event.target.value)">
                             <option *ngFor="let region of regiones" [value]="region.id">{{region.nombreRegion}}</option>
                         </select>-->
                     </div>
                     <div class="col-md-4">
                         <label class="control-label">Plaza IMMEX</label>
-                        <ng-select [items]="itemsPlazasImmex" placeholder="Selecciona una Plaza Immex" *ngIf="esEdicion"></ng-select>
+                        <ng-select [items]="itemsPlazasImmex" [active]="activeIdPlazaImmex" placeholder="Selecciona una Plaza Immex" *ngIf="esEdicion" [(ngModel)]="idPlazaImmex" [ngModelOptions]="{standalone: true}"></ng-select>
+                        <ng-select [items]="itemsPlazasImmex" placeholder="Selecciona una Plaza Immex" *ngIf="!esEdicion"  [(ngModel)]="idPlazaImmex" [ngModelOptions]="{standalone: true}"></ng-select>
                         <!--<select class="form-control" [(ngModel)]="movil.plazaImmexId" name="plazaImmexId">
                             <option *ngFor="let plazaImmex of plazasImmex" [value]="plazaImmex.id" >{{plazaImmex.nombrePlazaImmex}}</option>
                         </select>-->

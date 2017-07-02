@@ -6,7 +6,7 @@
     <br>
     <div class="row">
         <div class="col-md-4 offset-md-3">
-            <button class="btn btn-success" [routerLink]="['/movil/create']">New Mobile</button>
+            <button class="btn btn-success" [routerLink]="['/movil/crear']">Nuevo</button>
         </div>         
     </div> 
     <br>
@@ -33,7 +33,7 @@
                 <td> {{movil.numeroSerie}}</td>
                 <td> {{movil.imei}}</td>
                  <td>
-                    <button class="btn btn-primary" [routerLink]="['/movil',movil.id,'edit']">
+                    <button class="btn btn-primary" [routerLink]="['/movil',movil.id,'editar']">
                         Editar
                     </button>
                 </td>
@@ -45,7 +45,7 @@
             </tr>
         </tbody>
     </table>
-    
+        
      <pagination [boundaryLinks]="true" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" class="pagination-sm"
         previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"></pagination>
     <br>

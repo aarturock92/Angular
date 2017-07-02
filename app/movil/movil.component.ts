@@ -5,7 +5,7 @@ import { SpinnerComponent } from 'ng2-component-spinner'
 import { SelectComponent } from 'ng2-select'
 import { IMovil, IRegion, IPlazaImmex } from '../shared/interfaces'
 import { MovilService, RegionService } from '../shared/services/index'
-import { NotificationService, ItemsService, MappingService } from '../shared/utils/index'
+import { NotificationService, ItemsService, MappingService, EstatusRegistro } from '../shared/utils/index'
 
 @Component({
     moduleId: module.id,
@@ -15,6 +15,11 @@ import { NotificationService, ItemsService, MappingService } from '../shared/uti
 export class MovilComponent implements OnInit{
     public idMovil: number
     public movil: any
+    public idRegion: number = 0
+    public idPlazaImmex: number = 0
+    public activeIdRegion: any = {}
+    public activeIdPlazaImmex: any
+
     
     public itemsRegiones: Array<any> = []
     public itemsPlazasImmex: Array<any> = []
@@ -79,17 +84,23 @@ export class MovilComponent implements OnInit{
     loadDetailsMovil(){
         this.movilService.getMovilDetails(this.idMovil)
             .subscribe((movil: IMovil) => {
-                 console.log('movil', movil);
                  this.movil = this.itemsService.getSerialized<IMovil>(movil)
+                 console.log('this.movil', this.movil)
+                 this.EstatusMovil = ((this.movil.idEstatus === EstatusRegistro.Activo) ? true: false)
+                //  this.idRegion = this.movil.regionId
+                 var region = this.itemsService.getItemFromArray<IRegion>(this.itemsRegiones, (r) => r.id == this.movil.regionId)
+                 console.log('region let', region)
+                 this.activeIdRegion = {id: region.id,
+                     text: region.text}
+                 console.log('this.activeIdRegion', this.activeIdRegion)
+                //  this.idRegion = this.movil.regionId
+                 console.log('this.EstatusMovil', this.EstatusMovil)
+
                  this.showSpinner = false   
             },
             error => {
                 
             })
-    }
-
-    loadPlazasImmex(idRegion: number){
-
     }
 
     /**
@@ -101,6 +112,7 @@ export class MovilComponent implements OnInit{
 
     onChangeSelectRegion(idRegion: number){
          this.showSpinner = true
+         this.idRegion = idRegion
          this.regionService.getRegionDetails(idRegion, true)
              .subscribe((region: IRegion)=> {
                 this.itemsPlazasImmex = []
@@ -115,7 +127,6 @@ export class MovilComponent implements OnInit{
                 }else{
                     this.notificationService.printErrorMessage('No se encontraron Plazas Immex para esta Región')
                 } 
-                console.log('this.itemsPlazasImmex', this.itemsPlazasImmex)
                 this.showSpinner= false      
              }, 
              error => {
@@ -124,11 +135,18 @@ export class MovilComponent implements OnInit{
              })                
     }
 
+    onChangeSelectPlazaImmex(idPlazaImmex:number){
+        this.idPlazaImmex = idPlazaImmex
+    }
+
 
     crearMovil(formValues){
-        console.log("crearMovil", formValues)
         this.showSpinner = true
-         this.movilService.createMovil(this.mappingService.mapMovilCreate(formValues))
+        formValues.idEstatus = this.EstatusMovil
+        formValues.regionId = this.idRegion
+        formValues.plazaImmexId = this.idPlazaImmex
+
+        this.movilService.createMovil(this.mappingService.mapMovilCreate(formValues))
             .subscribe((movilCreado: IMovil) => {
                 this.showSpinner = false
                 this.back()
@@ -139,7 +157,6 @@ export class MovilComponent implements OnInit{
     }
 
     editarMovil(formValues){
-        console.log("editarMovil", formValues)
          this.showSpinner = true
          this.movilService.updateMovil(this.idMovil, this.mappingService.mapMovilCreate(formValues))
             .subscribe((movilCreado: IMovil) => {
@@ -148,7 +165,6 @@ export class MovilComponent implements OnInit{
             },
             error => {
                 this.showSpinner = false
-                console.log('error',error)
                 this.notificationService.printErrorMessage('No se pudo crear el movil: '+error)                
             })
     }
