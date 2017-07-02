@@ -11,18 +11,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var index_1 = require('../shared/services/index');
 var index_2 = require('../shared/utils/index');
+var router_1 = require('@angular/router');
 var MovilListComponent = (function () {
-    function MovilListComponent(movilService, itemsService, notificationService) {
+    function MovilListComponent(movilService, itemsService, notificationService, activatedRoute) {
         this.movilService = movilService;
         this.itemsService = itemsService;
         this.notificationService = notificationService;
+        this.activatedRoute = activatedRoute;
         this.currentPage = 0;
         this.itemsPerPage = 10;
         this.totalItems = 0;
         this.showSpinner = true;
     }
     MovilListComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.loadMoviles();
+        this.activatedRoute.params.subscribe(function (params) {
+            if (typeof (params['mensaje']) != 'undefined')
+                _this.notificationService.printSuccessMessage(params['mensaje']);
+        });
     };
     MovilListComponent.prototype.loadMoviles = function () {
         var _this = this;
@@ -78,7 +85,7 @@ var MovilListComponent = (function () {
                 ])
             ]
         }), 
-        __metadata('design:paramtypes', [index_1.MovilService, index_2.ItemsService, index_2.NotificationService])
+        __metadata('design:paramtypes', [index_1.MovilService, index_2.ItemsService, index_2.NotificationService, router_1.ActivatedRoute])
     ], MovilListComponent);
     return MovilListComponent;
 }());

@@ -26,6 +26,7 @@ var MovilComponent = (function () {
         this.activeIdRegion = {};
         this.itemsRegiones = [];
         this.itemsPlazasImmex = [];
+        this.seCompletoOperacion = false;
         this.EstatusMovil = true;
         this.regionesLoaded = false;
         this.showSpinner = true;
@@ -76,25 +77,23 @@ var MovilComponent = (function () {
         this.movilService.getMovilDetails(this.idMovil)
             .subscribe(function (movil) {
             _this.movil = _this.itemsService.getSerialized(movil);
-            console.log('this.movil', _this.movil);
             _this.EstatusMovil = ((_this.movil.idEstatus === index_2.EstatusRegistro.Activo) ? true : false);
-            //  this.idRegion = this.movil.regionId
-            var region = _this.itemsService.getItemFromArray(_this.itemsRegiones, function (r) { return r.id == _this.movil.regionId; });
-            console.log('region let', region);
-            _this.activeIdRegion = { id: region.id,
-                text: region.text };
-            console.log('this.activeIdRegion', _this.activeIdRegion);
-            //  this.idRegion = this.movil.regionId
-            console.log('this.EstatusMovil', _this.EstatusMovil);
+            _this.idRegion = _this.movil.regionId;
+            _this.idPlazaImmex = _this.movil.plazaImmexId;
             _this.showSpinner = false;
         }, function (error) {
+            _this.notificationService.printErrorMessage('Ocurrio un error al cargar el registro' + error);
         });
     };
     /**
      * Evento para el botón regresar
      */
-    MovilComponent.prototype.back = function () {
-        this.router.navigate(['/movil']);
+    MovilComponent.prototype.back = function (mensaje) {
+        if (mensaje === void 0) { mensaje = ''; }
+        if (this.seCompletoOperacion)
+            this.router.navigate(['/movil', { mensaje: mensaje }]);
+        else
+            this.router.navigate(['/movil']);
     };
     MovilComponent.prototype.onChangeSelectRegion = function (idRegion) {
         var _this = this;
@@ -133,7 +132,7 @@ var MovilComponent = (function () {
         this.movilService.createMovil(this.mappingService.mapMovilCreate(formValues))
             .subscribe(function (movilCreado) {
             _this.showSpinner = false;
-            _this.back();
+            _this.back('Movil creado correctamente');
         }, function (error) {
             _this.notificationService.printErrorMessage('No se pudo crear el movil: ' + error);
         });
@@ -141,10 +140,14 @@ var MovilComponent = (function () {
     MovilComponent.prototype.editarMovil = function (formValues) {
         var _this = this;
         this.showSpinner = true;
+        formValues.idEstatus = this.EstatusMovil;
+        formValues.regionId = this.idRegion;
+        formValues.plazaImmexId = this.idPlazaImmex;
         this.movilService.updateMovil(this.idMovil, this.mappingService.mapMovilCreate(formValues))
             .subscribe(function (movilCreado) {
             _this.showSpinner = false;
-            _this.back();
+            _this.seCompletoOperacion = true;
+            _this.back('Movil actualizado correctamente');
         }, function (error) {
             _this.showSpinner = false;
             _this.notificationService.printErrorMessage('No se pudo crear el movil: ' + error);

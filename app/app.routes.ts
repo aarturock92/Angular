@@ -14,7 +14,7 @@ const appRoutes: Routes = [
     { path: 'usuario/:id/edit', component: UserEditComponent },
     { path: 'usuario/crear', component: UsuarioCrearComponent},
     { path: 'usuario', component: UserListComponent}, 
-    { path: 'movil/:id/editar', component: MovilComponent },
+    { path: 'movil/:id', component: MovilComponent },
     { path: 'movil/crear', component: MovilComponent },
     { path: 'movil', component: MovilListComponent},
     { path: 'perfilusuario', component: PerfilUsuarioList },

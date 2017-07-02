@@ -24,6 +24,7 @@ export class MovilComponent implements OnInit{
     public itemsRegiones: Array<any> = []
     public itemsPlazasImmex: Array<any> = []
 
+    public seCompletoOperacion: boolean = false
     public esEdicion: boolean
     public EstatusMovil: boolean = true
 
@@ -85,29 +86,24 @@ export class MovilComponent implements OnInit{
         this.movilService.getMovilDetails(this.idMovil)
             .subscribe((movil: IMovil) => {
                  this.movil = this.itemsService.getSerialized<IMovil>(movil)
-                 console.log('this.movil', this.movil)
                  this.EstatusMovil = ((this.movil.idEstatus === EstatusRegistro.Activo) ? true: false)
-                //  this.idRegion = this.movil.regionId
-                 var region = this.itemsService.getItemFromArray<IRegion>(this.itemsRegiones, (r) => r.id == this.movil.regionId)
-                 console.log('region let', region)
-                 this.activeIdRegion = {id: region.id,
-                     text: region.text}
-                 console.log('this.activeIdRegion', this.activeIdRegion)
-                //  this.idRegion = this.movil.regionId
-                 console.log('this.EstatusMovil', this.EstatusMovil)
-
+                 this.idRegion = this.movil.regionId
+                 this.idPlazaImmex = this.movil.plazaImmexId
                  this.showSpinner = false   
             },
             error => {
-                
+                this.notificationService.printErrorMessage('Ocurrio un error al cargar el registro' +error)
             })
     }
 
     /**
      * Evento para el botón regresar
      */
-    back(){
-        this.router.navigate(['/movil'])
+    back(mensaje: string = ''){
+        if(this.seCompletoOperacion)
+            this.router.navigate(['/movil',{ mensaje: mensaje}])
+        else
+            this.router.navigate(['/movil'])
     }
 
     onChangeSelectRegion(idRegion: number){
@@ -149,7 +145,7 @@ export class MovilComponent implements OnInit{
         this.movilService.createMovil(this.mappingService.mapMovilCreate(formValues))
             .subscribe((movilCreado: IMovil) => {
                 this.showSpinner = false
-                this.back()
+                this.back('Movil creado correctamente')
             },
             error => {
                 this.notificationService.printErrorMessage('No se pudo crear el movil: '+error)
@@ -158,10 +154,15 @@ export class MovilComponent implements OnInit{
 
     editarMovil(formValues){
          this.showSpinner = true
+         formValues.idEstatus = this.EstatusMovil
+         formValues.regionId = this.idRegion
+         formValues.plazaImmexId = this.idPlazaImmex
+
          this.movilService.updateMovil(this.idMovil, this.mappingService.mapMovilCreate(formValues))
             .subscribe((movilCreado: IMovil) => {
                 this.showSpinner = false
-                this.back()
+                this.seCompletoOperacion = true
+                this.back('Movil actualizado correctamente')
             },
             error => {
                 this.showSpinner = false

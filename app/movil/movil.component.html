@@ -11,7 +11,6 @@
                 </div>
             </div>
         </div>
-        <hr>
         <div class="alert alert-danger" [hidden]="movilForm.form.valid">
             <ul *ngIf="marca.dirty && !marca.valid">
                 <li>Marca es requerido <i>(2-50 caracteres)</i></li>
@@ -38,7 +37,7 @@
                 <div class="form-group">
                     <div class="col-md-4">
                         <label class="control-label">Región</label>
-                        <ng-select [items]="itemsRegiones" [active]="activeIdRegion" placeholder="Selecciona una Region" *ngIf="esEdicion" (selected)="onChangeSelectRegion($event.id)" [(ngModel)]="idRegion" [ngModelOptions]="{standalone: true}"></ng-select>
+                        <ng-select [items]="itemsRegiones" [active]="[{id: 4, text: 'Región 4'}]" placeholder="Selecciona una Region" *ngIf="esEdicion" (selected)="onChangeSelectRegion($event.id)" [(ngModel)]="idRegion" [ngModelOptions]="{standalone: true}"></ng-select>
                         <ng-select [items]="itemsRegiones" placeholder="Selecciona una Región" *ngIf="!esEdicion" (selected)="onChangeSelectRegion($event.id)" [(ngModel)]="idRegion" [ngModelOptions]="{standalone: true}"></ng-select>
                         <!--<select class="form-control" [(ngModel)]="movil.regionId" name="regionId" (change)="onChangeSelectRegion($event.target.value)">
                             <option *ngFor="let region of regiones" [value]="region.id">{{region.nombreRegion}}</option>
@@ -88,7 +87,6 @@
             </div>
         </div>
         <hr>
-        <hr>
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
@@ -109,7 +107,6 @@
                 </div>
             </div>
         </div>
-        <hr>
     </div>
 </div>
 

@@ -11,7 +11,7 @@ var appRoutes = [
     { path: 'usuario/:id/edit', component: index_1.UserEditComponent },
     { path: 'usuario/crear', component: index_1.UsuarioCrearComponent },
     { path: 'usuario', component: index_1.UserListComponent },
-    { path: 'movil/:id/editar', component: index_2.MovilComponent },
+    { path: 'movil/:id', component: index_2.MovilComponent },
     { path: 'movil/crear', component: index_2.MovilComponent },
     { path: 'movil', component: index_2.MovilListComponent },
     { path: 'perfilusuario', component: index_3.PerfilUsuarioList },

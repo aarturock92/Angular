@@ -3,6 +3,7 @@ import { MovilService } from  '../shared/services/index'
 import { ItemsService, NotificationService, ConfigService } from '../shared/utils/index'
 import { IMovil, Pagination, PaginatedResult } from '../shared/interfaces'
 import { SpinnerComponent } from 'ng2-component-spinner'
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
     moduleId: module.id,
@@ -34,15 +35,19 @@ export class MovilListComponent implements OnInit{
     public itemsPerPage: number= 10
     public totalItems: number = 0
     public showSpinner: boolean = true
-    
 
     constructor(private movilService: MovilService,
                 private itemsService: ItemsService,
-                private notificationService: NotificationService){}
+                private notificationService: NotificationService,
+                private activatedRoute: ActivatedRoute){}
 
     
     ngOnInit(){
         this.loadMoviles();
+        this.activatedRoute.params.subscribe(params =>  {
+            if(typeof(params['mensaje']) != 'undefined')
+                this.notificationService.printSuccessMessage(params['mensaje'])
+        })
     }
 
 
