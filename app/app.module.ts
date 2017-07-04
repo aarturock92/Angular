@@ -10,6 +10,7 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt'
 import { PaginationModule, DatepickerModule, ModalModule, ProgressbarModule, TimepickerModule, TabsModule} from 'ng2-bootstrap'
 import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2'
 import { SpinnerComponentModule } from 'ng2-component-spinner'
+import { IqSelect2Module  } from 'ng2-iq-select2'
 import { SelectModule } from 'ng2-select'
 
 import { AppComponent} from './app.component'
@@ -22,7 +23,7 @@ import { ScheduleListComponent} from './schedules/schedule-list.component'
 
 import { VehiculoListComponent, VehiculoComponent  } from './vehiculo/index'
 import { UserListComponent, UsuarioCrearComponent, UserEditComponent } from './users/index'
-import { MovilCreateComponent, MovilEditComponent, MovilListComponent , MovilComponent } from  './movil/index'
+import { MovilListComponent , MovilComponent } from  './movil/index'
 import { MenuComponent } from './menu/index'
 
 import { routing } from './app.routes'
@@ -56,7 +57,8 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         TimepickerModule.forRoot(),
         TabsModule.forRoot(),
         JWBootstrapSwitchModule,
-        SpinnerComponentModule
+        SpinnerComponentModule,
+        IqSelect2Module
     ],
     declarations: [
         AppComponent,
@@ -71,8 +73,6 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         UserEditComponent,
         
         MovilListComponent,
-        MovilEditComponent,
-        MovilCreateComponent,
         MovilComponent,
 
         MenuComponent,

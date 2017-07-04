@@ -5,7 +5,7 @@ import { HomeComponent} from './home/home.component'
 import { ScheduleListComponent} from './schedules/schedule-list.component'
 
 import { UserListComponent, UsuarioCrearComponent, UserEditComponent } from './users/index'
-import { MovilListComponent, MovilEditComponent, MovilCreateComponent, MovilComponent  } from './movil/index'
+import { MovilListComponent,  MovilComponent  } from './movil/index'
 import { PerfilUsuarioList } from './perfilUsuario/index'
 import { VehiculoComponent, VehiculoListComponent } from './vehiculo/index'
 
