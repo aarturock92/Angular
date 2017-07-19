@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { NgForm } from '@angular/forms'
 import { SpinnerComponent } from 'ng2-component-spinner'
 import { SelectComponent } from 'ng2-select'
-import { IqSelect2Component, IqSelect2Item  } from 'ng2-iq-select2'
+import { Select2OptionData } from 'ng2-select2'
 import { IMovil, IRegion, IPlazaImmex } from '../shared/interfaces'
 import { MovilService, RegionService } from '../shared/services/index'
 import { NotificationService, ItemsService, MappingService, EstatusRegistro } from '../shared/utils/index'
@@ -22,7 +22,7 @@ export class MovilComponent implements OnInit{
     public activeIdPlazaImmex: any
 
     
-    public itemsRegiones: Array<any> = []
+    public itemsRegiones: Array<Select2OptionData>;
     public itemsPlazasImmex: Array<any> = []
 
     public seCompletoOperacion: boolean = false
@@ -62,15 +62,15 @@ export class MovilComponent implements OnInit{
      * 
      */
     loadRegiones(){
-        this.itemsRegiones = [] 
+        this.itemsRegiones = [];
         this.regionService.getRegionesByEstatus(false, 1)
-            .subscribe((res: IRegion[]) => {
+            .subscribe((res: IRegion[]) => {                
                 if(res.length > 0){
                     for(let indexRegion = 0; indexRegion < res.length; indexRegion++){
                         let region = res[indexRegion];
                         this.itemsRegiones.push({
-                            id: region.id,
-                            text: region.nombreRegion
+                            id: String(region.id),
+                            text: String(region.nombreRegion)
                         })
                     }
                 }else{

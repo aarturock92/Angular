@@ -10,7 +10,7 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt'
 import { PaginationModule, DatepickerModule, ModalModule, ProgressbarModule, TimepickerModule, TabsModule} from 'ng2-bootstrap'
 import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2'
 import { SpinnerComponentModule } from 'ng2-component-spinner'
-import { IqSelect2Module  } from 'ng2-iq-select2'
+import { Select2Module } from 'ng2-select2'
 import { SelectModule } from 'ng2-select'
 
 import { AppComponent} from './app.component'
@@ -58,7 +58,7 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         TabsModule.forRoot(),
         JWBootstrapSwitchModule,
         SpinnerComponentModule,
-        IqSelect2Module
+        Select2Module
     ],
     declarations: [
         AppComponent,

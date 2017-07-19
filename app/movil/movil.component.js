@@ -24,7 +24,6 @@ var MovilComponent = (function () {
         this.idRegion = 0;
         this.idPlazaImmex = 0;
         this.activeIdRegion = {};
-        this.itemsRegiones = [];
         this.itemsPlazasImmex = [];
         this.seCompletoOperacion = false;
         this.EstatusMovil = true;
@@ -59,8 +58,8 @@ var MovilComponent = (function () {
                 for (var indexRegion = 0; indexRegion < res.length; indexRegion++) {
                     var region = res[indexRegion];
                     _this.itemsRegiones.push({
-                        id: region.id,
-                        text: region.nombreRegion
+                        id: String(region.id),
+                        text: String(region.nombreRegion)
                     });
                 }
             }
