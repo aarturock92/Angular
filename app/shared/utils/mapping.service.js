@@ -17,8 +17,8 @@ var MappingService = (function () {
     MappingService.prototype.mapMovilCreate = function (formValues) {
         var movil = {
             id: 0,
-            regionId: formValues.regionId[0].id,
-            plazaImmexId: formValues.plazaImmexId[0].id,
+            regionId: parseInt(formValues.regionId),
+            plazaImmexId: parseInt(formValues.plazaImmexId),
             marca: formValues.marca,
             modelo: formValues.modelo,
             numeroTelefono: formValues.numeroTelefono,

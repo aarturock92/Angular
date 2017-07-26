@@ -34,7 +34,8 @@
             'ng2-component-spinner': 'npm:ng2-component-spinner',
             'symbol-observable': 'npm:symbol-observable',
             'angular2-jwt': 'npm:angular2-jwt',
-            'ng2-select2': 'npm:ng2-select2'
+            'ng2-select2': 'npm:ng2-select2',
+            'ng2-iq-select2': 'npm:ng2-iq-select2'
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -66,6 +67,10 @@
             'ng2-select2':{
                 main: 'ng2-select2.js',
                 defaultExtension: 'js'
+            },
+            'ng2-iq-select2':{
+                main: './component.js',
+                // defaultJSExtensions: 'js'
             },
             'symbol-observable': { main: 'index.js', defaultExtension: 'js' }
         }

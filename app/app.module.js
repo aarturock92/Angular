@@ -18,8 +18,9 @@ var angular2_jwt_1 = require('angular2-jwt');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
 var jw_bootstrap_switch_ng2_1 = require('jw-bootstrap-switch-ng2');
 var ng2_component_spinner_1 = require('ng2-component-spinner');
-var ng2_select2_1 = require('ng2-select2');
+// import { Select2Module } from 'ng2-select2'
 var ng2_select_1 = require('ng2-select');
+var ng2_iq_select2_1 = require('ng2-iq-select2');
 var app_component_1 = require('./app.component');
 var date_format_pipe_1 = require('./shared/pipes/date-format.pipe');
 var highlight_directive_1 = require('./shared/directives/highlight.directive');
@@ -56,7 +57,8 @@ var AppModule = (function () {
                 ng2_bootstrap_1.TabsModule.forRoot(),
                 jw_bootstrap_switch_ng2_1.JWBootstrapSwitchModule,
                 ng2_component_spinner_1.SpinnerComponentModule,
-                ng2_select2_1.Select2Module
+                // Select2Module,
+                ng2_iq_select2_1.IqSelect2Module
             ],
             declarations: [
                 app_component_1.AppComponent,

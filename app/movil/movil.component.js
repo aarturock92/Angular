@@ -8,12 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+require('./../../node_modules/ng2-iq-select2/src/app/iq-select2/iq-select2.component.html');
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var forms_1 = require('@angular/forms');
 var index_1 = require('../shared/services/index');
 var index_2 = require('../shared/utils/index');
 var MovilComponent = (function () {
-    function MovilComponent(route, router, regionService, movilService, itemsService, notificationService, mappingService) {
+    function MovilComponent(route, router, regionService, movilService, itemsService, notificationService, mappingService, formBuilder) {
         this.route = route;
         this.router = router;
         this.regionService = regionService;
@@ -21,10 +23,12 @@ var MovilComponent = (function () {
         this.itemsService = itemsService;
         this.notificationService = notificationService;
         this.mappingService = mappingService;
-        this.idRegion = 0;
-        this.idPlazaImmex = 0;
+        this.formBuilder = formBuilder;
+        this.regionId = 0;
+        this.plazaImmexId = 0;
         this.activeIdRegion = {};
-        this.itemsPlazasImmex = [];
+        // public itemsRegiones: Array<Select2OptionData>;
+        // public itemsPlazasImmex: Array<Select2OptionData>;
         this.seCompletoOperacion = false;
         this.EstatusMovil = true;
         this.regionesLoaded = false;
@@ -45,31 +49,47 @@ var MovilComponent = (function () {
         else {
             this.showSpinner = false;
         }
+        this.adapter = function (region) {
+            return {
+                id: String(region.id),
+                text: region.nombreRegion,
+                entity: region
+            };
+        };
+        this.form = this.formBuilder.group({
+            region: null
+        });
     };
     /**
      *
      */
     MovilComponent.prototype.loadRegiones = function () {
         var _this = this;
-        this.itemsRegiones = [];
-        this.regionService.getRegionesByEstatus(false, 1)
-            .subscribe(function (res) {
-            if (res.length > 0) {
-                for (var indexRegion = 0; indexRegion < res.length; indexRegion++) {
-                    var region = res[indexRegion];
-                    _this.itemsRegiones.push({
-                        id: String(region.id),
-                        text: String(region.nombreRegion)
-                    });
-                }
-            }
-            else {
-                _this.notificationService.printErrorMessage('No se encontraron regiones');
-            }
-            _this.regionesLoaded = true;
-        }, function (error) {
-            _this.notificationService.printErrorMessage("Error al cargar las Regiones " + error);
-        });
+        this.listaRegiones = function (term) { return _this.regionService.getRegionesByEstatus(false, 1); };
+        // this.regionService.getRegionesByEstatus(false, 1)
+        //     .subscribe((res: IRegion[]) => {                
+        //         this.listaRegiones = [];
+        //         if(res.length > 0){
+        //             this.listaRegiones =
+        //             this.itemsRegiones.push({
+        //                 id: '0',
+        //                 text: '-- Seleccione Región--'
+        //             });
+        //             for(let indexRegion = 0; indexRegion < res.length; indexRegion++){
+        //                 let region = res[indexRegion];
+        //                 this.itemsRegiones.push({
+        //                     id: String(region.id),
+        //                     text: String(region.nombreRegion)
+        //                 })
+        //             }
+        //         }else{
+        //             this.notificationService.printErrorMessage('No se encontraron regiones')
+        //         }
+        //         this.regionesLoaded = true
+        //     },
+        //     error => {
+        //         this.notificationService.printErrorMessage("Error al cargar las Regiones " + error)
+        //     })           
     };
     MovilComponent.prototype.loadDetailsMovil = function () {
         var _this = this;
@@ -77,8 +97,8 @@ var MovilComponent = (function () {
             .subscribe(function (movil) {
             _this.movil = _this.itemsService.getSerialized(movil);
             _this.EstatusMovil = ((_this.movil.idEstatus === index_2.EstatusRegistro.Activo) ? true : false);
-            _this.idRegion = _this.movil.regionId;
-            _this.idPlazaImmex = _this.movil.plazaImmexId;
+            _this.regionId = _this.movil.regionId;
+            _this.plazaImmexId = _this.movil.plazaImmexId;
             _this.showSpinner = false;
         }, function (error) {
             _this.notificationService.printErrorMessage('Ocurrio un error al cargar el registro' + error);
@@ -94,40 +114,51 @@ var MovilComponent = (function () {
         else
             this.router.navigate(['/movil']);
     };
-    MovilComponent.prototype.onChangeSelectRegion = function (idRegion) {
-        var _this = this;
-        this.showSpinner = true;
-        this.idRegion = idRegion;
-        this.regionService.getRegionDetails(idRegion, true)
-            .subscribe(function (region) {
-            _this.itemsPlazasImmex = [];
-            if (region.plazasImmex.length > 0) {
-                for (var indexPlaza = 0; indexPlaza < region.plazasImmex.length; indexPlaza++) {
-                    var plaza = region.plazasImmex[indexPlaza];
-                    _this.itemsPlazasImmex.push({
-                        id: plaza.id,
-                        text: plaza.nombrePlazaImmex
-                    });
-                }
-            }
-            else {
-                _this.notificationService.printErrorMessage('No se encontraron Plazas Immex para esta Región');
-            }
-            _this.showSpinner = false;
-        }, function (error) {
-            _this.notificationService.printErrorMessage('Ocurrio un problema la cargar las Plazas Immex');
-            _this.showSpinner = false;
-        });
+    /**
+     *
+     * @param regionId Representa el valor seleccionado en el campo Región.
+     */
+    MovilComponent.prototype.onChangeSelectRegion = function (regionId) {
+        this.regionId = regionId;
+        // if(regionId != 0){
+        //     this.showSpinner = true           
+        //     this.regionService.getRegionDetails(regionId, true)
+        //         .subscribe((region: IRegion)=> {
+        //             this.itemsPlazasImmex = []
+        //             if(region.plazasImmex.length > 0){
+        //                 this.itemsPlazasImmex.push({
+        //                     id: '0',
+        //                     text: '-- Seleccione Plaza Immex --'
+        //                 });
+        //                 for(let indexPlaza= 0; indexPlaza < region.plazasImmex.length; indexPlaza++){
+        //                     let plaza = region.plazasImmex[indexPlaza]
+        //                     this.itemsPlazasImmex.push({
+        //                         id: String(plaza.id),
+        //                         text: String(plaza.nombrePlazaImmex)
+        //                     })
+        //                 }
+        //        }else{
+        //             this.notificationService.printErrorMessage('No se encontraron Plazas Immex para esta Región')
+        //         } 
+        //         this.showSpinner= false      
+        //      }, 
+        //      error => {
+        //         this.notificationService.printErrorMessage('Ocurrio un problema la cargar las Plazas Immex')
+        //         this.showSpinner= false
+        //      })                
+        // }else{
+        //     this.itemsPlazasImmex = [];
+        // }        
     };
-    MovilComponent.prototype.onChangeSelectPlazaImmex = function (idPlazaImmex) {
-        this.idPlazaImmex = idPlazaImmex;
+    MovilComponent.prototype.onChangeSelectPlazaImmex = function (plazaImmexId) {
+        this.plazaImmexId = plazaImmexId;
     };
     MovilComponent.prototype.crearMovil = function (formValues) {
         var _this = this;
         this.showSpinner = true;
         formValues.idEstatus = this.EstatusMovil;
-        formValues.regionId = this.idRegion;
-        formValues.plazaImmexId = this.idPlazaImmex;
+        formValues.regionId = this.regionId;
+        formValues.plazaImmexId = this.plazaImmexId;
         this.movilService.createMovil(this.mappingService.mapMovilCreate(formValues))
             .subscribe(function (movilCreado) {
             _this.showSpinner = false;
@@ -140,8 +171,8 @@ var MovilComponent = (function () {
         var _this = this;
         this.showSpinner = true;
         formValues.idEstatus = this.EstatusMovil;
-        formValues.regionId = this.idRegion;
-        formValues.plazaImmexId = this.idPlazaImmex;
+        formValues.regionId = this.regionId;
+        formValues.plazaImmexId = this.plazaImmexId;
         this.movilService.updateMovil(this.idMovil, this.mappingService.mapMovilCreate(formValues))
             .subscribe(function (movilCreado) {
             _this.showSpinner = false;
@@ -158,7 +189,7 @@ var MovilComponent = (function () {
             selector: 'app-movil',
             templateUrl: 'movil.component.html'
         }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, index_1.RegionService, index_1.MovilService, index_2.ItemsService, index_2.NotificationService, index_2.MappingService])
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, index_1.RegionService, index_1.MovilService, index_2.ItemsService, index_2.NotificationService, index_2.MappingService, forms_1.FormBuilder])
     ], MovilComponent);
     return MovilComponent;
 }());

@@ -154,3 +154,4 @@ export class PaginatedResult<T>{
 export interface Predicate<T>{
     (item: T):boolean
 }
+
