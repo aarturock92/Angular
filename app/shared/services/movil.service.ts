@@ -25,7 +25,7 @@ export class MovilService extends DataService{
     }
 
     getMovilesByEstatus(estatusRegistro:number){
-        return this.authHttp.get(this._baseUrl + this._uriMovil + '/list?estatusRegistro='+estatusRegistro)
+        return this.authHttp.get(this._baseUrl + this._uriMovil + '?estatusRegistro=' + estatusRegistro)
                .map((res: Response) => {
                    return res.json()
                })
@@ -56,7 +56,7 @@ export class MovilService extends DataService{
     }
 
     createMovil(movil: IMovil): Observable<IMovil>{
-        return this.authHttp.post(this._baseUrl + this._uriMovil + '/register', JSON.stringify(movil))
+        return this.authHttp.post(this._baseUrl + this._uriMovil, JSON.stringify(movil))
                .map((res: Response) => {
                    return res.json()
                })

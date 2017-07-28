@@ -30,7 +30,7 @@ var MovilService = (function (_super) {
         this._baseUrl = configService.getApiURI();
     }
     MovilService.prototype.getMovilesByEstatus = function (estatusRegistro) {
-        return this.authHttp.get(this._baseUrl + this._uriMovil + '/list?estatusRegistro=' + estatusRegistro)
+        return this.authHttp.get(this._baseUrl + this._uriMovil + '?estatusRegistro=' + estatusRegistro)
             .map(function (res) {
             return res.json();
         })
@@ -58,7 +58,7 @@ var MovilService = (function (_super) {
             .catch(this.handleError);
     };
     MovilService.prototype.createMovil = function (movil) {
-        return this.authHttp.post(this._baseUrl + this._uriMovil + '/register', JSON.stringify(movil))
+        return this.authHttp.post(this._baseUrl + this._uriMovil, JSON.stringify(movil))
             .map(function (res) {
             return res.json();
         })
