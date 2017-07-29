@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
 
 import { IMovil, Pagination, PaginatedResult } from '../interfaces'
-import { ItemsService, ConfigService } from '../utils/index'
+import { ItemsService, ConfigService, ETypeStatusCode } from '../utils/index'
 import { DataService } from './data.service'
 
 @Injectable()
@@ -52,7 +52,21 @@ export class MovilService extends DataService{
                .map((res: Response) => {
                     return res.json()
                })
-               .catch(this.handleError)
+               .catch((error: any) => {
+
+                    switch(parseInt(error.status)){
+                        case ETypeStatusCode.NOTFOUND:
+                            
+                            break;
+                        case ETypeStatusCode.INTERNALSERVERERROR:
+                            
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                    return Observable.throw('Server error');
+               })
     }
 
     createMovil(movil: IMovil): Observable<IMovil>{
@@ -60,7 +74,31 @@ export class MovilService extends DataService{
                .map((res: Response) => {
                    return res.json()
                })
-               .catch(this.handleError)
+               .catch((error: any) => {
+                    var serverError = error.json()
+                    var modelStateErrors: string = ''
+                    var applicationError: string = ''
+
+                    switch (error.status) {
+                        case ETypeStatusCode.BADREQUEST:
+                            if(!serverError.type){
+                                for(var key in serverError){
+                                    if(serverError[key])
+                                        modelStateErrors += '' + serverError[key] + '\n'
+                                }
+                            }
+                            break;
+                        case ETypeStatusCode.CONFLICT:
+                            
+                            break;
+                        case ETypeStatusCode.INTERNALSERVERERROR:
+                            break;                    
+                        default:
+                            break;
+                    }
+
+                    return Observable.throw(modelStateErrors || applicationError);
+               })
     }
 
     deleteMovil(id:number): Observable<void>{
@@ -79,3 +117,6 @@ export class MovilService extends DataService{
                .catch(this.handleError)
     }
 }
+
+
+
