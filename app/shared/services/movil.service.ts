@@ -80,6 +80,7 @@ export class MovilService extends DataService{
                     var applicationError: string = ''
 
                     switch (error.status) {
+                        //El formato para los datos no es el correcto.
                         case ETypeStatusCode.BADREQUEST:
                             if(!serverError.type){
                                 for(var key in serverError){
@@ -88,11 +89,15 @@ export class MovilService extends DataService{
                                 }
                             }
                             break;
+                        //Ya existe una entidad movil con el IMEI, Numero de Serie o
+                        //Número de Telefono.
                         case ETypeStatusCode.CONFLICT:
                             
                             break;
+                        //Ocurrio un error al realizar la trasacción.
                         case ETypeStatusCode.INTERNALSERVERERROR:
-                            break;                    
+                            break; 
+                        //Error desconocido.                   
                         default:
                             break;
                     }
