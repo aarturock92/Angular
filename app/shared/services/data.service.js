@@ -6,11 +6,12 @@ var DataService = (function () {
     function DataService() {
     }
     DataService.prototype.handleError = function (error) {
+        console.log('statusCode', error.statusCode);
+        console.log('header', error.header.get('Set-Authorization'));
         var applicationError = error.headers.get('Application-Error');
         var serverError = error.json();
         var modelStateErrors = '';
         if (!serverError.type) {
-            console.log('serverError', serverError);
             for (var key in serverError) {
                 if (serverError[key])
                     modelStateErrors += '' + serverError[key] + '\n';

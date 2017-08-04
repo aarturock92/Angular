@@ -38,6 +38,10 @@ var PerfilUsuarioService = (function (_super) {
     PerfilUsuarioService.prototype.getMenuByPerfilUsuarioId = function (idPerfilUsuario) {
         return this.authHttp.get(this._baseUrl + this._uriPerfilUsuario + '/' + idPerfilUsuario + '/Menu')
             .map(function (res) {
+            console.log('respuesta', res.headers);
+            var headers = res.headers;
+            var Authorization = headers.get('Set-Authorization');
+            console.log('Set-Authorization', Authorization);
             return res.json();
         })
             .catch(this.handleError);

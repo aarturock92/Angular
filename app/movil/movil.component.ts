@@ -1,4 +1,3 @@
-require('./../../node_modules/ng2-iq-select2/src/app/iq-select2/iq-select2.component.html')
 
 import { Component, OnInit } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
@@ -8,7 +7,7 @@ import { SelectComponent } from 'ng2-select'
 import { IMovil, IRegion, IPlazaImmex } from '../shared/interfaces'
 import { MovilService, RegionService } from '../shared/services/index'
 import { NotificationService, ItemsService, MappingService, EstatusRegistro } from '../shared/utils/index'
-import { IqSelect2Component, IqSelect2Item, IqSelect2ResultsComponent } from 'ng2-iq-select2'
+// import { IqSelect2Component, IqSelect2Item, IqSelect2ResultsComponent } from 'ng2-iq-select2'
 import { Observable } from 'rxjs/Rx'
 
 @Component({   
@@ -18,7 +17,7 @@ import { Observable } from 'rxjs/Rx'
 })
 export class MovilComponent implements OnInit{
     form: FormGroup;
-    adapter: (region: IRegion) => IqSelect2Item;
+    // adapter: (region: IRegion) => IqSelect2Item;
     listaRegiones: (term: string) => Observable<IRegion[]>;
 
     public idMovil: number
@@ -65,13 +64,13 @@ export class MovilComponent implements OnInit{
         } 
         
 
-        this.adapter = (region: IRegion) => {
-            return {
-                id: String(region.id),
-                text: region.nombreRegion,
-                entity: region
-            };
-        }
+        // this.adapter = (region: IRegion) => {
+        //     return {
+        //         id: String(region.id),
+        //         text: region.nombreRegion,
+        //         entity: region
+        //     };
+        // }
         this.form = this.formBuilder.group({
             region: null
         });
@@ -82,7 +81,7 @@ export class MovilComponent implements OnInit{
      */
     loadRegiones(){
 
-        this.listaRegiones = (term: string) => this.regionService.getRegionesByEstatus(false, 1);
+        // this.listaRegiones = (term: string) => this.regionService.getRegionesByEstatus(false, 1);
 
         // this.regionService.getRegionesByEstatus(false, 1)
         //     .subscribe((res: IRegion[]) => {                

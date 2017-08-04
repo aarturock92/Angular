@@ -12,7 +12,7 @@ import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2'
 import { SpinnerComponentModule } from 'ng2-component-spinner'
 // import { Select2Module } from 'ng2-select2'
 import { SelectModule } from 'ng2-select'
-import { IqSelect2Module } from 'ng2-iq-select2'
+// import { IqSelect2Module } from 'ng2-iq-select2'
 
 import { AppComponent} from './app.component'
 import { DateFormatPipe} from './shared/pipes/date-format.pipe'
@@ -60,7 +60,7 @@ import { AuthenticationService } from './shared/utils/authentication.service'
         JWBootstrapSwitchModule,
         SpinnerComponentModule,
         // Select2Module,
-        IqSelect2Module
+        // IqSelect2Module
     ],
     declarations: [
         AppComponent,

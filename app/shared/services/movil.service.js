@@ -15,6 +15,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var angular2_jwt_1 = require('angular2-jwt');
+var Rx_1 = require('rxjs/Rx');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
 var interfaces_1 = require('../interfaces');
@@ -55,14 +56,50 @@ var MovilService = (function (_super) {
             .map(function (res) {
             return res.json();
         })
-            .catch(this.handleError);
+            .catch(function (error) {
+            switch (parseInt(error.status)) {
+                case index_1.ETypeStatusCode.NOTFOUND:
+                    break;
+                case index_1.ETypeStatusCode.INTERNALSERVERERROR:
+                    break;
+                default:
+                    break;
+            }
+            return Rx_1.Observable.throw('Server error');
+        });
     };
     MovilService.prototype.createMovil = function (movil) {
         return this.authHttp.post(this._baseUrl + this._uriMovil, JSON.stringify(movil))
             .map(function (res) {
             return res.json();
         })
-            .catch(this.handleError);
+            .catch(function (error) {
+            var serverError = error.json();
+            var modelStateErrors = '';
+            var applicationError = '';
+            switch (error.status) {
+                //El formato para los datos no es el correcto.
+                case index_1.ETypeStatusCode.BADREQUEST:
+                    if (!serverError.type) {
+                        for (var key in serverError) {
+                            if (serverError[key])
+                                modelStateErrors += '' + serverError[key] + '\n';
+                        }
+                    }
+                    break;
+                //Ya existe una entidad movil con el IMEI, Numero de Serie o
+                //Número de Telefono.
+                case index_1.ETypeStatusCode.CONFLICT:
+                    break;
+                //Ocurrio un error al realizar la trasacción.
+                case index_1.ETypeStatusCode.INTERNALSERVERERROR:
+                    break;
+                //Error desconocido.                   
+                default:
+                    break;
+            }
+            return Rx_1.Observable.throw(modelStateErrors || applicationError);
+        });
     };
     MovilService.prototype.deleteMovil = function (id) {
         return this.authHttp.delete(this._baseUrl + this._uriMovil + '/' + id)

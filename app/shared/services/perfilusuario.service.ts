@@ -25,15 +25,19 @@ export class PerfilUsuarioService extends DataService{
 
     getListPerfilesUsuario(statusRegistro: number){
         return this.authHttp.get(this._baseUrl + this._uriPerfilUsuario + '/list?estatusRegistro='+statusRegistro)
-            .map((res: Response) => {
-                return res.json()
-            })
-            .catch(this.handleError)            
+                   .map((res: Response) => {
+                        return res.json()
+                    })
+                   .catch(this.handleError)            
     }
 
     getMenuByPerfilUsuarioId(idPerfilUsuario: number){
         return this.authHttp.get(this._baseUrl + this._uriPerfilUsuario + '/'+ idPerfilUsuario + '/Menu')
                    .map((res: Response) => {
+                        console.log('respuesta', res.headers)
+                        var headers = res.headers;
+                        var Authorization =  headers.get('Set-Authorization');
+                        console.log('Set-Authorization', Authorization)
                         return res.json()
                     })
                     .catch(this.handleError)

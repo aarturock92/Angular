@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-require('./../../node_modules/ng2-iq-select2/src/app/iq-select2/iq-select2.component.html');
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var forms_1 = require('@angular/forms');
@@ -49,13 +48,13 @@ var MovilComponent = (function () {
         else {
             this.showSpinner = false;
         }
-        this.adapter = function (region) {
-            return {
-                id: String(region.id),
-                text: region.nombreRegion,
-                entity: region
-            };
-        };
+        // this.adapter = (region: IRegion) => {
+        //     return {
+        //         id: String(region.id),
+        //         text: region.nombreRegion,
+        //         entity: region
+        //     };
+        // }
         this.form = this.formBuilder.group({
             region: null
         });
@@ -64,8 +63,7 @@ var MovilComponent = (function () {
      *
      */
     MovilComponent.prototype.loadRegiones = function () {
-        var _this = this;
-        this.listaRegiones = function (term) { return _this.regionService.getRegionesByEstatus(false, 1); };
+        // this.listaRegiones = (term: string) => this.regionService.getRegionesByEstatus(false, 1);
         // this.regionService.getRegionesByEstatus(false, 1)
         //     .subscribe((res: IRegion[]) => {                
         //         this.listaRegiones = [];
